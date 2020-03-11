@@ -1,0 +1,134 @@
+<odoo>
+  <data>
+
+  <record id="ibas_materialrequest_view_form" model="ir.ui.view">
+    <field name="name">ibas_materialrequest.ibas_materialrequest.view.form</field>
+    <field name="model">ibas_materialrequest.material_request</field>
+    <field name="arch" type="xml">
+      <form string="Material Request">
+      <header>
+       <button class="oe_highlight" name="submit" type="object" states="draft" string="Submit"/> 
+        <button class="oe_highlight" name="approve" type="object" states="submitted" string="Approve" group="stock.group_stock_manager"/>
+        <button class="oe_highlight" name="deny" type="object" states="submitted" string="Deny" group="stock.group_stock_manager"/>
+        <button class="oe_highlight" name="fulfilled" type="object" states="approved" string="Mark Done" group="stock.group_stock_manager"/>
+        <field name="state" widget="statusbar"/>
+      </header>
+        <sheet>
+          <group>
+            <group>
+              <field name="request_date" attrs="{'readonly':['|',('state','=','approved'), ('state','=','fulfilled')]}"/>
+              <field name="required_date" attrs="{'readonly':['|',('state','=','approved'), ('state','=','fulfilled')]}"/>
+              <field name="requested_by" attrs="{'readonly':['|',('state','=','approved'), ('state','=','fulfilled')]}"/>
+              <field name="operation_id" domain="[('code', '=', 'internal')]" attrs="{'readonly':['|',('state','=','approved'), ('state','=','fulfilled')]}"/>
+              
+            </group>
+            <group>
+             <field name="from_location" attrs="{'readonly':['|',('state','=','approved'), ('state','=','fulfilled')]}"/>
+              <field name="to_location" attrs="{'readonly':['|',('state','=','approved'), ('state','=','fulfilled')]}"/>
+              <field name="reason" attrs="{'readonly':['|',('state','=','approved'), ('state','=','fulfilled')]}"/>
+              <field name="transfer_id" attrs="{'readonly':['|',('state','=','approved'), ('state','=','fulfilled')]}"/>
+            </group>
+            <field name="material_request_line_ids" attrs="{'readonly':['|',('state','=','approved'), ('state','=','fulfilled')]}">
+              <tree editable="bottom">
+                  <field name="product_id"></field>
+                  <field name="uom_id" readonly="1"/>
+                  <field name="quantity"></field>
+                  <field name="quantity_available"></field>
+              </tree>
+            </field>
+          </group>
+        </sheet>
+
+        <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+      </form>
+    </field>
+  </record>
+
+  <record id="ibas_materialrequest_view_tree" model="ir.ui.view">
+    <field name="name">ibas_materialrequest.materialrequest.view.tree</field>
+    <field name="model">ibas_materialrequest.material_request</field>
+    <field name="arch" type="xml">
+      <tree string="">
+        <field name="request_date"></field>
+        <field name="requested_by"></field>
+        <field name="to_location"></field>
+        <field name="state"></field>
+      </tree>
+    </field>
+  </record>
+
+  <record id="ibas_materialrequest_action" model="ir.actions.act_window">
+    <field name="name">Material Request</field>
+    <field name="res_model">ibas_materialrequest.material_request</field>
+    <field name="view_type">form</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem
+    id="ibas_materialrequest_menu"
+    name="Material Request"
+    action="ibas_materialrequest_action"
+    parent="stock.menu_stock_root"
+    sequence="10"/>
+
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="ibas_materialrequest.list">
+      <field name="name">ibas_materialrequest list</field>
+      <field name="model">ibas_materialrequest.ibas_materialrequest</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="ibas_materialrequest.action_window">
+      <field name="name">ibas_materialrequest window</field>
+      <field name="res_model">ibas_materialrequest.ibas_materialrequest</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="ibas_materialrequest.action_server">
+      <field name="name">ibas_materialrequest server</field>
+      <field name="model_id" ref="model_ibas_materialrequest_ibas_materialrequest"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="ibas_materialrequest" id="ibas_materialrequest.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="ibas_materialrequest.menu_1" parent="ibas_materialrequest.menu_root"/>
+    <menuitem name="Menu 2" id="ibas_materialrequest.menu_2" parent="ibas_materialrequest.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="ibas_materialrequest.menu_1_list" parent="ibas_materialrequest.menu_1"
+              action="ibas_materialrequest.action_window"/>
+    <menuitem name="Server to list" id="ibas_materialrequest" parent="ibas_materialrequest.menu_2"
+              action="ibas_materialrequest.action_server"/>
+    -->
+  </data>
+</odoo>

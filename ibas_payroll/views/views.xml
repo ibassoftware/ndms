@@ -1,0 +1,165 @@
+<odoo>
+    <data>
+        <record id="view_hr_loan_list" model="ir.ui.view">
+            <field name="name">hr.loan list</field>
+            <field name="model">hr.loan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="date_from"/>
+                    <field name="amount_total"/>
+                    <field name="amount_deduct"/>
+                    <field name="type"/>
+                    <field name="amount_total_deducted"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_hr_loan_form" model="ir.ui.view">
+            <field name="name">hr.loan form</field>
+            <field name="model">hr.loan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Start" type="object" name="action_open" class="oe_highlight" states="draft"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="employee_id" class="oe_edit_only"/>
+                            <h1>
+                                <field name="employee_id"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="amount_total"/>
+                            <field name="amount_deduct"/>
+                            <field name="type"/>
+                            <field name="amount_total_deducted" readonly="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_hr_loan" model="ir.actions.act_window">
+            <field name="name">Loans</field>
+            <field name="res_model">hr.loan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Loans" id="menu_hr_loan" parent="hr.menu_hr_root" action="action_hr_loan"/>
+
+        <!--TRIP TEMPLATE-->
+        <record id="view_ibas_hris_trip_template_list" model="ir.ui.view">
+            <field name="name">ibas_hris.trip_template list</field>
+            <field name="model">ibas_hris.trip_template</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="loc_from"/>
+                    <field name="loc_to"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_ibas_hris_trip_template_form" model="ir.ui.view">
+            <field name="name">ibas_hris.trip_template form</field>
+            <field name="model">ibas_hris.trip_template</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="loc_from"/>
+                            <field name="loc_to"/>
+                            <field name="amount"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_ibas_hris_trip_template" model="ir.actions.act_window">
+            <field name="name">Trip Templates</field>
+            <field name="res_model">ibas_hris.trip_template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Trip Templates" id="menu_ibas_hris_trip_template" parent="hr_attendance.menu_hr_attendance_root"
+                  action="action_ibas_hris_trip_template"/>
+
+        <!--TRIPS-->
+        <record id="view_ibas_hris_trip_list" model="ir.ui.view">
+            <field name="name">ibas_hris.trip list</field>
+            <field name="model">ibas_hris.trip</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee_id"/>
+                    <field name="date"/>
+                    <field name="loc_from"/>
+                    <field name="loc_to"/>
+                    <field name="amount"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_ibas_hris_trip_form" model="ir.ui.view">
+            <field name="name">ibas_hris.trip form</field>
+            <field name="model">ibas_hris.trip</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="trip_template_id"/>
+                            <field name="employee_id"/>
+                            <field name="date"/>
+                            <field name="loc_from"/>
+                            <field name="loc_to"/>
+                            <field name="amount"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_ibas_hris_trip" model="ir.actions.act_window">
+            <field name="name">Trips</field>
+            <field name="res_model">ibas_hris.trip</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Trips" id="menu_ibas_hris_trip" parent="hr_attendance.menu_hr_attendance_root"
+                  action="action_ibas_hris_trip"/>
+
+        <record id="view_hr_payslip_form" model="ir.ui.view">
+            <field name="name">hr.payslip form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <field name="credit_note" position="after">
+                    <field name="deduct_sss"/>
+                    <field name="deduct_philhealth"/>
+                    <field name="deduct_hdmf"/>
+                    <field name="generate_backpay"/>
+                </field>
+            </field>
+        </record>
+    </data>
+    <report
+            id="report_payroll_xlsx"
+            model="report.ibas_payroll.report_payroll"
+            string="Payroll Report"
+            report_type="xlsx"
+            name="ibas_payroll.report_payroll"
+            file="ibas_payroll.report_payroll"
+            attachment_use="False"
+            menu="False"
+    />
+</odoo>

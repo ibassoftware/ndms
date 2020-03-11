@@ -1,0 +1,250 @@
+<odoo>
+  <data>
+
+      <record id="ibas_hr_jobs_list" model="ir.ui.view">
+          <field name="name">id.ibashris.jobform</field>
+          <field name="model">hr.job</field>
+          <field name="inherit_id" ref="hr.view_hr_job_form"/>
+          <field name="arch" type="xml">
+              <xpath expr="//button[@name='set_recruit']" position="replace">
+                <button name="set_recruit" string="Launch Recruitment" states="open,submitted" type="object" class="oe_highlight" groups="hr.group_hr_manager"/>
+              </xpath>
+              <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,submitted,recruit,open"/>
+              </xpath>
+
+              <xpath expr="//field[@name='no_of_recruitment']" position="after">
+                <field name="requesition_date"></field>
+                <field name="date_required"></field>
+                <field name="educational_attainment"/>
+                <field name="skills_experiences"/>
+                <field name="employment_classification"/>
+                <field name="hiring_status"/>
+                <field name="hiring_justification"/>
+                <field name="if_not_met"/>
+                <field name="requested_by"/>
+              </xpath>
+
+              <xpath expr="//button[@name='set_open']" position="before">
+                <button name="action_submit" string="Submit" states="draft" type="object" class="oe_highlight" groups="base.group_user"/>
+              </xpath>
+
+
+          </field>
+      </record>
+
+      <record id="ibas_hr_applicant_form" model="ir.ui.view">
+          <field name="name">id.ibashris.applicantform</field>
+          <field name="model">hr.applicant</field>
+          <field name="inherit_id" ref="hr_recruitment.crm_case_form_view_job"/>
+          <field name="arch" type="xml">
+              
+              <xpath expr="//field[@name='partner_id']" position="before">
+                
+                <field name="first_name"/>
+                <field name="middle_name"/>
+                <field name="last_name"/>
+                
+              </xpath>
+
+          </field>
+      </record>
+
+      <record id="ibas_hr_employee_form" model="ir.ui.view">
+          <field name="name">id.ibashris.employeeform</field>
+          <field name="model">hr.employee</field>
+          <field name="inherit_id" ref="hr.view_employee_form"/>
+          <field name="arch" type="xml">
+              
+              <xpath expr="//field[@name='address_id']" position="before">
+                
+                <field name="first_name"/>
+                <field name="middle_name"/>
+                <field name="last_name"/>
+                
+              </xpath>
+
+              <xpath expr="//field[@name='department_id']" position="after">
+                
+               <field name="cost_center"/>
+               <field name="date_hired"/>
+                
+              </xpath>
+
+              <xpath expr="//field[@name='passport_id']" position="after">
+                 <field name="height"/>
+                 <field name="weight"/>
+                 <field name="religion"/>
+                 <field name="sss"/>
+                 <field name="tin"/>
+                 <field name="hdmf"/>
+                 <field name="philhealth"/>
+                 <field name="bank_account_number"/>
+               </xpath>
+
+              <xpath expr="//field[@name='barcode']" position="replace">
+                
+                <field name="employee_number"/>
+                <field name="bio_number"/>
+                
+               </xpath>
+
+               
+               <xpath expr="//field[@name='address_home_id']" position="replace">
+                
+                <field name="present_address"/>
+                <field name="permanent_address"/>
+                <field name="address_home_id" invisible="1" context="{'show_address': 1}" options="{&quot;always_reload&quot;: True, &quot;highlight_first_line&quot;: True}"/>
+               </xpath>
+
+              <xpath expr="//page[@name='personal_information']" position="after">
+                
+               <page name="other_info" string="Other Infoz" groups="hr.group_hr_user">
+                <h3>Children</h3>
+                 <field name="children_ids">
+                   <tree editable="bottom" create="true" edit="true" delete="true">
+                     <field name="name"/>
+                     <field name="age"/>
+                   </tree>
+                 </field>
+                 <separator/>
+                 <h3>Education</h3>
+                 <field name="education_ids">
+                   <tree editable="bottom" create="true" edit="true" delete="true">
+                    <field name="educ_type"/> 
+                    <field name="name"/>
+                     <field name="course"/>
+                     <field name="address"></field>
+                     <field name="year_attended"/>
+                   </tree>
+                 </field>
+                 <separator/>
+                 <h3>Work history</h3>
+                 <field name="work_ids">
+                    <tree editable="bottom" create="true" edit="true" delete="true">
+                     <field name="name"/>
+                      <field name="position"/>
+                      <field name="address"></field>
+                      <field name="year_attended"/>
+                    </tree>
+                  </field>
+                  <separator/>
+                  <h3>Character References</h3>
+                  <field name="reference_ids">
+                      <tree editable="bottom" create="true" edit="true" delete="true">
+                       <field name="name"/>
+                        <field name="occupation"/>
+                        <field name="address"></field>
+                        <field name="contact"/>
+                      </tree>
+                    </field>
+                    <separator/>
+               </page>
+                
+              </xpath>
+
+          </field>
+      </record>
+
+
+      <record id="ibas_hr_contract_form" model="ir.ui.view">
+          <field name="name">id.ibashris.contractform</field>
+          <field name="model">hr.contract</field>
+          <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+          <field name="arch" type="xml">
+              
+              <xpath expr="//field[@name='advantages']" position="before">
+                <field name="amount_in_words"/>
+                <field name="work_days"/>
+                <field name="daily_wage"/>
+                <field name="allowance"/>
+                <field name="probationary_period"/>
+              </xpath>
+
+              <xpath expr="//group[@name='salary_and_advantages']" position="after">
+                <group string="Governmentals">
+
+                    <field name="sss_ec"/>
+                    <field name="sss_er"/>
+                    <field name="sss_ee"/>
+                    <field name="philhealth_personal"/>
+                    <field name="philhealth_company"/>
+                    <field name="hdmf_company"/>
+                    <field name="hdmf_personal"/>
+                </group>
+               
+              </xpath>
+
+              
+
+          </field>
+      </record>
+
+      <report
+        id="action_report_ibas_contract"
+        model="hr.contract"
+        string="Probationary Contract"
+        report_type="qweb-pdf"
+        name="ibas_hris.probationary_contract"
+        file="ibas_hris.probationary_contract"
+      />
+
+
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="ibas_hris.list">
+      <field name="name">ibas_hris list</field>
+      <field name="model">ibas_hris.ibas_hris</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="ibas_hris.action_window">
+      <field name="name">ibas_hris window</field>
+      <field name="res_model">ibas_hris.ibas_hris</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="ibas_hris.action_server">
+      <field name="name">ibas_hris server</field>
+      <field name="model_id" ref="model_ibas_hris_ibas_hris"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="ibas_hris" id="ibas_hris.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="ibas_hris.menu_1" parent="ibas_hris.menu_root"/>
+    <menuitem name="Menu 2" id="ibas_hris.menu_2" parent="ibas_hris.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="ibas_hris.menu_1_list" parent="ibas_hris.menu_1"
+              action="ibas_hris.action_window"/>
+    <menuitem name="Server to list" id="ibas_hris" parent="ibas_hris.menu_2"
+              action="ibas_hris.action_server"/>
+    -->
+  </data>
+</odoo>

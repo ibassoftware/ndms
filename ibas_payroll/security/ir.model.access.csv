@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ibas_payroll_hr_loan,ibas_payroll.hr_loan,model_hr_loan,,1,0,0,0
+access_ibas_payroll_ibas_hris_trip_template,ibas_payroll.ibas_hris_trip_template,model_ibas_hris_trip_template,,1,0,0,0
+access_ibas_payroll_ibas_hris_trip,ibas_payroll.ibas_hris_trip,model_ibas_hris_trip,,1,0,0,0

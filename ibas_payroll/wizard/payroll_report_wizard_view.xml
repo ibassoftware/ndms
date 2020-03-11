@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <record id="view_payroll_report_wizard_form" model="ir.ui.view">
+            <field name="name">payroll.report.wizard form</field>
+            <field name="model">payroll.report.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group col="4">
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <footer>
+                        <button type="object" name="get_report" string="Print" class="btn-primary"/>
+                        <button string="Cancel" special="cancel" class="btn-default"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_payroll_report_wizard" model="ir.actions.act_window">
+            <field name="name">Payroll Report</field>
+            <field name="res_model">payroll.report.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem name="Payroll Report" id="menu_payroll_report_wizard" parent="hr_payroll.menu_hr_payroll_root"
+                  action="action_payroll_report_wizard"/>
+    </data>
+</odoo>

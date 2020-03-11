@@ -1,0 +1,151 @@
+<odoo>
+  <data>
+    <record id="attendance_loader_view_form" model="ir.ui.view">
+        <field name="name">ibas_hris.attendance_loader.view.form</field>
+        <field name="model">ibas_hris.attendance_loader</field>
+        <field name="arch" type="xml">
+            <form string="">
+            <header>
+                    <button string="Generate Attendance Files" name="load_attendance" type="object" class="oe_highlight"/>
+                </header>
+                <sheet>
+                
+                    <group>
+                    <group>
+                        <field name="attendance_file"/>
+                        <button string="Parse File" name="loadfile" type="object" class="oe_highlight"/>
+                    </group>
+                     <field name="attendance_line_ids">
+                     <tree>
+                        <field name="employee_id"/>
+                        <field name="work_day"/>
+                        <field name="check_in"/>
+                        <field name="check_out"/>
+                        <field name="state"/>
+                     </tree>
+                     </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="attendance_loader_action" model="ir.actions.act_window">
+        <field name="name">Load Attendance</field>
+        <field name="res_model">ibas_hris.attendance_loader</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="attendance_loader_menu"
+        name="Attendance Loader"
+        action="attendance_loader_action"
+        groups="hr_attendance.group_hr_attendance_user"
+        parent="hr_attendance.menu_hr_attendance_manage_attendances"
+        sequence="10"/>
+
+    <record id="ibas_holiday_view_tree" model="ir.ui.view">
+        <field name="name">ibas_hris.holidays.view.tree</field>
+        <field name="model">ibas_hris.holiday</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="holiday_type"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ibas_hris_holiday_view_form" model="ir.ui.view">
+        <field name="name">ibas_hris.holiday.view.form</field>
+        <field name="model">ibas_hris.holiday</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    <field name="date"/>
+                    <field name="holiday_type"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ibas_holiday_action" model="ir.actions.act_window">
+        <field name="name">Holidays</field>
+        <field name="res_model">ibas_hris.holiday</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="holiday_loader_menu"
+        name="Holidays"
+        action="ibas_holiday_action"
+        groups="hr_attendance.group_hr_attendance_user"
+        parent="hr_attendance.menu_hr_attendance_manage_attendances"
+        sequence="90"/>
+
+    <record id="ibas_hris_ob_view_form" model="ir.ui.view">
+        <field name="name">ibas_hris.official_business.view.form</field>
+        <field name="model">ibas_hris.official_business</field>
+        <field name="arch" type="xml">
+            <form string="Official Business">
+            <header>
+            <button string="Submit" name="submit_ob" 
+            type="object" class="oe_highlight" states='draft'/> 
+
+             <button string="Approve" name="approve_ob" 
+            type="object" class="oe_highlight" states='draft,submitted'
+            groups='hr_attendance.group_hr_attendance_manager'/>  
+
+            <button string="Deny" name="deny_ob" 
+            type="object" class="oe_highlight" states='submitted'
+            groups='hr_attendance.group_hr_attendance_manager'/>  
+
+            <field name="state" widget="statusbar"/>
+            </header>
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="from_date"/>
+                        <field name="to_date"/>
+                        <field name="Description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="ibas_bo_view_tree" model="ir.ui.view">
+        <field name="name">ibas_hris.official_business.view.tree</field>
+        <field name="model">ibas_hris.official_business</field>
+        <field name="arch" type="xml">
+            <tree string="Official Business">
+                <field name="employee_id"/>
+                <field name="from_date"/>
+                <field name="to_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ibas_business_official_action" model="ir.actions.act_window">
+        <field name="name">Official Business</field>
+        <field name="res_model">ibas_hris.official_business</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    
+    <menuitem
+        id="official_business_menu"
+        name="Official Business"
+        action="ibas_business_official_action"
+        groups="hr.group_hr_manager"
+        parent="hr_attendance.menu_hr_attendance_root"
+        sequence="10"/>
+  </data>
+</odoo>

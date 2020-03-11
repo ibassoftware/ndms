@@ -1,0 +1,87 @@
+<odoo>
+    <data>
+        <template id="ibas_external_layout_boxed">
+            <div class="header o_boxed_header">
+                <div class="row mb8">
+                    <div class="col-xs-12">
+                        <p style="text-align: center;">
+                            <img src="/ibas_hris/static/src/img/ndmlogo.jpg" />
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_boxed">
+                <t t-raw="0" />
+            </div>
+
+            <div class="footer o_boxed_footer">
+                
+            </div>
+        </template>
+
+        <template id="probationary_contract">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="ibas_hris.ibas_external_layout_boxed">
+                        <div class="page">
+                                <p><span t-field="doc.employee_id.name"/></p>
+                                <p><span t-field="doc.employee_id.present_address"/></p>
+                                <p style="text-align: center;"><strong>PROBATIONARY APPOINTMENT</strong></p>
+                                <p>Dear <span t-field="doc.employee_id.name"/>,</p>
+                                <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp starting from the date of this notice. You shall undergo Probationary period of <span t-field="doc.probationary_period_words"/> (<span t-field="doc.probationary_period"/>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                                <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <span t-field="doc.amount_in_words"/> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month.</p>
+                                <p>Your regular work schedule is from Monday to Saturday, 8:00AM to 5:00PM at NDM Sanchez Builders main office, San Agustin, Sto. Tomas, Batangas. When the need arises, you will be required to extend work well past 5:00PM. You are hereby to requested report directly to our VP for Finance (Mrs. Susana M. Sanchez) and report, priority works during weekly meetings or if Management requires you to do so. A Job Description is attached to this Appointment Memo for your kind perusal.</p>
+                                <p>You agree to faithfully and honestly abide all the Company's present policies, instructions and guidelines, as well as those, which may be issued from time to time. Any violation thereof may subject you to appropriate disciplinary action, to include dismissal for cause.</p>
+                                <p>The locked-in period must be strictly adhered to however, a notice of resignation must be served to the Company at least fifteen (15) days in advance with proper turn-over of thirty (30) days. Failure on your part to observe this probation may cause the Company to hold you liable for damages, in which case salaries, 13<sup>th</sup> month pay and other economic benefits due to you, if any, may be withheld.</p>
+                                <p>Accountabilities incurred against NDM SANCHEZ BUILDERS or its properties (should damage or loss be attributed to your undoing following a due process in inquiry by management) shall be deducted from your pay, should you fail to effect payment after due notice.</p>
+                                <p>If the foregoing is amenable to you, kindly indicate your conformity by signing on the space provided below.</p>
+                                <p>NDM SANCHEZ BUILDERS &amp; DEVEOPMENT CORPORATION</p>
+                                <table style="width: 100%;">
+                                <tbody>
+                                <tr>
+                                <td>
+                                <p style="text-align: center;">Recommended By:</p>
+                                </td>
+                                <td style="text-align: center;">
+                                <p>Noted by:</p>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td style="text-align: center;">
+                                <p>_________________________<br /><strong>Mrs Susana Sanchez<br /></strong>Chief Finance Officer</p>
+                                </td>
+                                <td style="text-align: center;">_________________________<br /><strong>Engr. Marc Bryan Sanchez</strong><br />Chief Operations Officer</td>
+                                </tr>
+                                </tbody>
+                                </table>
+                                <p></p>
+                                <table style="width: 100%;">
+                                <tbody>
+                                <tr>
+                                <td>
+                                <p style="text-align: center;">Approved By:</p>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td style="text-align: center;">_________________________<br /><strong>Engr. Nolando Sanchez<br /></strong>President and CEO</td>
+                                </tr>
+                                </tbody>
+                                </table>
+                                <br/>
+                                <br/>
+                                <br/>
+                                <p>Conforme: <br/> _______________________________</p>
+                                <p>_______________________________</p>
+                                <p>Date ________________________________</p>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+
+
+
+    </data>
+</odoo>

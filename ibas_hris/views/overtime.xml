@@ -1,0 +1,65 @@
+<odoo>
+<data>
+    <record id="overtime_view_form" model="ir.ui.view">
+        <field name="name">ibas_hris.ot.view.form</field>
+        <field name="model">ibas_hris.ot</field>
+        <field name="arch" type="xml">
+            <form string="Overtime">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button class="oe_highlight" name="submit" type="object" states="draft" string="Submit"/> 
+                    <button class="oe_highlight" name="approve" type="object" states="submitted" string="Approve" group="hr_attendance.group_hr_attendance_manager"/>
+                    <button class="oe_highlight" name="deny" type="object" states="submitted,approved" string="Deny" group="hr_attendance.group_hr_attendance_manager"/>
+                </header>
+                <sheet>
+                    <group>
+                    <field name="employee_id"/> 
+                        <field name="overtime_from"/>
+                        <field name="overtime_to"/>
+                        <field name="reason"/>
+                        <field name="ot_minutes"/>
+                    </group>
+                </sheet>
+
+                <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"/>
+            </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="ibas_hris_ot_view_tree" model="ir.ui.view">
+        <field name="name">ibas_hris.ot.view.tree</field>
+        <field name="model">ibas_hris.ot</field>
+        <field name="arch" type="xml">
+            <tree string="Overtime">
+                    <field name="employee_id"/> 
+                    <field name="overtime_from"/>
+                    <field name="overtime_to"/>
+                    <field name="ot_minutes"/>
+                    <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="ibas_hris_ot_action" model="ir.actions.act_window">
+        <field name="name">Overtime</field>
+        <field name="res_model">ibas_hris.ot</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <menuitem
+        id="ibas_ot_menu"
+        name="Overtime"
+        action="ibas_hris_ot_action"
+        groups="hr.group_hr_manager"
+        parent="hr_attendance.menu_hr_attendance_root"
+        sequence="10"/>
+
+
+ 
+</data>
+</odoo>

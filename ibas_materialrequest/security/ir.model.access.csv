@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ibas_materialrequest_material_request_line,access_ibas_materialrequest_material_request_line,model_ibas_materialrequest_material_request_line,base.group_user,1,0,0,0
+access_ibas_materialrequest_material_request,access_ibas_materialrequest_material_request,model_ibas_materialrequest_material_request,base.group_user,1,0,0,0

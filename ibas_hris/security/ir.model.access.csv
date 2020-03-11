@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_children,Children Access,model_ibas_hris_employee_children,,1,1,1,1
+access_work,Work Access,model_ibas_hris_employee_work,,1,1,1,1
+access_reference,Reference Access,model_ibas_hris_employee_reference,,1,1,1,1
+access_education,Education Access,model_ibas_hris_employee_education,,1,1,1,1
+access_ibas_hris_attendance_loader_line,access_ibas_hris_attendance_loader_line,model_ibas_hris_attendance_loader_line,base.group_user,1,1,1,1
+access_ibas_hris_attendance_loader,access_ibas_hris_attendance_loader,model_ibas_hris_attendance_loader,base.group_user,1,1,1,1
+access_ibas_hris_employee_requirement,access_ibas_hris_employee_requirement,model_ibas_hris_employee_requirement,base.group_user,1,1,1,1
+access_ibas_hris_requirement,access_ibas_hris_requirement,model_ibas_hris_requirement,base.group_user,1,1,1,1
+access_ibas_hris_holiday,access_ibas_hris_holiday,model_ibas_hris_holiday,base.group_user,1,1,1,1
+access_ibas_hris_official_business,access_ibas_hris_official_business,model_ibas_hris_official_business,base.group_user,1,1,1,1
+access_ibas_hris_holiday,access_ibas_hris_holiday,model_ibas_hris_holiday,base.group_user,1,1,1,1
+access_ibas_hris_ot,access_ibas_hris_ot,model_ibas_hris_ot,base.group_user,1,1,1,1
