@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- START ACCOUNT INVOICE FOR ORIGINAL TEMPLATE -->
+        <template id="external_layout_ndm_account_invoice_orig">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-call="ndm_ibas.external_layout_ndm_account_invoice_custom_orig"><t t-raw="0"/></t>
+        </template>
+
+        <template id="external_layout_ndm_account_invoice_custom_orig">
+            <div class="header" style="font-size:11px !important;">
+                <div class="row">
+                    <div class="col-xs-3 mb4">
+                        <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" style="max-height: 45px;"/>
+                    </div>
+                    <div class="col-xs-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+                </div>
+                <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                    <div class="col-xs-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6" name="company_address">
+                        <span t-field="company.partner_id"
+                            t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                            style="border-bottom: 1px solid black; display:inline-block;"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard" style="font-size:11px !important;">
+                <t t-raw="0" />
+            </div>
+
+            <div class="footer" style="font-size:11px !important;">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul class="list-inline mb4">
+                        <li t-if="company.phone">Phone: <span t-field="company.phone"/></li>
+                        <li t-if="company.email">Email: <span t-field="company.email"/></li>
+                        <li t-if="company.website">Web: <span t-field="company.website"/></li>
+                        <li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'TIN'"/>: <span t-field="company.vat"/></li>
+                    </ul>
+
+                    <div name="financial_infos">
+                        <span t-field="company.report_footer"/>
+                    </div>
+
+                    <div class="text-muted">
+                        Page: <span class="page"/> / <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+
+        </template>
+        <!-- END ACCOUNT INVOICE FOR ORIGINAL TEMPLATE -->
+
+        <!-- START ACCOUNT INVOICE FOR ORIGINAL TEMPLATE / KONGKRETO -->
+        <template id="external_layout_ndm_account_invoice_orig_kongkreto">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-call="ndm_ibas.external_layout_ndm_account_invoice_custom_orig_kongkreto"><t t-raw="0"/></t>
+        </template>
+
+        <template id="external_layout_ndm_account_invoice_custom_orig_kongkreto">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-3 mb4">
+                        <br/>
+                        <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" height="100" width="300"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard" style="font-size:11px !important;">
+                <t t-raw="0" />
+            </div>
+
+            <div class="footer" style="font-size:11px !important;">
+                <div class="text-center" style="border-top: 1px solid black;">
+                    <ul class="list-inline mb4">
+                        <li t-if="company.phone">Phone: <span t-field="company.phone"/></li>
+                        <li t-if="company.email">Email: <span t-field="company.email"/></li>
+                        <li t-if="company.website">Web: <span t-field="company.website"/></li>
+                        <li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'TIN'"/>: <span t-field="company.vat"/></li>
+                    </ul>
+
+                    <div name="financial_infos">
+                        <span t-field="company.report_footer"/>
+                    </div>
+
+                    <div class="text-muted">
+                        Page: <span class="page"/> / <span class="topage"/>
+                    </div>
+                </div>
+            </div>
+
+        </template>
+        <!-- END ACCOUNT INVOICE FOR ORIGINAL TEMPLATE / KONGKRETO -->
+
+        <!-- START ACCOUNT INVOICE -->
+        <template id="external_layout_ndm_account_invoice">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-call="ndm_ibas.external_layout_ndm_account_invoice_custom"><t t-raw="0"/></t>
+        </template>
+
+        <template id="external_layout_ndm_account_invoice_custom">
+            <!-- <div t-attf-style="background-image:url('/ndm/static/img/INV.PNG');  no-repeat; background-size: cover;"> -->
+            <div class="header">
+
+            </div>
+
+            <div class="article o_report_layout_standard">
+                <t t-raw="0" />
+            </div>
+
+            <div class="footer">
+                
+            </div>
+
+        </template>
+        <!-- END ACCOUNT INVOICE -->
+
+        <!-- START ACCOUNT INVOICE / KONGKRETO -->
+        <template id="external_layout_ndm_account_invoice_kongkreto">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-call="ndm_ibas.external_layout_ndm_account_invoice_custom_kongkreto"><t t-raw="0"/></t>
+        </template>
+
+        <template id="external_layout_ndm_account_invoice_custom_kongkreto">
+            <!-- <div class="header" style="margin-left: 10px !important; margin-right:-15px !important">
+                <img src="/ndm_ibas/static/img/kongkreto_header.PNG" height="100" width="100%"/>
+            </div> -->
+
+            <div class="header" style="margin-left: 10px !important; margin-right:-30px !important">
+                <div class="col-xs-6" style="margin-left: 10px !important;">
+                    <br/>
+                    <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" height="100" width="300"/>
+                </div>
+                <div class="col-xs-6" style="margin-right:-15px !important;">
+                    <img src="/ndm_ibas/static/img/kongkreto_header_bg.png" height="50" width="100%"/>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard">
+                <t t-raw="0" />
+            </div>
+
+            <div class="footer" style="margin-left:-15px !important; margin-right:-15px !important">
+                <img src="/ndm_ibas/static/img/kongkreto_footer.PNG" height="100" width="100%"/>
+            </div>
+
+        </template>
+        <!-- END ACCOUNT INVOICE / KONGKRETO -->
+
+        <!-- START PURCHASE ORDER / NDM -->
+        <template id="external_layout_ndm_purchase_order">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-call="ndm_ibas.external_layout_ndm_purchase_order_custom"><t t-raw="0"/></t>
+        </template>
+
+        <template id="external_layout_ndm_purchase_order_custom">
+            <!-- <div t-attf-style="background-image:url('/ndm/static/img/INV.PNG');  no-repeat; background-size: cover;"> -->
+            <div class="header">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" width="100%" height="125"/>
+                <!-- <br/>
+                <div class="col-xs-12 text-center" style="font-size:12px;color:red;">
+                    <p><span t-field="company.street"/> <span t-field="company.city"/><span style="padding-left:3em">Tel Nos: <t t-if="company.phone"><span t-field="company.phone"/>; </t>09171374679</span><span style="padding-left:3em">Email: ndmsanchez.purchasing@gmail.com</span></p>
+                </div> -->
+            </div>
+
+            <div class="article o_report_layout_standard">
+                <t t-raw="0" />
+            </div>
+
+            <div class="footer">
+                
+            </div>
+
+        </template>
+        <!-- END PURCHASE ORDER / NDM -->
+
+        <!-- START PURCHASE ORDER / KONGKRETO -->
+        <template id="external_layout_ndm_purchase_order_kongkreto">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-call="ndm_ibas.external_layout_ndm_purchase_order_kongkreto_custom"><t t-raw="0"/></t>
+        </template>
+
+        <template id="external_layout_ndm_purchase_order_kongkreto_custom">
+            <!-- <div class="header" style="margin-left: 30px !important; margin-right:-15px !important">
+                <img src="/ndm_ibas/static/img/kongkreto_header.PNG" height="100" width="100%"/>
+            </div> -->
+            <div class="header" style="margin-left: 10px !important; margin-right:-30px !important">
+                <div class="col-xs-6" style="margin-left: 10px !important;">
+                    <br/>
+                    <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % to_text(company.logo)" height="100" width="300"/>
+                </div>
+                <div class="col-xs-6" style="margin-right:-15px !important;">
+                    <img src="/ndm_ibas/static/img/kongkreto_header_bg.png" height="50" width="100%"/>
+                </div>
+            </div>
+
+            <div class="article o_report_layout_standard" style="margin-left: 15px !important; margin-right: 15px !important">
+                <t t-raw="0" />
+            </div>
+
+            <div class="footer" style="margin-left:-15px !important; margin-right:-15px !important">
+                <img src="/ndm_ibas/static/img/kongkreto_footer.PNG" height="100" width="100%"/>
+            </div>
+        </template>
+        <!-- END PURCHASE ORDER / KONGKRETO -->
+
+        <!-- START CHECK VOUCHER -->
+        <template id="external_layout_ndm_account_payment_check_voucher">
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-call="ndm_ibas.external_layout_ndm_account_payment_check_voucher_custom"><t t-raw="0"/></t>
+        </template>
+
+        <template id="external_layout_ndm_account_payment_check_voucher_custom">
+            <div class="header">
+            </div>
+
+            <div class="article o_report_layout_standard">
+                <t t-raw="0" />
+            </div>
+
+            <div class="footer">
+            </div>
+        </template>
+        <!-- END CHECK VOUCHER -->
+
+    </data>
+</odoo>

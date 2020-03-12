@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <report 
+            id="ndm_account_invoice_stp"
+            model="account.invoice"
+            string="Invoice Shoot To Print"
+            report_type="qweb-pdf"
+            name="ndm_ibas.ndm_report_account_invoice_stp"
+            file="ndm_ibas.ndm_report_account_invoice_stp"
+            menu="True"
+            paperformat="ndm_ibas.paperformat_report_ndm_account_invoice"
+            
+        />
+
+        <report 
+            id="ndm_account_invoice"
+            model="account.invoice"
+            string="Invoices"
+            report_type="qweb-pdf"
+            name="ndm_ibas.ndm_report_account_invoice"
+            file="ndm_ibas.ndm_report_account_invoice"
+            menu="False"
+            paperformat="ndm_ibas.paperformat_report_ndm_account_invoice"
+            
+        />
+
+        <report 
+            id="ndm_account_invoice_kongkreto"
+            model="account.invoice"
+            string="Invoices (Kongkreto)"
+            report_type="qweb-pdf"
+            name="ndm_ibas.ndm_report_account_invoice_kongkreto"
+            file="ndm_ibas.ndm_report_account_invoice_kongkreto"
+            menu="False"
+            paperformat="ndm_ibas.paperformat_report_ndm_account_invoice_kongkreto"
+            
+        />
+
+        <report 
+            id="ndm_purchase_quotation" 
+            model="purchase.order" 
+            string="Request for Quotation" 
+            report_type="qweb-pdf"
+            name="ndm_ibas.ndm_report_purchasequotation" 
+            file="ndm_ibas.ndm_report_purchasequotation"
+            menu="False"
+            paperformat="ndm_ibas.paperformat_report_ndm_account_purchaseorder"
+        />
+
+        <report 
+            id="ndm_purchase_quotation_kongkreto" 
+            model="purchase.order" 
+            string="Request for Quotation (Kongkreto)" 
+            report_type="qweb-pdf"
+            name="ndm_ibas.ndm_report_purchasequotation_kongkreto" 
+            file="ndm_ibas.ndm_report_purchasequotation_kongkreto"
+            menu="False"
+            paperformat="ndm_ibas.paperformat_report_ndm_account_purchaseorder_kongkreto"
+        />
+
+        <report 
+            id="ndm_purchase_order" 
+            model="purchase.order" 
+            string="Purchase Order" 
+            report_type="qweb-pdf"
+            name="ndm_ibas.ndm_report_purchaseorder" 
+            file="ndm_ibas.ndm_report_purchaseorder"
+            menu="False"
+            paperformat="ndm_ibas.paperformat_report_ndm_account_purchaseorder"
+        />
+
+        <report 
+            id="ndm_purchase_order_kongkreto" 
+            model="purchase.order" 
+            string="Purchase Order (Kongkreto)" 
+            report_type="qweb-pdf"
+            name="ndm_ibas.ndm_report_purchaseorder_kongkreto" 
+            file="ndm_ibas.ndm_report_purchaseorder_kongkreto"
+            menu="False"
+            paperformat="ndm_ibas.paperformat_report_ndm_account_purchaseorder_kongkreto"
+        />
+
+        <!-- ACCOUNTING -->
+        <report 
+            id="ndm_account_payment_check_voucher" 
+            model="account.payment" 
+            string="Check Voucher" 
+            report_type="qweb-pdf"
+            name="ndm_ibas.report_account_payment_check_voucher" 
+            file="ndm_ibas.report_account_payment_check_voucher"
+            menu="False"
+            paperformat="ndm_ibas.paperformat_report_ndm_account_payment_account_voucher"
+        />
+
+        <!-- OTHERS -->
+        <report 
+            id="action_report_stock_model_custom" 
+            model="stock.picking" 
+            string="NDM Delivery Receipt" 
+            report_type="qweb-pdf" 
+            name="ndm_ibas.ndm_new_dr" 
+            file="ndm_ibas.ndm_new_dr" 
+            paperformat="ndm_ibas.paperformat_halfsized_a5" 
+        />
+
+        <report 
+            id="action_report_check_voucher" 
+            model="account.payment" 
+            string="NDM Check Voucher" 
+            report_type="qweb-pdf" 
+            name="ndm_ibas.ndm_check_voucher" 
+            file="ndm_ibas.ndm_check_voucher"
+        />
+
+        <report 
+            id="action_report_check_voucher_kongkreto" 
+            model="account.payment" 
+            string="Kongkreto Check Voucher" 
+            report_type="qweb-pdf" 
+            name="ndm_ibas.kongkreto_check_voucher" 
+            file="ndm_ibas.kongkreto_check_voucher"
+        />
+
+        <report 
+            id="action_report_ndm_check_print" 
+            model="account.payment" 
+            string="NDM Check Printer" 
+            report_type="qweb-pdf" 
+            name="ndm_ibas.ndm_check_document" 
+            file="ndm_ibas.ndm_check_document" 
+            paperformat="ndm_ibas.paperformat_check_a4" 
+        />
+
+        <report 
+            id="action_report_kongkreto_dr" 
+            model="stock.picking" 
+            string="Kongkreto DR" 
+            report_type="qweb-pdf" 
+            name="ndm_ibas.kongkreto_new_dr" 
+            file="ndm_ibas.kongkreto_new_dr" 
+            paperformat="ndm_ibas.paperformat_dr_a4" 
+        />
+        
+    </data>
+</odoo>

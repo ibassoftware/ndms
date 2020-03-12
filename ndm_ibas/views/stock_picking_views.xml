@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="is_company_konkreto" invisible="1"/>
+                    <field name="is_batching_delivery" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='location_id']" position="after">
+                    <field name="project_name" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="project_address" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="driver_name" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="volume" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="acc_vol" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="strength" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="aggregate" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="slump" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                </xpath>
+
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="gross_weight" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="tare_wt" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="net_wt" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="plate_no" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                    <field name="timeout_p" attrs="{'invisible': ['|', ('is_company_konkreto', '=', False), ('is_batching_delivery', '=', False)]}"></field>
+                </xpath>
+
+                <!-- <xpath expr="//field[@name='move_lines']/tree/field[@name='product_id']" position="after">
+                    <field name="dr_no" attrs="{'column_invisible': ['|', ('parent.is_company_konkreto', '=', False), ('parent.is_batching_delivery', '=', False)]}"/>
+                    <field name="location" attrs="{'column_invisible': ['|', ('parent.is_company_konkreto', '=', False), ('parent.is_batching_delivery', '=', False)]}"/>
+                    <field name="plate_no" attrs="{'column_invisible': ['|', ('parent.is_company_konkreto', '=', False), ('parent.is_batching_delivery', '=', False)]}"/>
+                    <field name="location_no" attrs="{'column_invisible': ['|', ('parent.is_company_konkreto', '=', False), ('parent.is_batching_delivery', '=', False)]}"/>
+                </xpath> -->
+            </field>
+        </record>
+
+        <record id="view_picking_type_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.type.form.inherit</field>
+            <field name="model">stock.picking.type</field>
+            <field name="inherit_id" ref="stock.view_picking_type_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='show_reserved']" position="after">
+                    <field name="is_batching_delivery"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

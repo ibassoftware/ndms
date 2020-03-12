@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="invoice_form_extend" model="ir.ui.view">
+            <field name="name">account.invoice.form.extend</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+
+                <xpath expr="//header" position="inside">
+                    <button name="invoice_print_draft" string="Print Invoice" type="object" states="draft" groups="base.group_user"/>
+                </xpath>
+
+                <xpath expr="//field[@name='date_due']" position="after">
+                    <field name="is_company_konkreto" invisible="1"/>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_line_ids']" position="attributes">
+                    <attribute name="context">{'is_company_konkreto': is_company_konkreto}</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
+                    <field name="delivery_date" attrs="{'column_invisible': [('parent.is_company_konkreto', '=', False)]}"/>
+                    <field name="dr_no" attrs="{'column_invisible': [('parent.is_company_konkreto', '=', False)]}"/>
+                    <field name="location" attrs="{'column_invisible': [('parent.is_company_konkreto', '=', False)]}"/>
+                    <field name="plate_no" attrs="{'column_invisible': [('parent.is_company_konkreto', '=', False)]}"/>
+                    <!-- <field name="location_no" attrs="{'column_invisible': [('parent.is_company_konkreto', '=', False)]}"/> -->
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="invoice_supplier_form_extend" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form.extend</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//header" position="inside">
+                    <button name="invoice_print_draft" string="Print Invoice" type="object" groups="base.group_user"/>
+                </xpath>
+
+            </field>
+        </record> 
+
+    </data>
+</odoo>

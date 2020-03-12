@@ -1,0 +1,74 @@
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+     <record id="paperformat_halfsized_a5" model="report.paperformat">
+            <field name="name">A5</field>
+            <field name="default" eval="True" />
+            <field name="format">A5</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">18</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">35</field>
+            <field name="dpi">90</field>
+        </record>
+       
+        <report id="action_report_stock_model_custom" model="stock.picking" string="NDM Delivery Receipt" report_type="qweb-pdf" 
+        name="ndm_ibas.ndm_new_dr" file="ndm_ibas.ndm_new_dr" paperformat="ndm_ibas.paperformat_halfsized_a5" />
+
+         <report id="action_report_check_voucher" model="account.payment" string="NDM Check Voucher" report_type="qweb-pdf" 
+        name="ndm_ibas.ndm_check_voucher" file="ndm_ibas.ndm_check_voucher"/>
+
+        <report id="action_report_check_voucher_kongkreto" model="account.payment" string="Kongkreto Check Voucher" report_type="qweb-pdf" 
+        name="ndm_ibas.kongkreto_check_voucher" file="ndm_ibas.kongkreto_check_voucher"/>
+
+         <record id="paperformat_check_a4" model="report.paperformat">
+            <field name="name">A4</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">12</field>
+            <field name="margin_bottom">18</field>
+            <field name="margin_left">35</field>
+            <field name="margin_right">20</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">21</field>
+            <field name="dpi">90</field>
+        </record>
+
+         <record id="paperformat_dr_a4" model="report.paperformat">
+            <field name="name">A4DR</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">18</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">30</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+         <report id="action_report_ndm_check_print" model="account.payment" string="NDM Check Printer" report_type="qweb-pdf" 
+        name="ndm_ibas.ndm_check_document" file="ndm_ibas.ndm_check_document" paperformat="ndm_ibas.paperformat_check_a4" />
+
+         <report id="action_report_kongkreto_dr" model="stock.picking" string="Kongkreto DR" report_type="qweb-pdf" 
+        name="ndm_ibas.kongkreto_new_dr" file="ndm_ibas.kongkreto_new_dr" paperformat="ndm_ibas.paperformat_dr_a4" />
+
+
+       
+
+    </data>
+</odoo>
+ -->

@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="basic_ndm_layout">
+			<div class="header">
+				<p style="text-align: center;">
+					<img src="/ndm_ibas/static/img/ndmlogonew.jpg" alt="" width="1000" height="100" />
+					<!-- <br />
+					<b>Brgy San Agustin, Sto. Tomas, Batangas 4234 Philippines</b> -->
+				</p>
+			</div>
+
+			<t t-call="web.html_container">
+				<div class="article">
+					<t t-raw="0" />
+				</div>
+			</t>
+		</template>
+
+		<template id="ndm_check_layout">
+			<t t-call="web.html_container">
+				<div class="article">
+					<t t-raw="0" />
+				</div>
+			</t>
+		</template>
+
+		<template id="ndm_new_dr">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="ndm_ibas.basic_ndm_layout">
+						<div class="page">
+							<center><strong><h3>DELIVERY RECEIPT</h3></strong></center>
+							<div class="row" name="customer_address">
+								<div class="col-xs-4 pull-left">
+									<div>
+										<strong><span t-field="o.name"/></strong>
+									</div>
+									<div>
+										<t t-if="o.origin">
+											<strong><span>Source: </span><span t-field="o.origin"/></strong>
+										</t>
+									</div>
+								</div>
+								<div class="col-xs-6 pull-right">
+									<div>
+										<strong>
+											<span>Project Location:</span>
+											<span t-field="o.location_dest_id.name"/>
+										</strong>
+									</div>
+									<div>
+										<t t-if="o.state == 'done'">
+											<strong><span>Date: </span><span t-field="o.date_done"/></strong>
+										</t>
+										<t t-if="o.state != 'done'">
+											<strong><span>Date: </span><span t-field="o.scheduled_date"/></strong>
+										</t>
+									</div>
+
+								</div>
+							</div>
+							<table class="table table-condensed mt48" t-if="o.state!='done'">
+								<thead>
+									<tr>
+										<th>
+											<strong>Product</strong>
+										</th>
+										<th>
+											<strong>Quantity</strong>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-set="lines" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+									<tr t-foreach="lines" t-as="move">
+										<td>
+											<strong><span t-field="move.product_id"/></strong>
+										</td>
+										<td>
+											<strong>
+												<span t-field="move.product_uom_qty"/>
+												<span t-field="move.product_uom"/>
+											</strong>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-condensed mt48" t-if="o.move_line_ids and o.state=='done'">
+								<t t-set="has_serial_number" t-value="o.move_line_ids.mapped('lot_id')" groups="stock.group_production_lot"/>
+								<thead>
+									<tr>
+										<th>
+											<strong>Product</strong>
+										</th>
+										<th name="lot_serial" t-if="has_serial_number">
+											<strong>
+												Lot/Serial Number
+											</strong>
+										</th>
+										<th class="text-center">
+											<strong>Quantity</strong>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr t-foreach="o.move_line_ids" t-as="move_line">
+										<td>
+											<strong><span t-field="move_line.product_id"/></strong>
+											<p t-if="o.picking_type_code == 'outgoing'">
+												<strong><span t-field="move_line.product_id.sudo().description_pickingout"/></strong>
+											</p>
+											<p t-if="o.picking_type_code == 'incoming'">
+												<strong><span t-field="move_line.product_id.sudo().description_pickingin"/></strong>
+											</p>
+										</td>
+										<t t-if="has_serial_number">
+											<td>
+												<table width="100%">
+													<tr>
+														<td>
+															<strong><span t-field="move_line.lot_id"/></strong>
+															<t t-if="not move_line.lot_id">
+																<strong><span t-field="move_line.lot_name"/></strong>
+															</t>
+														</td>
+														<td name="lot_qty">
+															<t t-if="move_line.product_qty">
+																<strong><span t-field="move_line.product_qty"/></strong>
+															</t>
+														</td>
+													</tr>
+												</table>
+											</td>
+										</t>
+										<td class="text-center">
+											<strong><span t-field="move_line.qty_done"/> <span t-field="move_line.product_uom_id"/></strong>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<p t-if="o.backorder_id">
+								<strong>This shipment is a backorder of <t t-esc="o.backorder_id.name"/>.</strong>
+							</p>
+							<p>
+								<t t-if="o.search([('backorder_id', '=', o.id), ('state', 'not in', ['cancel', 'done'])])">
+									<strong>All items couldn't be shipped, the remaining ones will be shipped as soon as they become available.</strong>
+								</t>
+							</p>
+
+							<div class="footer">
+								<div class="col-xs-4 text-center">
+									<strong>
+										<span>_________________________</span>
+										<br/>
+										<span>RELEASED BY</span>
+									</strong>
+								</div>
+								<div class="col-xs-4">
+									<br/>
+								</div>
+								<div class="col-xs-4 text-center">
+									<strong>
+										<span>_________________________</span>
+										<br/>
+										<span>RECEIVED BY</span>
+									</strong>
+								</div>
+
+								<br/>
+								<br/>
+								<br/>
+								<p style="font-family:calibri; font-size: 10px;">
+									<strong>NDMS-FO-WHS-003-REV.01 (09.19.19)</strong>
+								</p>
+							</div>
+
+
+
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+
+
+		<template id="ndm_check_voucher">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="ndm_ibas.basic_ndm_layout">
+						<div class="page">
+							<p style="text-align: center;">
+								<strong>Check Voucher</strong>
+							</p>
+							<br/>
+							<br/>
+							<table style="width: 95%;">
+								<tbody>
+									<tr>
+										<td style="width: 25%;">
+											<strong>Journal:</strong>
+										</td>
+										<td style="width: 25%;">
+											<span t-field="o.journal_id"/>
+										</td>
+										<td style="text-align: right;">
+											<strong>Check#</strong>
+										</td>
+										<td>
+											<span t-field="o.check_number"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<strong>Payee:</strong>
+										</td>
+										<td style="width: 50%;" colspan="2">
+											<span t-field="o.partner_id"/>
+										</td>
+										<td style="width: 25%; text-align: right;">
+											<span t-field="o.payment_date"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<strong>Amount:</strong>
+										</td>
+										<td colspan="2">
+											<span t-field="o.amount_in_words"/>
+										</td>
+										<td style="text-align: right;">
+											<span t-field="o.amount"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td>Approved By:</td>
+										<td>Approved By:</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td>__________________________</td>
+										<td>__________________________</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td style="text-align: center;">Susana M. Sanchez<br />Finance Comptroller</td>
+										<td style="text-align: center;">Nolando B. Sanchez<br />President/CEO</td>
+									</tr>
+								</tbody>
+							</table>
+							<p></p>
+							<br/>
+							<br/>
+							<br/>
+							<p>In payment for:</p>
+							<br/>
+							<p>
+								<span t-field="o.communication"/>
+							</p>
+
+							<br/>
+							<br/>
+							<br/>
+							<table style="width: 100%;">
+								<tbody>
+									<tr>
+										<td style="width: 50%;">Prepared By</td>
+										<td style="width: 50%;">Received By: (Signature over printed Name</td>
+									</tr>
+									<tr>
+										<td style="width: 50%;">
+											<br />
+											<br />______________________________</td>
+										<td style="width: 50%;">
+											<br />
+											<br />________________________________</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+
+		 <template id="kongkreto_check_voucher">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="ndm_ibas.basic_kongkreto_layout">
+						<div class="page">
+
+							<p style="text-align: center;">
+								<strong>Check Voucher</strong>
+							</p>
+							<br/>
+							<br/>
+							<table style="width: 95%;">
+								<tbody>
+									<tr>
+										<td style="width: 25%;">
+											<strong>Journal:</strong>
+										</td>
+										<td style="width: 25%;">
+											<span t-field="o.journal_id"/>
+										</td>
+										<td style="text-align: right;">
+											<strong>Check#</strong>
+										</td>
+										<td>
+											<span t-field="o.check_number"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<strong>Payee:</strong>
+										</td>
+										<td style="width: 50%;" colspan="2">
+											<span t-field="o.partner_id"/>
+										</td>
+										<td style="width: 25%; text-align: right;">
+											<span t-field="o.payment_date"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<strong>Amount:</strong>
+										</td>
+										<td colspan="2">
+											<span t-field="o.amount_in_words"/>
+										</td>
+										<td style="text-align: right;">
+											<span t-field="o.amount"/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td>Approved By:</td>
+										<td>Approved By:</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 25%;">
+											<br/>
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td>__________________________</td>
+										<td>__________________________</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td style="text-align: center;">Susana M. Sanchez<br />Finance Comptroller</td>
+										<td style="text-align: center;">Nolando B. Sanchez<br />President/CEO</td>
+									</tr>
+								</tbody>
+							</table>
+							<p></p>
+							<br/>
+							<br/>
+							<br/>
+							<p>In payment for:</p>
+							<br/>
+							<p>
+								<span t-field="o.communication"/>
+							</p>
+
+							<br/>
+							<br/>
+							<br/>
+							<table style="width: 100%;">
+								<tbody>
+									<tr>
+										<td style="width: 50%;">Prepared By</td>
+										<td style="width: 50%;">Received By: (Signature over printed Name</td>
+									</tr>
+									<tr>
+										<td style="width: 50%;">
+											<br />
+											<br />______________________________</td>
+										<td style="width: 50%;">
+											<br />
+											<br />________________________________</td>
+									</tr>
+								</tbody>
+							</table>
+
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+
+		<template id="ndm_check_document">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="ndm_ibas.ndm_check_layout">
+						<div class="page">
+
+						 <table style="width: 100%;">
+							  <tbody>
+									<tr>
+										<td style="width: 80mm;"/>
+										<td style="width: 15.67mm;" align="right">
+											
+											  <span style="font-size:9px;" t-esc="datetime.datetime.strptime(o.payment_date, '%Y-%m-%d').strftime('%b %d,%Y')"/>
+											
+										</td>
+									</tr>
+							  </tbody>
+							  </table>
+
+							<table style="width: 100%;">
+								<tbody>
+									<tr>
+										<td style="width: 100mm; text-align: center; height: 23px;"></td>
+										<td style="width: 14.67mm; height: 23px;"></td>
+									</tr>
+									<tr>
+										<td style="width: 70.78mm; text-align: center;">
+											<strong>
+												<span style="font-size:11px;" t-field="o.partner_id"></span>
+											</strong>
+										</td>
+										<td style="width: 10mm;"></td>
+										<td style="width: 14.67mm;">
+											<span style="font-size:11px;" t-esc="'{:,.2f}'.format(o.amount)"></span>
+										</td>
+									</tr>
+									<tr>
+										<td style="width: 61.78mm; height: 23px;"></td>
+										<td style="width: 14.67mm; height: 23px;"></td>
+									</tr>
+									<tr>
+										<td style="width: 100%; text-align: center;">
+											<span style="font-size:10px;" t-field="o.amount_in_words"></span>
+										</td>
+										<!-- <td style="width: 14.67mm;"></td> -->
+									</tr>
+								</tbody>
+							</table>
+
+
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+
+		<template id="basic_kongkreto_layout">
+
+			<div class="header">
+				<p style="text-align: center;">
+					<img src="/ndm_ibas/static/img/kongkretologo.jpg" alt="" width="90%" height="100" />
+				</p>
+			</div>
+
+			<t t-call="web.html_container">
+				<div class="article">
+					<t t-raw="0" />
+				</div>
+			</t>
+		</template>
+
+		<template id="kongkreto_new_dr">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="ndm_ibas.basic_kongkreto_layout">
+						<div class="page" style="font-size:11px;">
+							<p style="text-align: center;"><b>Delivery Receipt- <span t-field="o.name"/></b></p>
+							<table style="width: 100%;">
+								<tbody>
+									<tr>
+										<td style="width: 25.0000%;">
+											<br/></td>
+											<td style="width: 25.0000%;">
+												<br/></td>
+												<td style="width: 25.0000%;">
+													<div data-empty="true" style="text-align: right;">Date:</div>
+												</td>
+												<td style="width: 25.0000%;"><span t-field="o.scheduled_date"/></td>
+											</tr>
+										</tbody>
+									</table>
+									<table class="table table-bordered" style="width: 100%;border-color:black;">
+										<tbody>
+											<tr>
+												<td colspan="2" style="width: 50.0000%;">SOLD TO: <span t-field="o.partner_id"/></td>
+												<td colspan="2" style="width: 50.0000%;">SERIAL NO: <span t-field="o.name"/></td>
+											</tr>
+											<tr>
+												<td colspan="2" style="width: 50.0000%;">STRUCTURE: <span t-field="o.project_name"/></td>
+												<td style="width: 24.9641%;">VOLUME: <span t-field="o.volume"/></td>
+												<td style="width: 24.9641%;">ACC VOL: <span t-field="o.acc_vol"/></td>
+											</tr>
+											<tr>
+												<td colspan="2" style="width: 50.0000%;">ADDRESS: <span t-field="o.project_address"/></td>
+												<td style="width: 24.9641%;">STRENGTH: <span t-field="o.strength"/></td>
+												<td style="width: 24.9641%;">AGGREGATE: <span t-field="o.aggregate"/></td>
+											</tr>
+											<tr>
+												<td colspan="2" style="width: 50.0000%;">TM NO:<span t-field="o.plate_no"/></td>
+												<td colspan="2" style="width: 50.0000%;">SLUMP: <span t-field="o.slump"/></td>
+											</tr>
+											<tr>
+												<td colspan="2" style="width: 50.0000%;">DRIVER:<span t-field="o.driver_name"/></td>
+												<td colspan="2" style="width: 50.0000%;">GROSS WT:<span t-field="o.gross_weight"/></td>
+											</tr>
+											<tr>
+												<td style="width: 25.0359%;">TIME OUT (P): <span t-field="o.timeout_p"/></td>
+												<td style="width: 25.0359%;">TIME IN (S): </td>
+												<td colspan="2" style="width: 50.0000%;">TARE WT: <span t-field="o.tare_wt"/></td>
+											</tr>
+											<tr>
+												<td style="width: 25.0359%;">TIME IN (P): </td>
+												<td style="width: 25.0359%;">TIME OUT (S): </td>
+												<td colspan="2" style="width: 58.1662%;">NET WT: <span t-field="o.net_wt"/></td>
+											</tr>
+											<tr>
+												<td colspan="2" rowspan="3" style="width: 65%; text-align: left;">CONDITIONS:<br/>1. Quality of concrete is no longer under guarantee if slump is made to exceed __________ inches by order of the buyer or his authorized representative.<br/>2. Unloading time in excess of 30 minutes is chargeable to buyer, computed
+				at prevailing hourly rate.<br/>3. Kongkreto Pilipinas, Inc. will not assume any responsibility for the quality of the ready mix concrete if discharged beyond the 45 minutes after arrival at jobsite.<br/>4. Kongkreto Pilipinas, Inc. will
+				not assume any responsibility for any damages inside property line.<br/>5. Any claims of shortages will be allowed only if made at the time of delivery or within 24 hours</td>
+													<td colspan="2" style="width: 35%;">Dispatcher:<br/><br/><br/></td>
+													</tr>
+													<tr>
+														<td colspan="2" style="width: 35%;">Remarks:<br/><br/><br/></td>
+														</tr>
+														<tr>
+															<td colspan="2" valign="bottom" style="width: 35%; text-align: center;">
+															<br/><br/>
+															Received the above merchandise in good order and condition subject to terms and conditions stated.<br/>
+																<br/>________________________________<br/>Signature Over Printed Name</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</t>
+											</t>
+										</t>
+									</template>
+
+
+
+	</data>
+</odoo>

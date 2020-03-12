@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- START ORIGINAL PURCHASE QUOTATION / NDM -->
+        <template id="ndm_report_purchase_quotation_document">
+            <t t-call="ndm_ibas.external_layout_ndm_purchase_order">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                <div class="page">
+
+                     <div class="row" style="font-size:14px;">
+                        <div class="col-xs-2">
+                            <br/>
+                        </div>
+                        
+                        <div class="col-xs-10" style="text-right">
+                            <h2>Request for Quotation No. <span t-field="o.name"/></h2>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row" style="font-size:14px;">
+                        <div class="col-xs-6">
+                            <b>Vendor / Supplier: </b> 
+                            <t t-if="o.partner_id.parent_id">
+                                <span t-field="o.partner_id.parent_id.name"/> <br/>
+                                <!-- <address t-field="o.partner_id.parent_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' /> -->
+                                <p style="font-size: 14px;">
+                                    <span t-field="o.partner_id.parent_id.street"/> <span t-field="o.partner_id.parent_id.street2"/> <span t-field="o.partner_id.parent_id.city"/> <span t-field="o.partner_id.parent_id.country_id.name"/>
+                                </p>
+                            </t>
+                            <t t-else="">
+                                <span t-field="o.partner_id.name"/> <br/>
+                                <!-- <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' /> -->
+                                <p style="font-size: 14px;">
+                                    <span t-field="o.partner_id.street"/> <span t-field="o.partner_id.street2"/> <span t-field="o.partner_id.city"/> <span t-field="o.partner_id.country_id.name"/>
+                                </p>
+                            </t>
+                        </div>
+                        <div class="col-xs-6">
+                            <b>Vendor Reference: </b> <span t-field="o.partner_ref"/><br/>
+                            <b>MRS No:</b> <span t-field="o.x_studio_field_97v8H"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="font-size:14px;">
+                        <div class="col-xs-6">
+                            <t t-if="o.attention">
+                                <b>Attention: </b> <span t-field="o.attention"/> <br/>
+                            </t>
+                            <t t-else="">
+                                <b>Attention: </b> <span>_________________________</span>
+                            </t>
+                        </div>
+                        <div class="col-xs-6">
+                           <b>Date: </b> <span t-field="o.date_order" t-options='{"format": "yyyy-MM-dd"}'/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="font-size:14px;">
+                        <div class="col-xs-6">
+                            <b>Terms: </b> <span t-field="o.payment_term_id.name"/>
+                            <t t-if="not o.payment_term_id">
+                                <span>____________________________</span>
+                            </t>
+                        </div>
+                        <div class="col-xs-6">
+                            <b>Project Name: </b> <span t-field="o.project_name"/>
+                            <t t-if="not o.project_name">
+                                <span>_________________________</span>
+                            </t>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <table class="table table-condensed" style="border: 1px solid black;font-size:14px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid black;">
+                            	<th width="8%"><strong>QTY</strong></th>
+                                <th width="15%"><strong>Item</strong></th>
+                                <th width="37%"><strong>Description</strong></th>
+                                <th width="12%"><strong>UNIT P...</strong></th>
+                                <th width="14%"><strong>GROSS</strong></th>
+                                <th width="14%"><strong>NET</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="line_count" t-value="0"/>
+                            <tr t-foreach="o.order_line" t-as="line">
+                                <t t-set="line_count" t-value="line_count + 1"/>
+                                <td style="border-top: none;">
+                                    <!-- <span t-field="line.product_qty"/> -->
+                                    <span t-esc="int(float(line.product_qty))"/>
+                                </td>
+                                <td style="border-top: none;">
+                                	<span t-field="line.product_uom.name" />
+                                </td>
+                                <td style="border-top: none;">
+                                    <span t-field="line.name"/>
+                                </td>
+                                <td style="border-top: none;">
+                                     <span t-field="line.price_unit"/>
+                                </td>
+                                <td style="border-top: none;">
+                                    <span t-field="line.price_subtotal"/>
+                                </td>
+                                <td style="border-top: none;">
+                                    <span t-field="line.price_total"/>
+                                </td>
+                            </tr>
+                            <t t-set="break_count" t-value="12 - line_count"/>
+                            <t t-if="break_count > 0">
+                                <t t-foreach="break_count" t-as="break">
+                                    <tr>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="row" style="font-size:15px;">
+                        <div class="col-xs-12 text-right">
+                            <span><b>Untaxed Amount:</b> <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></span><br/>
+                            <span><b>Tax:</b> <span t-field="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></span><br/>
+                            <span><b>Total:</b> <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></span>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row" style="font-size:14px;">
+                        <div class="col-xs-6" style="border:1px solid black;padding: 5px;height: 170px;">
+                            <strong>Prepared By:</strong>
+                            <div class="text-center">
+                                <t t-if="o.purchase_preparedby_id.e_signature">
+                                    <img t-if="o.purchase_preparedby_id.e_signature" t-att-src="'data:image/png;base64,%s' % to_text(o.purchase_preparedby_id.e_signature)" width="130" height="65"/><br/>
+                                </t>
+                                <span t-field="o.purchase_preparedby_id.name"/><br/>
+                                <span>____________________________</span><br/>
+                                <span t-if="o.is_purchase_manager == True">Purchasing Manager</span>
+                                <span t-if="o.is_purchase_manager != True">Purchasing Staff</span>
+                            </div>
+                        </div>
+                        <!-- <div class="col-xs-4" style="border:1px solid black;padding: 5px;height: 170px;">
+                            <strong>Noted By:</strong>
+                            <div class="text-center">
+                                <br/><br/><br/>
+                                <span>Malou Sanchez</span><br/>
+                                <span>____________________________</span><br/>
+                                <span>Purchasing Manager</span>
+                            </div>
+                        </div> -->
+                        <div class="col-xs-6" style="border:1px solid black;padding: 5px;height: 170px;">
+                            <strong>Approved By:</strong>
+                            <div class="text-center">
+                                <t t-if="o.state in ['purchase','done'] and o.purchase_approver_id.e_signature">
+                                    <img t-if="o.purchase_approver_id.e_signature" t-att-src="'data:image/png;base64,%s' % to_text(o.purchase_approver_id.e_signature)" width="130" height="65"/><br/>
+                                    <span t-field="o.purchase_approver_id.name"/><br/>
+                                    <span>____________________________</span><br/>
+                                    <span>Vice President</span>
+                                </t>
+                                <t t-else="">
+                                    <span>Marc Bryan Sanchez</span><br/>
+                                    <span>____________________________</span><br/>
+                                    <span>Vice President</span>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row" style="font-size:12px;border:1px solid black;padding: 10px;">
+                        <strong>TERMS AND CONDITIONS:</strong>
+                        <p>
+                            1) We reserved the right to claim damages for or return inferior goods within a period of ninety (90) days from date of delivery <br/>
+                            2) This P.O must be attached to corresponding invoices on all deliveries <br/>
+                            3) Acceptance of the P.O must be unqualified <br/>
+                            4) Cancellation date of this P.O must be or before
+                        </p>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+        <!-- END ORIGINAL PURCHASE QUOTATION / NDM -->
+
+         <!-- START ORIGINAL PURCHASE QUOTATION / KONGKRETO -->
+        <template id="ndm_report_purchase_quotation_kongkreto_document">
+            <t t-call="ndm_ibas.external_layout_ndm_purchase_order_kongkreto">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                <div class="page">
+
+                    <div class="row" style="font-size:14px;">
+                        <div class="col-xs-2">
+                            <br/>
+                        </div>
+                        
+                        <div class="col-xs-10" style="text-right">
+                            <h2>Request for Quotation No. <span t-field="o.name"/></h2>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row" style="font-size:14px;">
+                        <div class="col-xs-7">
+                            <b>Vendor / Supplier: </b> 
+                            <t t-if="o.partner_id.parent_id">
+                                <span t-field="o.partner_id.parent_id.name"/> <br/>
+                                <!-- <address t-field="o.partner_id.parent_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' /> -->
+                                <p style="font-size: 13px;">
+                                    <span t-field="o.partner_id.parent_id.street"/> <span t-field="o.partner_id.parent_id.street2"/> <br/>
+                                    <span t-field="o.partner_id.parent_id.city"/> <span t-field="o.partner_id.parent_id.country_id.name"/>
+                                </p>
+                            </t>
+                            <t t-else="">
+                                <span t-field="o.partner_id.name"/> <br/>
+                                <!-- <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' /> -->
+                                <p style="font-size: 13px;">
+                                    <span t-field="o.partner_id.street"/> <span t-field="o.partner_id.street2"/> <br/>
+                                    <span t-field="o.partner_id.city"/> <span t-field="o.partner_id.country_id.name"/>
+                                </p>
+                            </t>
+                        </div>
+                        <div class="col-xs-5">
+                            <b>Vendor Reference: </b> <span t-field="o.partner_ref"/><br/>
+                            <b>MRS No:</b> <span t-field="o.x_studio_field_97v8H"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="font-size:14px;">
+                        <div class="col-xs-7">
+                            <t t-if="o.attention">
+                                <b>Attention: </b> <span t-field="o.attention"/> <br/>
+                            </t>
+                            <t t-else="">
+                                <b>Attention: </b> <span>_________________________</span>
+                            </t>
+                        </div>
+                        <div class="col-xs-5">
+                           <b>Date: </b> <span t-field="o.date_order" t-options='{"format": "yyyy-MM-dd"}'/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="font-size:14px;">
+                        <div class="col-xs-7">
+                            <b>Terms: </b> <span t-field="o.payment_term_id.name"/>
+                            <t t-if="not o.payment_term_id">
+                                <span>____________________________</span>
+                            </t>
+                        </div>
+                        <div class="col-xs-5">
+                            <b>Project Name: </b> <span t-field="o.project_name"/>
+                            <t t-if="not o.project_name">
+                                <span>_________________________</span>
+                            </t>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <table class="table table-condensed" style="border: 1px solid black;font-size:14px;">
+                        <thead>
+                            <tr style="border-bottom: 1px solid black;">
+                                <th width="8%"><strong>QTY</strong></th>
+                                <th width="15%"><strong>Item</strong></th>
+                                <th width="37%"><strong>Description</strong></th>
+                                <th width="12%"><strong>UNIT P...</strong></th>
+                                <th width="14%"><strong>GROSS</strong></th>
+                                <th width="14%"><strong>NET</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="line_count" t-value="0"/>
+                            <tr t-foreach="o.order_line" t-as="line">
+                                <t t-set="line_count" t-value="line_count + 1"/>
+                                <td style="border-top: none;">
+                                    <!-- <span t-field="line.product_qty"/> -->
+                                    <!-- <span t-esc="int(float(line.product_qty))"/> -->
+                                    <span t-esc="'%.2f'% line.product_qty"/>
+                                </td>
+                                <td style="border-top: none;">
+                                    <span t-field="line.product_uom.name" />
+                                </td>
+                                <td style="border-top: none;">
+                                    <span t-field="line.name"/>
+                                </td>
+                                <td style="border-top: none;">
+                                     <span t-field="line.price_unit"/>
+                                </td>
+                                <td style="border-top: none;">
+                                    <span t-field="line.price_subtotal"/>
+                                </td>
+                                <td style="border-top: none;">
+                                    <span t-field="line.price_total"/>
+                                </td>
+                            </tr>
+                            <t t-set="break_count" t-value="12 - line_count"/>
+                            <t t-if="break_count > 0">
+                                <t t-foreach="break_count" t-as="break">
+                                    <tr>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                        <td style="border-top: none;">
+                                            <br/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div class="row" style="font-size:15px;">
+                        <div class="col-xs-12 text-right">
+                            <span><b>Untaxed Amount:</b> <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></span><br/>
+                            <span><b>Tax:</b> <span t-field="o.amount_tax" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></span><br/>
+                            <span><b>Total:</b> <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/></span>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row" style="font-size:14px;">
+                        <!-- SOLD TO -->
+                        <div class="col-xs-4" style="border:1px solid black;padding: 10px;height: 150px;">
+                            <strong>Prepared By:</strong> <!-- <p t-field="o.create_uid.name"/> -->
+                            <div class="text-center">
+                                <t t-if="o.create_uid.e_signature">
+                                    <br/>
+                                    <img t-if="o.create_uid.e_signature" t-att-src="'data:image/png;base64,%s' % to_text(o.create_uid.e_signature)" width="130" height="65"/><br/>
+                                </t>
+                                <span t-field="o.create_uid.name"/>
+                                <!-- <br/> -->
+                                <!-- <span>____________________________</span><br/>
+                                <span t-if="o.is_purchase_manager == True">Purchasing Manager</span>
+                                <span t-if="o.is_purchase_manager != True">Purchasing Staff</span><br/> -->
+                            </div>
+                        </div>
+                        <div class="col-xs-4" style="border:1px solid black;padding: 10px;height: 150px;">
+                            <strong>Noted by:</strong>
+                            <div class="text-center">
+                                <t t-if="o.purchase_notedby_id">
+                                    <br/>
+                                    <img t-if="o.purchase_notedby_id.e_signature" t-att-src="'data:image/png;base64,%s' % to_text(o.purchase_notedby_id.e_signature)" width="130" height="65"/><br/>
+                                </t>
+                                <span t-if="o.purchase_notedby_id" t-field="o.purchase_notedby_id.name"/>
+                                <!-- Default Noted By if nothing is set in config -->
+                                <t t-if="not o.purchase_notedby_id">
+                                    <br/>
+                                    <img src="/ndm_ibas/static/img/po_sign_chua.jpg" width="130" height="65"/><br/>
+                                </t>
+                                <!-- <span t-if="not o.purchase_notedby_id">Roland Estranero</span> -->
+                                <span t-if="not o.purchase_notedby_id">Archie Gabriel T. Chua</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-4" style="border:1px solid black;padding: 10px;height: 150px;">
+                            <strong>Approved By:</strong> 
+                            <div class="text-center">
+                                <t t-if="o.state in ['purchase','done'] and o.purchase_approver_id.e_signature">
+                                    <br/>
+                                    <img t-if="o.purchase_approver_id.e_signature" t-att-src="'data:image/png;base64,%s' % to_text(o.purchase_approver_id.e_signature)" width="130" height="65"/><br/>
+                                    <span t-field="o.purchase_approver_id.name"/>
+                                </t>
+                                <t t-else="">
+                                    <t t-if="o.purchase_approver_id.e_signature or o.create_uid.e_signature">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                    <span>Darrell Sanchez</span>
+                                    <t t-if="o.purchase_approver_id.e_signature or o.create_uid.e_signature">
+                                        <br/>
+                                        <br/>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br/>
+
+                    <div class="row" style="font-size:12px;border:1px solid black;padding: 10px;">
+                        <strong>TERMS AND CONDITIONS:</strong>
+                        <p>
+                            1) We reserved the right to claim damages for or return inferior goods within a period of ninety (90) days from date of delivery <br/>
+                            2) This P.O must be attached to corresponding invoices on all deliveries <br/>
+                            3) Acceptance of the P.O must be unqualified <br/>
+                            4) Cancellation date of this P.O must be or before
+                        </p>
+                    </div>
+
+                </div>
+            </t>
+        </template>
+        <!-- END ORIGINAL PURCHASE QUOTATION / KONGKRETO -->
+
+        <template id="ndm_report_purchasequotation">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="'KONGKRETO' in o.company_id.name">
+                        <t t-call="ndm_ibas.ndm_report_purchase_quotation_kongkreto_document" t-lang="o.partner_id.lang"/>
+                    </t>
+                        
+                    <t t-else="">
+                        <t t-call="ndm_ibas.ndm_report_purchase_quotation_document" t-lang="o.partner_id.lang"/>
+                    </t> 
+                </t>
+            </t>
+        </template>
+
+        <template id="ndm_report_purchasequotation_kongkreto">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="'KONGKRETO' in o.company_id.name">
+                        <t t-call="ndm_ibas.ndm_report_purchase_quotation_kongkreto_document" t-lang="o.partner_id.lang"/>
+                    </t>
+                        
+                    <t t-else="">
+                        <t t-call="ndm_ibas.ndm_report_purchase_quotation_document" t-lang="o.partner_id.lang"/>
+                    </t> 
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

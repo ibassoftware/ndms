@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- START CHECK VOUCHER TEMPLATE -->
+		<template id="report_account_payment_check_voucher_document">
+			<t t-call="ndm_ibas.external_layout_ndm_account_payment_check_voucher">
+				<t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+				<div class="page" style="font-size:11px;border:1px solid black;padding: 10px;">
+
+					<img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % to_text(o.company_id.logo)" width="100%" height="80"/>
+
+					<br/>
+
+					<div class="row text-center">
+						<h6>CASH/CHECK VOUCHER</h6>
+					</div>
+
+					<br/>
+
+					<table style="border: none;" width="100%">
+						<tr>
+							<td colspan="4">
+							</td>
+							<td  width="20%" class="text-center" style="border-bottom: 1px solid black;">
+								<span t-field="o.name"/>
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10%">
+								<span>BANK</span>
+							</td>
+							<td width="45%" style="border-bottom: 1px solid black;">
+								<span t-field="o.journal_id.name"/>
+							</td>
+							<td width="10%" style="border-bottom: 1px solid white;">
+								<span>Check #</span>
+							</td>
+							<td width="15%" style="border-bottom: 1px solid black;">
+								<span t-field="o.check_number"/>
+							</td>
+							<td  width="20%" class="text-center">
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10%" style="padding-top: 15px;">
+								<span>PAYEE</span>
+							</td>
+							<td colspan="3" style="border-bottom: 1px solid black; padding-top: 15px;">
+								<span t-field="o.partner_id.name"/>
+							</td>
+							<td  width="20%" style="border-bottom: 1px solid black; padding-top: 15px;" class="text-right">
+								<span t-field="o.payment_date"/>
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10%" style="padding-top: 15px;">
+								<span>AMOUNT</span>
+							</td>
+							<td colspan="3" style="border-bottom: 1px solid black; padding-top: 15px;">
+								<span t-field="o.check_amount_in_words"/>
+							</td>
+							<td  width="20%" style="border-bottom: 1px solid black; padding-top: 15px;" class="text-right">
+								<span t-field="o.amount"/>
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10%" style="padding-top: 15px;">
+							</td>
+							<td width="45%" style="padding-top: 15px;">
+							</td>
+							<td colspan="2" style="padding-top: 15px;">
+								<span>Approved By:</span>
+							</td>
+							<td  width="20%" style="padding-top: 15px;">
+								<span>Approved By:</span>
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10%" style="padding-top: 15px;">
+							</td>
+							<td width="45%" style="padding-top: 15px;">
+							</td>
+							<td colspan="2" style="border-bottom: 1px solid black; padding-top: 15px;">
+							</td>
+							<td width="20%" style="border-bottom: 1px solid black; padding-top: 15px;">
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10%" style="padding-top: 15px;">
+							</td>
+							<td width="45%" style="padding-top: 15px;">
+							</td>
+							<td colspan="2" style="padding-top: 15px;" class="text-center">
+								<span>SUSANA M. SANCHEZ</span>
+							</td>
+							<td width="20%" style="padding-top: 15px;" class="text-center">
+								<span>NOLANDO B. SANCHEZ</span>
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10%" style="padding-top: 5px;">
+							</td>
+							<td width="45%" style="padding-top: 5px;">
+							</td>
+							<td colspan="2" style="padding-top: 5px;" class="text-center">
+								<span>Finance Controller</span>
+							</td>
+							<td width="20%" style="padding-top: 5px;" class="text-center">
+								<span>President/CEO</span>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="5" style="padding-top: 15px; padding-left: 10px;">
+								<span>In payment for:</span><br/>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="5" style="padding-top: 15px; padding-left: 25px;" height="200px">
+								<span>In payment for:</span><br/>
+								<span t-field="o.communication"/>
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10%" style="padding-top: 5px;">
+							</td>
+							<td width="45%" style="padding-top: 5px;">
+								<span>Prepared By:</span>
+							</td>
+							<td width="10%" style="padding-top: 5px;">
+							</td>
+							<td colspan="2" style="padding-top: 5px;" >
+								<span>Received By (Signature over Printed Name)</span>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="2" style="border-bottom: 1px solid black; padding-top: 15px;">
+							</td>
+							<td width="10%" style="border-bottom: 1px solid white; padding-top: 15px;">
+							</td>
+							<td colspan="2" style="border-bottom: 1px solid black; padding-top: 15px;">
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="5" style="padding-top: 15px;" >
+								<span>Distribution of Account</span>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="3" style="padding-top: 15px;" class="text-center">
+								<span>ACCOUNT TITLE</span>
+							</td>
+							<td width="20%" style="padding-top: 15px;">
+							</td>
+							<td width="20%" style="padding-top: 15px;" class="text-center">
+								<span>CREDIT</span>
+							</td>
+						</tr>
+
+						<tr>
+							<td colspan="5" style="padding-top: 15px;" height="130px">
+							</td>
+						</tr>
+
+						<tr>
+							<td width="10%" style="padding-top: 15px;">
+								<span>Total</span>
+							</td>
+							<td colspan="3" style="padding-top: 15px;">
+							</td>
+							<td width="20%" style="border-bottom: 1px solid black; padding-top: 15px;" >
+							</td>
+						</tr>
+
+					</table>
+
+
+
+					
+				</div>
+			</t>
+		</template>
+		<!-- END CHECK VOUCHER TEMPLATE -->
+
+		<template id="report_account_payment_check_voucher">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="ndm_ibas.report_account_payment_check_voucher_document" t-lang="o.partner_id.lang"/>
+				</t>
+			</t>
+		</template>
+
+	</data>
+</odoo>

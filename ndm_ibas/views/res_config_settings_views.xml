@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_config_settings_view_form_purchase_extend" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.purchase.extend</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='po_lock']" position="after">
+            	<!-- <div class="app_settings_block" position="inside"> -->
+                    <h2>Purchase Approvals</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-6 o_setting_box" title="Purchase Default Approvals">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="purchase_approver_id"/>
+                                <div class="text-muted">
+                                    Purchase Default Approver
+                                </div>
+                                <div class="content-group">
+                                    <field name="purchase_approver_id"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box" title="Purchase Default Noted By">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="purchase_notedby_id"/>
+                                <div class="text-muted">
+                                    Purchase Default Noted By
+                                </div>
+                                <div class="content-group">
+                                    <field name="purchase_notedby_id"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box" title="Purchase Default Noted By">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="purchase_preparedby_id"/>
+                                <div class="text-muted">
+                                    Purchase Default Prepared By
+                                </div>
+                                <div class="content-group">
+                                    <field name="purchase_preparedby_id"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- </div> -->
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="res_config_settings_view_form_account_extend" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.account.extend</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='invoicing_settings']" position="inside">
+                    <div class="col-xs-12 col-md-6 o_setting_box" title="Invoice Default Approvals">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <label for="invoice_approver_id"/>
+                            <div class="text-muted">
+                                Invoice Default Approver
+                            </div>
+                            <div class="content-group">
+                                <field name="invoice_approver_id"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

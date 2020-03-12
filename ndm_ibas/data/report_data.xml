@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="account.account_invoices" model="ir.actions.report">
+			<field name="binding_model_id" eval="False"/>
+		</record>
+		<record id="account.account_invoices_without_payment" model="ir.actions.report">
+			<field name="binding_model_id" eval="False"/>
+		</record>
+		<record id="purchase.action_report_purchase_order" model="ir.actions.report">
+			<field name="binding_model_id" eval="False"/>
+		</record>
+		<record id="purchase.report_purchase_quotation" model="ir.actions.report">
+			<field name="binding_model_id" eval="False"/>
+		</record>
+
+
+		<!-- CHECK -->
+        <report id="l10n_us_check_printing.action_print_check_middle"
+            string="Print Check Voucher"
+            model="account.payment"
+            name="Print Check Voucher"
+            file="l10n_us_check_printing.print_check_middle"
+            report_type="qweb-pdf"
+            attachment_use="True"
+            attachment="'check_'+(object.partner_id and object.partner_id.name or 'Internal')+'_'+(object.name)+'_middle.pdf'"
+            paperformat="l10n_us_check_printing.paperformat_check_us"
+            print_report_name="'Check Voucher - %s' % (object.partner_id.name or '',)"
+            menu="False"
+        />
+
+        <report id="l10n_us_check_printing.action_print_check_bottom"
+            string="Print Check (Bottom)"
+            model="account.payment"
+            name="l10n_us_check_printing.print_check_bottom"
+            file="l10n_us_check_printing.print_check_bottom"
+            report_type="qweb-pdf"
+            attachment_use="True"
+            attachment="'check_'+(object.partner_id and object.partner_id.name or 'Internal')+'_'+(object.name)+'_bottom.pdf'"
+            paperformat="l10n_us_check_printing.paperformat_check_us"
+            print_report_name="'Check Bottom - %s' % (object.partner_id.name or '',)"
+            menu="False"
+        />
+
+        <!-- <function model="account.payment" name="compute_check_amount_in_words"/> -->
+		
+	</data>
+</odoo>

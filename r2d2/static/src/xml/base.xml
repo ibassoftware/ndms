@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="DashboardShare">
+        <t t-jquery=".user-heading h3" t-operation="replace">
+            <h3>
+                Odoo 11
+            </h3>
+        </t>
+        <t t-jquery=".user-heading h5" t-operation="replace">
+            <t t-set="expiration_date" t-value="new moment(widget.data.expiration_date).format('LL')"/>
+            <t t-if="expiration_date">
+                <h5>License: Perpetual</h5>
+            </t>
+        </t>
+
+        <t t-jquery=".user-heading h5" t-operation="after">
+                <h5>Excode Innovations Corp</h5>
+        </t>
+    </t>
+
+    <t t-extend="AppSwitcher.Content">
+        <t t-jquery=".o_application_switcher_footer" t-operation="replace">
+            <div class="o_application_switcher_footer">
+                <img src="/r2d2/static/src/img/ibasLogo.png"/>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="UserMenu.Actions">
+        <t t-jquery="[data-menu='documentation']" t-operation="replace">           
+        </t>
+        <t t-jquery="[data-menu='support']" t-operation="replace">           
+        </t>
+        <t t-jquery="[data-menu='account']" t-operation="replace">           
+        </t>
+    </t>
+
+
+</templates>
