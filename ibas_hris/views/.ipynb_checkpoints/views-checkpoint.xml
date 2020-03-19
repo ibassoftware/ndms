@@ -142,6 +142,9 @@
                </page>
                 
               </xpath>
+              <xpath expr="//field[@name='user_id']" position="after">
+                <field name="regularized"/>
+              </xpath>
 
           </field>
       </record>
