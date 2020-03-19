@@ -91,10 +91,8 @@
                </xpath>
 
               <xpath expr="//field[@name='barcode']" position="replace">
-                
                 <field name="employee_number"/>
                 <field name="bio_number"/>
-                
                </xpath>
 
                

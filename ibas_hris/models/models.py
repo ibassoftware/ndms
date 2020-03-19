@@ -180,7 +180,22 @@ class ibas_employee(models.Model):
 
     work_sched = fields.Many2one('resource.calendar', string='Work Shift')
 
-    regularized = fields.Boolean(string="Regularized")
+    regularized = fields.Boolean(
+        compute='_compute_regular', string="Regularized")
+
+    @api.multi
+    def _compute_regular(self):
+        employee_id = self.id
+        contract_obj = self.env['hr.contract']
+        contract_type_obj = self.env['hr.contract.type']
+
+        hr_contract_type = contract_type_obj.search([('name', '=', 'Regular')])
+        hr_contract = contract_obj.search(
+            [('employee_id', '=', employee_id), ('state', '=', 'open'), ('type_id', '=', hr_contract_type.id)])
+
+        for rec in self:
+            if hr_contract:
+                rec.regularized = True
 
     @api.model
     def create(self, vals):

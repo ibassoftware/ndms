@@ -40,6 +40,25 @@
 
         </template>    
 
+    <!-- Confidentiality Agreement -->
+        <template id="ibas_external_layout_boxed2">
+            <div class="header">
+                <div>
+                    <div class="col-xs-12">
+                        <p>
+                            <img src="/ibas_hris/static/src/img/ndmlogo.jpg"  style="width:480px;height:65px;" />
+                            <img src="/ibas_hris/static/src/img/uaf_logo.png" style="width:165px;height:65px;"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="article">
+                <t t-raw="0" />
+            </div>
+
+        </template>       
+
     <!-- Probationary Appointment -->
     <template id="probationary_contract">
         <t t-call="web.html_container">
@@ -189,11 +208,11 @@
 
                             <table style="width: 100%;">
                             <tr>
-                            <td class="p-left">
+                            <td class="p-left-200">
                             <span class="overline"><strong>Susana M. Sanchez</strong></span>
                             <br />Chief Finance Officer</td> 
                             
-                            <td class="p-left-10">
+                            <td class="p-left-110">
                             <span class="overline"><strong>Engr. Nolando Sanchez</strong></span>
                             <br />President and CEO</td>
                             </tr>            
@@ -205,6 +224,146 @@
                             <p>Conforme: <u> <span t-field="doc.first_name"/> <span t-field="doc.last_name"/> </u> </p>
                             <p>Date <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/></p>
 
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Confidentiality Agreement -->
+    <template id="confidentiality_agreement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ibas_hris.ibas_external_layout_boxed2">
+                    <div class="page">
+                        <p style="text-align: center;"><strong>CONFIDENTIALITY AGREEMENT</strong></p>
+                        <p> This agreement is made and executed by and between NDM Sanchez Builders and Development Corporation; 
+                        the Company and <span t-field="doc.last_name"/>, <span t-field="doc.first_name"/>, <span t-field="doc.job_id"/>; the employee;</p>
+                        <p>In that during the course of employment with the Company, 
+                        the employee is subject to this Confidentiality Agreement.</p>
+
+                        <p>
+                         Employee shall not disclose CONFIDENTIAL INFORMATION to third parties nor use CONFIDENTIAL INFORMATION 
+                         for any purposes whatsoever except for the purpose of performing services on behalf of the Company or for 
+                         performing necessary activities on the job.  CONFIDENTIAL INFORMATION means all Company or client supplied materials 
+                         and all non-public materials received from and/or pertaining to the business of the Company and/or clients including 
+                         the following:
+                        </p>
+                        <br/>
+                        <ul>
+                            <li>Communications – written such as e-mail messages and faxes especially from clients,
+                             reports as well as verbal messages</li>
+                            <li>Project names</li>
+                            <li>Client Information</li>
+                            <li>Systems and Project Design</li>
+                            <li>Pricing and Volume</li>
+                            <li>Prospective and Existing Customer List</li>
+                            <li>Business Development and Marketing Directions</li>
+                            <li>Financial Data</li>
+                            <li>Accounting Data</li>
+                            <li>Cost and Pricing Formulas</li>
+                            <li>Tax Matters/Situation</li>
+                            <li>Corporate/Customer/Supplier Contract Terms/Conditions</li>
+                            <li>Corporate Policies and Procedures</li>
+                            <li>Legal Matters   </li>
+                            <li>Corporate Background Data</li>
+                            <li>Minutes of Board Meetings</li>
+                            <li>Payroll</li>
+                        </ul>
+                        <p> Any breach or violation of this Confidentiality Agreement may result to termination of employment with the 
+                            Company and possible prosecution under the following provisions of the Company’s Code of Conduct:
+                        </p>
+                        <br/>
+                        <ul>
+                            <li>Willfully divulging, releasing or giving out Company’s confidential information or records to unauthorized persons.</li>
+                            <li>Unauthorized disclosure of production, business or trade secrets.</li>
+                        </ul>
+                        <p>Please acknowledge receipt and signify conformity.</p>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        
+
+                        <table style="width: 100%;">
+                            <tr style="text-align: center;">
+                                <td><span t-field="doc.first_name"/>, <span t-field="doc.last_name"/></td>
+                                <td></td>
+                                <td><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">_____________________</td>
+                                <td style="text-align: center;">_________________________</td>
+                                <td style="text-align: center;">_____________________</td>
+                            </tr>
+                             <tr style="text-align: center;">
+                                <td>Printed name</td>
+                                <td>Signature</td>
+                                <td>Date</td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Orientation Checklist -->
+    <template id="orientation_checklist">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ibas_hris.ibas_external_layout_boxed2">
+                    <div class="page">
+                     <link href="/ibas_hris/static/css/ibas.css"
+                                rel="stylesheet" type="text/css"/>
+                        <p style="text-align: center;"><strong>ORIENTATION CHECKLIST</strong></p>
+                        <p><strong>Documentation:  Necessary papers to be signed and requirements to be submitted</strong></p>
+                    
+                        <ol class="m-left-62 line-height-2">
+                            <li>Hiring Contract/Job Description/Position Orientation/Major Duties and Responsibilities</li>
+                            <li>Confidentiality Agreement</li>
+                            <li>Social Security System (SSS) / Tax Identification Number (TIN)</li>
+                            <li>Philippine Health Insurance Corporation – Philhealth</li>
+                            <li>Home Development Mutual Fund – HDMF or Pag-ibig Fund    </li>
+                            <li>Police Clearance and/or NBI Clearance/Barangay Certificate</li>
+                            <li>Medical Tests/Drug test/X-Ray/Others – expenses will be shouldered by the newly hired 
+                            employee while succeeding required annual tests during the employment will be shouldered by the company.</li>
+                        </ol>
+                        <br/>
+                        <p><strong>Getting started:  Orientation on the following company details</strong></p>
+                     
+                        <ol class="m-left-62 line-height-2">
+                            <li>Company and Departmental Organizational Chart </li>
+                            <li>Company Policy and Employee Manual
+                                <ul>
+                                    <li>Work shift hours and Overtime; Cut-off and Pay days; Dress Code and Uniform; 
+                                    Filing of Leave of Absence, Undertime and Tardiness; Lunch and Snack Breaks; </li>
+                                </ul>
+                            </li>
+                            <li>Company Safety Rules and Health Hazard – let the new employee provide a list of names, 
+                            addresses and contact numbers of persons to contact for emergency cases; 
+                            Orientation will be based on Safety Procedure from ISO </li>
+                            <li>Introduction to assigned department and co-employees and/or Work Site Familiarization/Tour of the work areas and other facilities of the company (files/records; lunch and restroom areas; 
+                            office supplies and other special equipment; Policies on telephone, mobile and internet usage)</li>
+                        </ol>
+                     
+                        <p><strong>Departmental Orientation: Introduce to Department Head and co-employees/staff</strong></p>
+                        <ol class="m-left-62 line-height-2">
+                        <li>Departmental Policies and House Rules – Proper completion and deadlines; Assignment of initial work items; 
+                        Performance expectations; General operating procedure</li>   
+                        <li>Performance Standards and Training Procedures: (Ask new hire if he has attended training and/or seminars which may be related to his present job assignment; 
+                        Set a performance rating for the new hire as guidelines for his evaluation.) </li>   
+                        </ol>
+                        <p> This is to acknowledge that all the above details have been discussed and oriented to me clearly.   
+                        Any concerns which may arise from the above orientation should be discussed and be given priority actions. </p>  
+                        <br/>
+                        <p>Conforme:</p>
+                        <br/>
+                        <br/>
+                        <p><span t-field="doc.first_name"/> <span t-field="doc.last_name"/></p>
+                        <p class="overline">Printed Name and Signature</p>
+                        <br/>
+                        <p>Date: <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/> </p>
                     </div>
                 </t>
             </t>
