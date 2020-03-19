@@ -14,11 +14,11 @@
   margin-right: 17px;
 }
 
-.p-left {
+.p-left-200 {
   padding-left: 200px;
 }
 
-.p-left-10 {
+.p-left-110 {
   padding-right: 110px;
   float: left;
 }
@@ -45,4 +45,8 @@ p {
 
 .overline {
   text-decoration: overline;
+}
+
+.line-height-2 {
+  line-height: 2;
 }
