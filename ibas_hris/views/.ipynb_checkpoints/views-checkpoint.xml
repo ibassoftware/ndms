@@ -189,6 +189,36 @@
         file="ibas_hris.probationary_contract"
       />
 
+      <report
+        id="action_report_ibas_employee_regularisation"
+        model="hr.employee"
+        string="Print Memo for Regularisation"
+        report_type="qweb-pdf"
+        name="ibas_hris.memo_of_regularization"
+        file="ibas_hris.memo_of_regularization"
+      />
+
+      <!-- Report Paper Formats -->
+        <record id="paperformat_regularization" model="report.paperformat">
+            <field name="name">Memo of Regularization</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">35</field>
+            <field name="margin_bottom">3</field>
+            <field name="margin_left">20</field>
+            <field name="margin_right">20</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+      <!-- Apply Paper Formats -->
+        <record id="ibas_hris.action_report_ibas_employee_regularisation" model="ir.actions.report">
+            <field name="paperformat_id" ref="ibas_hris.paperformat_regularization" />
+        </record> 
+
 
     <!-- explicit list view definition -->
     <!--

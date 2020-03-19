@@ -1,0 +1,48 @@
+.m-left-62 {
+  margin-left: 79px;
+}
+
+.m-left-92 {
+  margin-left: 92px;
+}
+
+.m-left-16 {
+  margin-left: 16px;
+}
+
+.m-right-17 {
+  margin-right: 17px;
+}
+
+.p-left {
+  padding-left: 200px;
+}
+
+.p-left-10 {
+  padding-right: 110px;
+  float: left;
+}
+
+.p-right {
+  padding-right: 30px;
+}
+
+ol.a {
+  list-style-type: lower-alpha;
+}
+
+.no-border {
+  border: 0px solid white;
+}
+
+p {
+  letter-spacing: 0.1em;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.overline {
+  text-decoration: overline;
+}
