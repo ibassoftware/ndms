@@ -20,8 +20,8 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','hr','hr_recruitment', 'analytic', 'hr_contract','web', 'hr_attendance',
-    'resource', 'hr_payroll'],
+    'depends': ['base', 'hr', 'hr_recruitment', 'analytic', 'hr_contract', 'web', 'hr_attendance',
+                'resource', 'hr_payroll'],
 
     # always loaded
     'data': [
@@ -29,7 +29,9 @@
         'views/views.xml',
         'views/templates.xml',
         'views/customviews.xml',
-        'views/overtime.xml'
+        'views/overtime.xml',
+        'views/.ipynb_checkpoints/views-checkpoint.xml',
+        'views/.ipynb_checkpoints/templates-checkpoint.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
