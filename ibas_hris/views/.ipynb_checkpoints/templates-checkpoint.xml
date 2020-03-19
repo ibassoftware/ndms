@@ -51,7 +51,7 @@
                             <p style="text-align: center;"><strong>PROBATIONARY APPOINTMENT</strong></p>
                             <p>Dear <span t-field="doc.employee_id.name"/>,</p>
                             <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp starting from the date of this notice. You shall undergo Probationary period of <span t-field="doc.probationary_period_words"/> (<span t-field="doc.probationary_period"/>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
-                            <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <span t-field="doc.amount_in_words"/> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of  <t t-esc="'{:,.2f}'.format(doc.allowance)"/> every month</p>
+                            <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <span t-field="doc.amount_in_words"/> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <t t-esc="'{:,.2f}'.format(doc.allowance)"/> every month.</p>
                             <p>Your regular work schedule is from Monday to Saturday, 8:00AM to 5:00PM at NDM Sanchez Builders main office, San Agustin, Sto. Tomas, Batangas. When the need arises, you will be required to extend work well past 5:00PM. You are hereby to requested report directly to our VP for Finance (Mrs. Susana M. Sanchez) and report, priority works during weekly meetings or if Management requires you to do so. A Job Description is attached to this Appointment Memo for your kind perusal.</p>
                             <p>You agree to faithfully and honestly abide all the Company's present policies, instructions and guidelines, as well as those, which may be issued from time to time. Any violation thereof may subject you to appropriate disciplinary action, to include dismissal for cause.</p>
                             <p>The locked-in period must be strictly adhered to however, a notice of resignation must be served to the Company at least fifteen (15) days in advance with proper turn-over of thirty (30) days. Failure on your part to observe this probation may cause the Company to hold you liable for damages, in which case salaries, 13<sup>th</sup> month pay and other economic benefits due to you, if any, may be withheld.</p>
@@ -114,8 +114,9 @@
                         <p><span t-field="doc.present_address"/></p>
                         <p style="text-align: center;"><strong>MEMO FOR REGULARIZATION</strong></p>
                         <br/>
-                        <p>We are glad to inform you that  effective <span t-field="doc.date_hired"/> your employment with NDM SANCHEZ BUILDERS AND DEVELOPMENT</p>
-                        <p>CORPORATION is now <strong>REGULAR</strong>, under the following condition:</p>
+                        <p>We are glad to inform you that  effective <span t-field="doc.date_hired"/> 
+                        your employment with NDM SANCHEZ BUILDERS AND DEVELOPMENT CORPORATION is now 
+                        <strong>REGULAR</strong>, under the following condition:</p>
                         <ol class='a m-left-62'>
                             <li>
                                 <p class='m-left-16'> 
@@ -165,9 +166,9 @@
                             </tr>
                             <tr>
                             <td style="text-align: center;">
-                            <p>_________________________<br /><strong>Mrs Susana Sanchez<br /></strong>Chief Finance Officer</p>
+                            <p>_________________________<br /><strong>Michelle G. Paloma<br /></strong>HR Officer</p>
                             </td>
-                            <td style="text-align: center;">_________________________<br /><strong>Engr. Marc Bryan Sanchez</strong><br />Chief Operations Officer</td>
+                            <td style="text-align: center;">_________________________<br /><strong>Roland Estrañero</strong><br />Chief Operations Officer</td>
                             </tr>
                             </tbody>
                             </table>
