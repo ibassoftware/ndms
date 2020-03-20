@@ -65,12 +65,12 @@
             <t t-foreach="docs" t-as="doc">
                 <t t-call="ibas_hris.ibas_external_layout_boxed">
                     <div class="page">
-                            <p><span t-field="doc.employee_id.name"/></p>
-                            <p><span t-field="doc.employee_id.present_address"/></p>
+                            <p><strong><span t-field="doc.employee_id.name"/></strong></p>
+                            <p><strong><span t-field="doc.employee_id.present_address"/></strong></p>
                             <p style="text-align: center;"><strong>PROBATIONARY APPOINTMENT</strong></p>
-                            <p>Dear <span t-field="doc.employee_id.name"/>,</p>
-                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp starting from the date of this notice. You shall undergo Probationary period of <span t-field="doc.probationary_period_words"/> (<span t-field="doc.probationary_period"/>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
-                            <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <span t-field="doc.amount_in_words"/> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <t t-esc="'{:,.2f}'.format(doc.allowance)"/> every month.</p>
+                            <p>Dear <strong><span t-field="doc.employee_id.name"/></strong>,</p>
+                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp starting from the date of this notice. You shall undergo Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                            <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
                             <p>Your regular work schedule is from Monday to Saturday, 8:00AM to 5:00PM at NDM Sanchez Builders main office, San Agustin, Sto. Tomas, Batangas. When the need arises, you will be required to extend work well past 5:00PM. You are hereby to requested report directly to our VP for Finance (Mrs. Susana M. Sanchez) and report, priority works during weekly meetings or if Management requires you to do so. A Job Description is attached to this Appointment Memo for your kind perusal.</p>
                             <p>You agree to faithfully and honestly abide all the Company's present policies, instructions and guidelines, as well as those, which may be issued from time to time. Any violation thereof may subject you to appropriate disciplinary action, to include dismissal for cause.</p>
                             <p>The locked-in period must be strictly adhered to however, a notice of resignation must be served to the Company at least fifteen (15) days in advance with proper turn-over of thirty (30) days. Failure on your part to observe this probation may cause the Company to hold you liable for damages, in which case salaries, 13<sup>th</sup> month pay and other economic benefits due to you, if any, may be withheld.</p>
@@ -111,9 +111,8 @@
                             <br/>
                             <br/>
                             <br/>
-                            <p>Conforme: <br/> _______________________________</p>
-                            <p>_______________________________</p>
-                            <p>Date ________________________________</p>
+                            <p>Conforme: <u> <span t-field="doc.employee_id.first_name"/> <span t-field="doc.employee_id.last_name"/> </u> </p>
+                            <p>Date <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/></p>
                     </div>
                 </t>
             </t>
@@ -128,19 +127,19 @@
                     <div class="page">
                         <link href="/ibas_hris/static/css/ibas.css"
                                 rel="stylesheet" type="text/css"/>
-                        <p><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/> </p>
-                        <p><span t-field="doc.first_name"/> <span t-field="doc.last_name"/></p>
-                        <p><span t-field="doc.present_address"/></p>
+                        <p><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong></p>
+                        <p><strong><span t-field="doc.first_name"/> <span t-field="doc.last_name"/> </strong></p>
+                        <p><strong><span t-field="doc.present_address"/></strong></p>
                         <p style="text-align: center;"><strong>MEMO FOR REGULARIZATION</strong></p>
                         <br/>
-                        <p>We are glad to inform you that  effective <span t-field="doc.date_hired"/> 
+                        <p>We are glad to inform you that  effective <strong><span t-field="doc.date_hired"  t-field-options='{"format": "MMMM d y"}'/></strong> 
                         your employment with NDM SANCHEZ BUILDERS AND DEVELOPMENT CORPORATION is now 
                         <strong>REGULAR</strong>, under the following condition:</p>
                         <ol class='a m-left-62'>
                             <li>
                                 <p class='m-left-16'> 
                                 Your official designation in the company in the company is
-                                <span t-field="doc.job_id"/> with a monthly basic rate of 
+                                <strong><span t-field="doc.job_id"/></strong> with a monthly basic rate of 
                                 <strong> Php <t t-esc="'{:,.2f}'.format(doc.contract_id.wage)"/></strong> and 
                                 <strong>Php <t t-esc="'{:,.2f}'.format(doc.contract_id.allowance)"/> </strong>
                                 monthly allowance at the date herein stated.</p>
@@ -221,8 +220,8 @@
                             <br/>
                             <br/>
                             <br/>
-                            <p>Conforme: <u> <span t-field="doc.first_name"/> <span t-field="doc.last_name"/> </u> </p>
-                            <p>Date <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/></p>
+                            <p>Conforme: <u> <span class="uppercase" t-field="doc.first_name"/> <span class="uppercase" t-field="doc.last_name"/> </u> </p>
+                            <p>Date <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/></p>
 
                     </div>
                 </t>
@@ -236,9 +235,12 @@
             <t t-foreach="docs" t-as="doc">
                 <t t-call="ibas_hris.ibas_external_layout_boxed2">
                     <div class="page">
+                        <link href="/ibas_hris/static/css/ibas.css"
+                                rel="stylesheet" type="text/css"/>
                         <p style="text-align: center;"><strong>CONFIDENTIALITY AGREEMENT</strong></p>
                         <p> This agreement is made and executed by and between NDM Sanchez Builders and Development Corporation; 
-                        the Company and <span t-field="doc.last_name"/>, <span t-field="doc.first_name"/>, <span t-field="doc.job_id"/>; the employee;</p>
+                        the Company and <strong><span t-field="doc.last_name"/></strong> <strong><span t-field="doc.first_name"/></strong>, 
+                        <strong><span t-field="doc.job_id"/></strong>; the employee;</p>
                         <p>In that during the course of employment with the Company, 
                         the employee is subject to this Confidentiality Agreement.</p>
 
@@ -287,9 +289,9 @@
 
                         <table style="width: 100%;">
                             <tr style="text-align: center;">
-                                <td><span t-field="doc.first_name"/>, <span t-field="doc.last_name"/></td>
+                                <td><span class="uppercase" t-field="doc.first_name"/> <span class="uppercase" t-field="doc.last_name"/></td>
                                 <td></td>
-                                <td><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/></td>
+                                <td><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/></td>
                             </tr>
                             <tr>
                                 <td style="text-align: center;">_____________________</td>
@@ -360,10 +362,10 @@
                         <p>Conforme:</p>
                         <br/>
                         <br/>
-                        <p><span t-field="doc.first_name"/> <span t-field="doc.last_name"/></p>
+                        <p class='uppercase'><span t-field="doc.first_name"/> <span t-field="doc.last_name"/></p>
                         <p class="overline">Printed Name and Signature</p>
                         <br/>
-                        <p>Date: <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/> </p>
+                        <p>Date: <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </p>
                     </div>
                 </t>
             </t>

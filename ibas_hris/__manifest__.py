@@ -30,8 +30,10 @@
         'views/templates.xml',
         'views/customviews.xml',
         'views/overtime.xml',
+        'views/rate_adjustment_view.xml',
         'views/.ipynb_checkpoints/views-checkpoint.xml',
         'views/.ipynb_checkpoints/templates-checkpoint.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
