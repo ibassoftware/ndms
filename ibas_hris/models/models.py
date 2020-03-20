@@ -183,6 +183,35 @@ class ibas_employee(models.Model):
     regularized = fields.Boolean(
         compute='_compute_regular', string="Regularized")
 
+    rate_of_adjustment_ids = fields.One2many(
+        'ibas_hris.rate_adjustment', 'employee_id', string="adjustment")
+
+    @api.multi
+    def open_roa(self):
+
+        rate_of_adjustment_id = self.rate_of_adjustment_ids[0].id
+        # Open Payment Entry Form
+        imd = self.env['ir.model.data']
+        action = imd.xmlid_to_object(
+            'ibas_hris.action_ibas_hris_rate_adjustment')
+        kanban_view_id = imd.xmlid_to_res_id(
+            'ibas_hris.ibas_hris_rate_adjustment_view_kanban')
+        form_view_id = imd.xmlid_to_res_id(
+            'ibas_hris.ibas_hris_rate_adjustment_view_form')
+
+        result = {
+            'name': action.name,
+            'help': action.help,
+            'type': action.type,
+            'views': [[kanban_view_id, 'kanban'], [form_view_id, 'form']],
+            'target': action.target,
+            # 'context': action.context,
+            'res_model': action.res_model,
+            'res_id': rate_of_adjustment_id,
+        }
+        result['domain'] = "[('id','=',%s)]" % rate_of_adjustment_id
+        return result
+
     @api.multi
     def _compute_regular(self):
         employee_id = self.id

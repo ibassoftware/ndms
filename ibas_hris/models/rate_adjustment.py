@@ -13,8 +13,46 @@ class RateAdjustment(models.Model):
     _inherit = ['mail.thread']
     _description = 'Rate Adjustment'
 
+    name = fields.Char('Ref')
+    state = fields.Selection([
+        ('draft', 'New'),
+        ('pending', 'For Approval'),
+        ('approved', 'Approved'),
+        ('close', 'Expired'),
+        ('cancel', 'Cancelled')
+    ], string='Status', group_expand='_expand_states', track_visibility='onchange', default='draft')
+    # left
     employee_id = fields.Many2one(
         'hr.employee', string='Employee', required=True)
     appointment = fields.Char('Appointment')
-    job_id = fields.Many2one(
-        'hr.job', string='Position', required=True)
+    job_id = fields.Many2one('hr.job', string='Position')
+    grade = fields.Float('Grade Level')
+    salary = fields.Monetary('Monthly Salary', digits=(
+        16, 2), track_visibility="onchange")
+    department_id = fields.Many2one('hr.department', string='Project/Dept.')
+    company_id = fields.Many2one(
+        'res.company', default=lambda self: self.env.user.company_id)
+    currency_id = fields.Many2one(
+        string="Currency", related='company_id.currency_id', readonly=True)
+    # right
+    date_adj = fields.Date('Date')
+    employee_to = fields.Many2one('hr.employee', string='To:')
+    employee_from = fields.Many2one('hr.employee', string='From:')
+    recb = fields.Char('Recommended by')
+    recbd = fields.Char('Recommended by Designation')
+    appb_one = fields.Char('Approved by(1)')
+    appbd_one = fields.Char('Approved by Designation (1)')
+    appb_two = fields.Char('Approved by(2)')
+    appbd_two = fields.Char('Approved by Designation (2)')
+    # Adjustment tab
+    recommendation = fields.Char('Recommendation')
+    effect_from = fields.Date('Effectivity From:')
+    effect_to = fields.Date('Effectivity To:')
+    position = fields.Char('Position')
+    grade_adj = fields.Float('Grade Level')
+    rate_adjust = fields.Monetary('Rate Adjust', digits=(
+        16, 2), track_visibility="onchange")
+    department_adj_id = fields.Char('Project/Dept.')
+
+    def _expand_states(self, states, domain, order):
+        return [key for key, val in type(self).state.selection]

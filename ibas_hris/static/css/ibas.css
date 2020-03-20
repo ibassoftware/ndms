@@ -50,3 +50,11 @@ p {
 .line-height-2 {
   line-height: 2;
 }
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
