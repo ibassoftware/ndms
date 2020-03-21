@@ -65,6 +65,7 @@
             <t t-foreach="docs" t-as="doc">
                 <t t-call="ibas_hris.ibas_external_layout_boxed">
                     <div class="page">
+                            <p><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong></p>
                             <p><strong><span t-field="doc.employee_id.name"/></strong></p>
                             <p><strong><span t-field="doc.employee_id.present_address"/></strong></p>
                             <p style="text-align: center;"><strong>PROBATIONARY APPOINTMENT</strong></p>
@@ -111,8 +112,9 @@
                             <br/>
                             <br/>
                             <br/>
-                            <p>Conforme: <u> <span t-field="doc.employee_id.first_name"/> <span t-field="doc.employee_id.last_name"/> </u> </p>
-                            <p>Date <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/></p>
+                            <p>Conforme: <br/> _______________________________</p>
+                            <p>_______________________________</p>
+                            <p>Date ________________________________</p>
                     </div>
                 </t>
             </t>
@@ -216,13 +218,12 @@
                             <br />President and CEO</td>
                             </tr>            
                             </table>
-    
                             <br/>
                             <br/>
                             <br/>
-                            <p>Conforme: <u> <span class="uppercase" t-field="doc.first_name"/> <span class="uppercase" t-field="doc.last_name"/> </u> </p>
-                            <p>Date <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/></p>
-
+                            <p>Conforme: <br/> _______________________________</p>
+                            <p>_______________________________</p>
+                            <p>Date ________________________________</p>
                     </div>
                 </t>
             </t>
