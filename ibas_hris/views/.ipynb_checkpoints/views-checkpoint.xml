@@ -150,7 +150,9 @@
 
               <xpath expr="//button[@name='536']" position="before">
                 <button string="Lateral Transfer" class="oe_stat_button" icon="fa-book" type="object"/>
-                <button name="open_roa" string="Rate of Adjustment" class="oe_stat_button" icon="fa-book" type="object"/>
+                <button name="open_roa" class="oe_stat_button" icon="fa-book" type="object">
+                  <span> <field name="count_roa"/> Rate of Adjustment</span>
+                </button>
               </xpath>
 
           </field>
