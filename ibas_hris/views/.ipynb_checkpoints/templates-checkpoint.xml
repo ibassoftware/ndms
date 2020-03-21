@@ -21,7 +21,8 @@
             </div>
         </template>
 
-     <!-- Memo of Regularization -->
+        <!-- Memo of Regularization -->
+        <!-- Confidentiality Agreement -->
         <template id="ibas_external_layout_boxed2">
             <div class="header">
                 <div>
@@ -40,7 +41,7 @@
 
         </template>    
 
-    <!-- Confidentiality Agreement -->
+        <!-- Rate of Adjustment -->
         <template id="ibas_external_layout_boxed2">
             <div class="header">
                 <div>
@@ -367,6 +368,88 @@
                         <p class="overline">Printed Name and Signature</p>
                         <br/>
                         <p>Date: <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Rate of adjustment -->
+    <template id="rate_of_adjustment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ibas_hris.ibas_external_layout_boxed2">
+                    <div class="page">
+                     <link href="/ibas_hris/static/css/ibas.css"
+                                rel="stylesheet" type="text/css"/>
+                    <p>DATE <span class="tab-20"/><span style="padding-left: 6px;"/>:<span class="tab-40"/>_____________________________________</p>
+                    <p>TO<span class="tab-20"/><span style="padding-left: 8px;"/><span class="tab-20"/>:<span class="tab-40"/>_____________________________________</p>
+                    <p>FROM<span class="tab-20"/><span style="padding-left: 4px;"/>:<span class="tab-40"/>_____________________________________</p>
+                    <p>SUBJECT:<span class="tab-40"/> <strong style="font-size: 12px;">RECOMMENDATION FOR RATE ADJUSTMENT/UPDATE
+                     RATE/ADJUST ALLOWANCE</strong></p>
+                    <hr class="roa"/>
+                    <p>Recommendation is hereby given to the person listed below:</p>
+                    <p><span class="tab-40"/>Name<span class="tab-40"/><span class="tab-40"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Appointment<span style="padding-left: 10px;"/><span class="tab-20"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Position<span style="padding-left: 21px;"/><span class="tab-40"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Grade Level<span style="padding-left: 34px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Monthly Salary<span style="padding-left: 12px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Project/Dept.<span style="padding-left: 23px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <hr class="roa"/>
+                    <p>RECOMMENDATION	:<span style="padding-left: 48px;"/>_______________________</p> 
+                    <p><span class="tab-40"/>Effectivity <span style="padding-left: 42px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Position<span style="padding-left: 18px;"/><span class="tab-40"/>: <span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Grade Level<span style="padding-left: 30px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Rate Adjust<span style="padding-left: 32px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/><span style="padding-left: 160px;"/>(Difference of Php______from his/her previous rate)</p> 
+                    <p><span class="tab-40"/>Project/Dept.<span style="padding-left: 22px;"/>: <span class="tab-40"/>_______________________</p> 
+                    <br/>
+                    <br/>
+                    <table style="width: 100%;">
+                    <tbody>
+                    <tr>
+                    <td>
+                    <p style="text-align: center;">Recommended By:</p>
+                    </td>
+                    <td style="text-align: center;">
+                    <p>Noted by:</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td style="text-align: center;">
+                    <p>_________________________<br /><strong>Michelle G. Paloma<br /></strong>HR Officer</p>
+                    </td>
+                    <td style="text-align: center;">_________________________<br /><strong>Roland Estrañero</strong><br />General Manager/HR Head</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <table style="width: 100%;">
+                    <tbody>
+                    <tr>
+                    <td>
+                    <p style="text-align: center;">Approved By:</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <table style="width: 100%;">
+                    <tr>
+                    <td style="padding-left: 122px;">
+                    <span class="overline"><strong>Engr. Marc Bryan M. Sanchez</strong></span>
+                    <br />Chief Operarions Officer</td> 
+                    
+                    <td class="p-left-110">
+                    <span class="overline"><strong>Engr. Nolando Sanchez</strong></span>
+                    <br/>President and CEO</td>
+                    </tr>            
+                    </table>            
+                       
                     </div>
                 </t>
             </t>
