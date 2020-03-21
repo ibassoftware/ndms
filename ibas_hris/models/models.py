@@ -186,10 +186,33 @@ class ibas_employee(models.Model):
     rate_of_adjustment_ids = fields.One2many(
         'ibas_hris.rate_adjustment', 'employee_id', string="adjustment")
 
+    count_roa = fields.Integer(
+        compute='_count_roa', string='Rate of Adjustment')
+
+    @api.depends('rate_of_adjustment_ids')
+    def _count_roa(self):
+        if not self.ids:
+            # Update calculated fields
+            self.update({
+                'roa_count': 0,
+            })
+            return True
+
+        for rec in self:
+            count = 0
+            if rec:
+                for roa in rec.rate_of_adjustment_ids:
+                    count += 1
+            rec.update({
+                'count_roa': count,
+            })
+
     @api.multi
     def open_roa(self):
-
-        rate_of_adjustment_id = self.rate_of_adjustment_ids[0].id
+        rate_of_adjustment_ids = self.rate_of_adjustment_ids
+        rate_of_adjustment_id = []
+        for rate_adj in rate_of_adjustment_ids:
+            rate_of_adjustment_id += [rate.id for rate in rate_adj]
         # Open Payment Entry Form
         imd = self.env['ir.model.data']
         action = imd.xmlid_to_object(
@@ -199,17 +222,22 @@ class ibas_employee(models.Model):
         form_view_id = imd.xmlid_to_res_id(
             'ibas_hris.ibas_hris_rate_adjustment_view_form')
 
+        tree_view_id = imd.xmlid_to_res_id(
+            'ibas_hris.ibas_hris_rate_adjustment_view_tree')
+
         result = {
             'name': action.name,
             'help': action.help,
             'type': action.type,
-            'views': [[kanban_view_id, 'kanban'], [form_view_id, 'form']],
+            'views': [[kanban_view_id, 'kanban'], [form_view_id, 'form'], [tree_view_id, 'tree']],
             'target': action.target,
             # 'context': action.context,
             'res_model': action.res_model,
-            'res_id': rate_of_adjustment_id,
+            'res_id': rate_of_adjustment_id and rate_of_adjustment_id[0] or False,
         }
-        result['domain'] = "[('id','=',%s)]" % rate_of_adjustment_id
+        result['domain'] = "[('id', 'in', [" + \
+            ','.join(map(str, rate_of_adjustment_id)) + "])]"
+        # result['domain'] = "[('id','=',[%s])]" % rate_of_adjustment_id
         return result
 
     @api.multi
