@@ -11,3 +11,4 @@ access_ibas_hris_holiday,access_ibas_hris_holiday,model_ibas_hris_holiday,base.g
 access_ibas_hris_official_business,access_ibas_hris_official_business,model_ibas_hris_official_business,base.group_user,1,1,1,1
 access_ibas_hris_holiday,access_ibas_hris_holiday,model_ibas_hris_holiday,base.group_user,1,1,1,1
 access_ibas_hris_ot,access_ibas_hris_ot,model_ibas_hris_ot,base.group_user,1,1,1,1
+access_ibas_hris_rate_adjustment,access_ibas_hris_rate_adjustment,model_ibas_hris_rate_adjustment,base.group_user,1,1,1,1
