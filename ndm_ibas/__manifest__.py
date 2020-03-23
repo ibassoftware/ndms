@@ -25,7 +25,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','purchase','account','account_check_printing', 'l10n_us_check_printing'],
+    'depends': ['base', 'purchase', 'account', 'account_check_printing', 'l10n_us_check_printing'],
 
     # always loaded
     'data': [
@@ -43,6 +43,7 @@
         'views/account_invoice_views.xml',
         'views/account_payment_views.xml',
         'views/account_move_views.xml',
+        'views/cus_product_template_views.xml',
         # 'views/report_actions.xml',
         'wizard/sale_invoice_delivered_views.xml',
         'report/report_invoice_views.xml',
@@ -54,7 +55,7 @@
         'report/report_print_check_views.xml',
         'report/report_salesorder_views.xml',
         'report/report.xml',
-        
+
     ],
     # only loaded in demonstration mode
     'demo': [

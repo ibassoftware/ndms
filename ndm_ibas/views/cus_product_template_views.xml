@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="ndm_ibas_product_template" model="ir.ui.view">
+            <field name="name">ndm_ibas_product_template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+              
+              <xpath expr="//field[@name='barcode']" position="after">
+                
+                <field name="strength"/>
+                <field name="aggregate"/>
+                <field name="slump"/>
+                
+              </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
+
