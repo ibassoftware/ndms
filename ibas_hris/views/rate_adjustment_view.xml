@@ -36,6 +36,8 @@
                     <field name="employee_from"/>
                     <field name="recb"/>
                     <field name="recbd"/>
+                    <field name="notedby"/>
+                    <field name="notedbyd"/>
                     <field name="appb_one"/>
                     <field name="appbd_one"/>
                     <field name="appb_two"/>
@@ -57,6 +59,7 @@
 								/ month
 							</span>
 						</div>
+                        <field name="difference"/>
                         <field name="department_adj_id"/>
                         </group>
                     </page>
