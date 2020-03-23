@@ -184,17 +184,23 @@ class ibas_employee(models.Model):
         compute='_compute_regular', string="Regularized")
 
     rate_of_adjustment_ids = fields.One2many(
-        'ibas_hris.rate_adjustment', 'employee_id', string="adjustment")
+        'ibas_hris.rate_adjustment', 'employee_id', string="Adjustment")
+
+    lateral_transfer_ids = fields.One2many(
+        'ibas_hris.lateral_transfer', 'employee_id', string="Lateral Transfer")
 
     count_roa = fields.Integer(
         compute='_count_roa', string='Rate of Adjustment')
+
+    count_lt = fields.Integer(
+        compute='_count_lt', string='Lateral Transfer')
 
     @api.depends('rate_of_adjustment_ids')
     def _count_roa(self):
         if not self.ids:
             # Update calculated fields
             self.update({
-                'roa_count': 0,
+                'count_roa': 0,
             })
             return True
 
@@ -205,6 +211,24 @@ class ibas_employee(models.Model):
                     count += 1
             rec.update({
                 'count_roa': count,
+            })
+
+    @api.depends('lateral_transfer_ids')
+    def _count_lt(self):
+        if not self.ids:
+            # Update calculated fields
+            self.update({
+                'count_lt': 0,
+            })
+            return True
+
+        for rec in self:
+            count = 0
+            if rec:
+                for lt in rec.lateral_transfer_ids:
+                    count += 1
+            rec.update({
+                'count_lt': count,
             })
 
     @api.multi
@@ -237,6 +261,41 @@ class ibas_employee(models.Model):
         }
         result['domain'] = "[('id', 'in', [" + \
             ','.join(map(str, rate_of_adjustment_id)) + "])]"
+        # result['domain'] = "[('id','=',[%s])]" % rate_of_adjustment_id
+        return result
+
+    @api.multi
+    def open_lt(self):
+        lateral_transfer_ids = self.lateral_transfer_ids
+        lateral_transfer_id = []
+        for lt in lateral_transfer_ids:
+            lateral_transfer_id += [rec.id for rec in lt]
+        # Open Payment Entry Form
+        imd = self.env['ir.model.data']
+        action = imd.xmlid_to_object(
+            'ibas_hris.action_ibas_hris_lateral_transfer')
+
+        kanban_view_id = imd.xmlid_to_res_id(
+            'ibas_hris.ibas_hris_lateral_transfer_view_kanban')
+
+        form_view_id = imd.xmlid_to_res_id(
+            'ibas_hris.ibas_hris_lateral_transfer_view_form')
+
+        tree_view_id = imd.xmlid_to_res_id(
+            'ibas_hris.ibas_hris_lateral_transfer_view_tree')
+
+        result = {
+            'name': action.name,
+            'help': action.help,
+            'type': action.type,
+            'views': [[kanban_view_id, 'kanban'], [form_view_id, 'form'], [tree_view_id, 'tree']],
+            'target': action.target,
+            # 'context': action.context,
+            'res_model': action.res_model,
+            'res_id': lateral_transfer_id and lateral_transfer_id[0] or False,
+        }
+        result['domain'] = "[('id', 'in', [" + \
+            ','.join(map(str, lateral_transfer_id)) + "])]"
         # result['domain'] = "[('id','=',[%s])]" % rate_of_adjustment_id
         return result
 
