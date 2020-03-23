@@ -82,7 +82,7 @@ class RateAdjustment(models.Model):
         general_manager_job_id = job_obj.search(
             [('name', '=', 'General Manager / HR Head')])
         coo_job_id = job_obj.search(
-            [('name', '=', 'Chief Operations Officer')])
+            [('name', '=', 'Chief Operations Officers')])
         ceo_job_id = job_obj.search(
             [('name', '=', 'President & CEO')])
         # employee

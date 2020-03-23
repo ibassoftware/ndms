@@ -4,6 +4,7 @@ from . import res_users
 from . import sale
 from . import purchase
 from . import stock_picking
-from . import account_invoice  
+from . import account_invoice
 from . import account_payment
 from . import account_move
+from . import cus_product_template
