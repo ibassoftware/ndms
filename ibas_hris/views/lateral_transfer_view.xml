@@ -2,23 +2,19 @@
 <odoo>
 <data>
 
-    <record id="ibas_hris_rate_adjustment_view_form" model="ir.ui.view">
-        <field name="name">ibas_hris_rate_adjustment_view_form</field>
-        <field name="model">ibas_hris.rate_adjustment</field>
+    <record id="ibas_hris_lateral_transfer_view_form" model="ir.ui.view">
+        <field name="name">ibas_hris_lateral_transfer_view_form</field>
+        <field name="model">ibas_hris.lateral_transfer</field>
         <field name="arch" type="xml">
-            <form string="Rate Adjustment">
-            <header>
-				<field name="state" widget="statusbar" statusbar_visible="draft,pending,approved,close,cancel"/>
-				</header>
+            <form string="Lateral Transfer">
             <sheet>
                 <field name='name'/>
                 <group>
                    <group>
                         <field name="employee_id"/>
-                        <field name="appointment"/>
+                        <field name="date_hired"/>
+                        <field name="department_id"/>
                         <field name="job_id"/>
-                        <field name="grade"/>
-                   
                         <label for="salary"/>
 						<div class="o_row" name="wage">
 							<field name="salary" nolabel="1" on_change="1"/>
@@ -28,39 +24,33 @@
 						</div>
                         <field name="company_id" invisible="1"/>
                         <field name="currency_id" invisible="1"/>
-                        <field name="department_id"/>  
                    </group>
                     <group> 
-                    <field name="date_adj"/>
-                    <field name="employee_to"/>
-                    <field name="employee_from"/>
-                    <field name="recb"/>
-                    <field name="recbd"/>
-                    <field name="notedby"/>
-                    <field name="notedbyd"/>
-                    <field name="appb_one"/>
-                    <field name="appbd_one"/>
-                    <field name="appb_two"/>
-                    <field name="appbd_two"/>
+                    <field name="appby"/>
+                    <field name="appbyd"/>
+                    <field name="notedby_one"/>
+                    <field name="notedby_one_d"/>
+                    <field name="notedby_two"/>
+                    <field name="notedby_two_d"/>
+                    <field name="conformeby"/> 
                     </group>
                 </group>
-               <notebook>
-                    <page string="Adjustments">
+                 <notebook>
+                    <page string="Transfer">
                         <group>
-                        <field name="recommendation"/>
-                        <field name="effect_from"/>
-                        <field name="effect_to"/>
-                        <field name="position"/>
-                        <field name="grade_adj"/>
-                        <label for="rate_adjust"/>
-						<div class="o_row" name="wage">
-							<field name="rate_adjust" nolabel="1" on_change="1"/>
+                        <field name="new_dept"/>
+                        <field name="new_job"/>
+                        <label for="new_salary"/>
+                        <div class="o_row" name="new_salary">
+							<field name="new_salary" nolabel="1" on_change="1"/>
 							<span>
 								/ month
 							</span>
 						</div>
+                        <field name="reason_trans"/>
+                        <field name="training"/>
+                        <field name="period"/>
                         <field name="difference"/>
-                        <field name="department_adj_id"/>
                         </group>
                     </page>
                 </notebook>
@@ -73,19 +63,19 @@
         </field>
     </record>
 
-    <record id="ibas_hris_rate_adjustment_view_tree" model="ir.ui.view">
-        <field name="name">ibas_hris_rate_adjustment_view_tree</field>
-        <field name="model">ibas_hris.rate_adjustment</field>
+    <record id="ibas_hris_lateral_transfer_view_tree" model="ir.ui.view">
+        <field name="name">ibas_hris_lateral_transfer_view_tree</field>
+        <field name="model">ibas_hris.lateral_transfer</field>
         <field name="arch" type="xml">
-            <tree string="Rate Adjustment">
+            <tree string="Lateral Transfer">
                 <field name="employee_id"/> 
             </tree>
         </field>
     </record>
 
-    <record id="ibas_hris_rate_adjustment_view_kanban" model="ir.ui.view">
-        <field name="name">ibas_hris_rate_adjustment_view_kanban</field>
-        <field name="model">ibas_hris.rate_adjustment</field>
+     <record id="ibas_hris_lateral_transfer_view_kanban" model="ir.ui.view">
+        <field name="name">ibas_hris_lateral_transfer_view_kanban</field>
+        <field name="model">ibas_hris.lateral_transfer</field>
         <field name="arch" type="xml">
             <kanban  default_group_by="state" class="o_kanban_small_column">
                 <field name="state"/>
@@ -101,7 +91,7 @@
                                     <t t-if="widget.editable">
                                         <li>
                                         <a data-type="edit" href="#" class=" oe_kanban_action oe_kanban_action_a">
-									        Edit Rate Adjustment
+									        Edit Lateral Transfer
 								        </a>
                                         </li>
                                     </t>
@@ -135,21 +125,23 @@
         </field>
     </record>
 
-    <record id="action_ibas_hris_rate_adjustment" model="ir.actions.act_window">
-        <field name="name">Rate Adjsutment</field>
-        <field name="res_model">ibas_hris.rate_adjustment</field>
+
+
+    <record id="action_ibas_hris_lateral_transfer" model="ir.actions.act_window">
+        <field name="name">Lateral Transfer</field>
+        <field name="res_model">ibas_hris.lateral_transfer</field>
         <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
         <field name="domain">[]</field>
     </record>
 
     <menuitem
-        id="ibas_hris_rate_adjustment_menu"
-        name="Rate Adjustment"
-        action="action_ibas_hris_rate_adjustment"
+        id="ibas_hris_lateral_transfer_menu"
+        name="Lateral Transfer"
+        action="action_ibas_hris_lateral_transfer"
         groups="base.group_user"
         parent="hr.menu_hr_root"
-        sequence="5"/>
+        sequence="6"/>
 
 </data>
 </odoo>

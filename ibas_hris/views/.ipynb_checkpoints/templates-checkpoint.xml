@@ -21,7 +21,8 @@
             </div>
         </template>
 
-     <!-- Memo of Regularization -->
+        <!-- Memo of Regularization -->
+        <!-- Confidentiality Agreement -->
         <template id="ibas_external_layout_boxed2">
             <div class="header">
                 <div>
@@ -40,7 +41,7 @@
 
         </template>    
 
-    <!-- Confidentiality Agreement -->
+        <!-- Rate of Adjustment -->
         <template id="ibas_external_layout_boxed2">
             <div class="header">
                 <div>
@@ -65,6 +66,7 @@
             <t t-foreach="docs" t-as="doc">
                 <t t-call="ibas_hris.ibas_external_layout_boxed">
                     <div class="page">
+                            <p><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong></p>
                             <p><strong><span t-field="doc.employee_id.name"/></strong></p>
                             <p><strong><span t-field="doc.employee_id.present_address"/></strong></p>
                             <p style="text-align: center;"><strong>PROBATIONARY APPOINTMENT</strong></p>
@@ -111,8 +113,9 @@
                             <br/>
                             <br/>
                             <br/>
-                            <p>Conforme: <u> <span t-field="doc.employee_id.first_name"/> <span t-field="doc.employee_id.last_name"/> </u> </p>
-                            <p>Date <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/></p>
+                            <p>Conforme: <br/> _______________________________</p>
+                            <p>_______________________________</p>
+                            <p>Date ________________________________</p>
                     </div>
                 </t>
             </t>
@@ -216,13 +219,12 @@
                             <br />President and CEO</td>
                             </tr>            
                             </table>
-    
                             <br/>
                             <br/>
                             <br/>
-                            <p>Conforme: <u> <span class="uppercase" t-field="doc.first_name"/> <span class="uppercase" t-field="doc.last_name"/> </u> </p>
-                            <p>Date <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/></p>
-
+                            <p>Conforme: <br/> _______________________________</p>
+                            <p>_______________________________</p>
+                            <p>Date ________________________________</p>
                     </div>
                 </t>
             </t>
@@ -371,6 +373,294 @@
             </t>
         </t>
     </template>
+
+    <!-- Rate of adjustment -->
+    <template id="rate_of_adjustment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ibas_hris.ibas_external_layout_boxed2">
+                    <div class="page">
+                     <link href="/ibas_hris/static/css/ibas.css"
+                                rel="stylesheet" type="text/css"/>
+                    <p>DATE <span class="tab-20"/><span style="padding-left: 6px;"/>:<span class="tab-40"/>_____________________________________</p>
+                    <p>TO<span class="tab-20"/><span style="padding-left: 8px;"/><span class="tab-20"/>:<span class="tab-40"/>_____________________________________</p>
+                    <p>FROM<span class="tab-20"/><span style="padding-left: 4px;"/>:<span class="tab-40"/>_____________________________________</p>
+                    <p>SUBJECT:<span class="tab-40"/> <strong style="font-size: 12px;">RECOMMENDATION FOR RATE ADJUSTMENT/UPDATE
+                     RATE/ADJUST ALLOWANCE</strong></p>
+                    <hr class="roa"/>
+                    <p>Recommendation is hereby given to the person listed below:</p>
+                    <p><span class="tab-40"/>Name<span class="tab-40"/><span class="tab-40"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Appointment<span style="padding-left: 10px;"/><span class="tab-20"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Position<span style="padding-left: 21px;"/><span class="tab-40"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Grade Level<span style="padding-left: 34px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Monthly Salary<span style="padding-left: 12px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Project/Dept.<span style="padding-left: 23px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <hr class="roa"/>
+                    <p>RECOMMENDATION	:<span style="padding-left: 48px;"/>_______________________</p> 
+                    <p><span class="tab-40"/>Effectivity <span style="padding-left: 42px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Position<span style="padding-left: 18px;"/><span class="tab-40"/>: <span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Grade Level<span style="padding-left: 30px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/>Rate Adjust<span style="padding-left: 32px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <p><span class="tab-40"/><span style="padding-left: 160px;"/>(Difference of Php______from his/her previous rate)</p> 
+                    <p><span class="tab-40"/>Project/Dept.<span style="padding-left: 22px;"/>: <span class="tab-40"/>_______________________</p> 
+                    <br/>
+                    <br/>
+                    <table style="width: 100%;">
+                    <tbody>
+                    <tr>
+                    <td>
+                    <p style="text-align: center;">Recommended By:</p>
+                    </td>
+                    <td style="text-align: center;">
+                    <p>Noted by:</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td style="text-align: center;">
+                    <p>_________________________<br /><strong>Michelle G. Paloma<br /></strong>HR Officer</p>
+                    </td>
+                    <td style="text-align: center;">_________________________<br /><strong>Roland Estrañero</strong><br />General Manager/HR Head</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <table style="width: 100%;">
+                    <tbody>
+                    <tr>
+                    <td>
+                    <p style="text-align: center;">Approved By:</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <table style="width: 100%;">
+                    <tr>
+                    <td style="padding-left: 122px;">
+                    <span class="overline"><strong>Engr. Marc Bryan M. Sanchez</strong></span>
+                    <br />Chief Operarions Officer</td> 
+                    
+                    <td class="p-left-110">
+                    <span class="overline"><strong>Engr. Nolando Sanchez</strong></span>
+                    <br/>President and CEO</td>
+                    </tr>            
+                    </table>            
+                       
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Lateral Transfer -->
+    <template id="lateral_transfer">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ibas_hris.ibas_external_layout_boxed2">
+                    <div class="page">
+                    <link href="/ibas_hris/static/css/ibas.css"
+                                rel="stylesheet" type="text/css"/>
+                    <p style="text-align: center;"><strong>LATERAL TRANSFER FORM</strong></p>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="height: 30px; overflow:hidden;">NAME</td>
+                            <td>:</td>
+                            <td colspan="2"><span class="float-right" style="padding-right: 20px;">_________________________
+                            </span></td>
+                            <td>DATE HIRED</td>
+                            <td>:</td>
+                            <td colspan="2"><span class="float-right" style="padding-right: 20px;">_________________________</span></td>
+                        </tr>
+                        <tr><td colspan="8"></td></tr>
+                        <tr>
+                            <td style="height: 30px; overflow:hidden;">From Dept</td>
+                            <td>:</td>
+                            <td colspan="2"><span class="float-right" style="padding-right: 20px;">_________________________</span></td>
+                            <td>To Dept</td>
+                            <td>:</td>
+                            <td colspan="2"><span class="float-right" style="padding-right: 20px;">_________________________</span></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <p>This is to inform of the lateral transfer of the employee herein listed.  
+                    Through this, all responsibilities, obligations and jurisdictions shall be transferred   
+                    to the Receiving Department.  This transfer shall take effect on ___________________.</p>
+                    <br/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td colspan="4"><p style="text-align: center;">FROM</p></td>
+                            <td colspan="4"><p style="text-align: center;">TO</p></td>
+                        </tr>
+                         <tr>
+                            <td style="height: 30px; overflow:hidden;">POSITION</td>
+                            <td>:</td>
+                            <td colspan="2"><span style="padding-left: 40px;">_________________________ </span></td>
+                            <td colspan="4"><span>_________________________</span></td>
+                        </tr>
+                          <tr>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+            
+                         <tr>
+                            <td style="height: 30px; overflow:hidden;">SALARY</td>
+                            <td>:</td>
+                            <td colspan="2"><span style="padding-left: 40px;">_________________________</span></td>
+                            <td colspan="4"><span>_________________________</span></td>
+                        </tr>
+                    </table>
+                    <hr class="line-1"/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td>Reason for transfer:</td>
+                            <td></td>
+                            <td colspan="2">____________________________________________________________</td>
+                        </tr>
+                         <tr>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td colspan="2">____________________________________________________________</td>
+                        </tr>
+                         <tr>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td colspan="2">____________________________________________________________</td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <p>The employee will _____undergo training / _____ not undergo training for a period of ____________ 
+                    weeks /months and shall be evaluated to determine official transfer.  </p>
+                    <br/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td style="height: 30px; overflow:hidden;"><span style="padding-left: 40px;">SENDING DEPARTMENT</span></td>
+                            <td style="height: 30px; overflow:hidden;">RECEIVING DEPARTMENT</td>
+                        </tr>
+                         <tr>
+                            <td>supervisor</td>
+                            <td>:</td>
+                            <td><span style="padding-left: 40px;">___________________________</span></td>
+                            <td>___________________________</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td style="padding-left: 40px;">Signature over printed name/Date</td>
+                            <td>Signature over printed name/Date</td>
+                        </tr>
+                        <tr>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+                        <tr>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+                         <tr>
+                            <td>Dep't Head</td>
+                            <td>:</td>
+                            <td><span style="padding-left: 40px;">___________________________</span></td>
+                            <td>___________________________</td>
+                        </tr>
+                         <tr>
+                            <td></td>
+                            <td></td>
+                            <td><span style="padding-left: 40px;">Signature over printed name/Date</span></td>
+                            <td>Signature over printed name/Date</td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table>
+                        <tr>
+                            <td><p>Remarks</p></td>
+                        </tr>
+                        <tr>
+                            <td>________________________________________________________________________________</td>
+                        </tr>
+                        <tr>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+                        <tr>
+                            <td>________________________________________________________________________________</td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p style="text-align: center;">Approved by:</p></td>
+                        </tr>
+                        <tr>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+                        <tr>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="overline" style="text-align: center;">President/CEO Chief Operations Officer</p></td>
+                        </tr>
+                    </table>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="height: 30px; overflow:hidden;"><p>Noted by:</p></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+        
+                        <tr>
+                            <td class="overline" style="height: 30px; overflow:hidden;"><p> Human Resources/Date </p></td>
+                            <td class="overline"><p> Admin Head/Date </p></td>
+                        </tr>
+                    </table>
+                    <br/>
+                     <table style="width: 100%;">
+                        <tr>
+                            <td style="height: 30px; overflow:hidden;"><p>Conforme by:</p></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="overline"> signature over printed name </p></td>
+                        </tr>
+                        <tr>
+                             <td><p> Date </p></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <p><strong>Note:</strong></p>
+                    <p> Attach to this is copy of Job Description, Duties and Responsibilities for 
+                    new designation/position which will be performed by the employee to the new department.
+                    </p>             
+                    </div>
+                
+                </t>
+            </t>
+        </t>
+    </template>
+
 
 
     </data>

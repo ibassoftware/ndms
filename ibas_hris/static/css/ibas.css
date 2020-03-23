@@ -35,6 +35,10 @@ ol.a {
   border: 0px solid white;
 }
 
+.border-bottom {
+  border: 2px solid black;
+}
+
 p {
   letter-spacing: 0.1em;
 }
@@ -57,4 +61,46 @@ p {
 
 .lowercase {
   text-transform: lowercase;
+}
+
+.tab-2 {
+  padding-left: 2px;
+}
+
+.tab-10 {
+  padding-left: 10px;
+}
+
+.tab-20 {
+  padding-left: 20px;
+}
+
+.tab-40 {
+  padding-left: 40px;
+}
+
+hr.roa {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 3px solid black;
+  margin: 1em 0;
+  padding: 0;
+}
+
+hr.line-1 {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid black;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
 }
