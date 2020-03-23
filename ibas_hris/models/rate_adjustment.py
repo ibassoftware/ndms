@@ -68,7 +68,10 @@ class RateAdjustment(models.Model):
     @api.depends('rate_adjust')
     def _compute_difference(self):
         for rec in self:
-            rec.difference = (rec.rate_adjust - rec.salary)
+            if rec.rate_adjust > rec.salary:
+                rec.difference = (rec.rate_adjust - rec.salary)
+            else:
+                rec.difference = (rec.salary - rec.rate_adjust)
 
     @api.depends('employee_id')
     def _default_name(self):
