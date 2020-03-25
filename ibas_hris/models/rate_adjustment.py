@@ -25,11 +25,13 @@ class RateAdjustment(models.Model):
     employee_id = fields.Many2one(
         'hr.employee', string='Employee', required=True)
     appointment = fields.Char('Appointment')
-    job_id = fields.Many2one('hr.job', string='Position')
+    job_id = fields.Many2one(
+        'hr.job', related="employee_id.job_id", string='Position')
     grade = fields.Float('Grade Level')
     salary = fields.Monetary(related='employee_id.contract_id.wage', string='Monthly Salary', digits=(
         16, 2), track_visibility="onchange")
-    department_id = fields.Many2one('hr.department', string='Project/Dept.')
+    department_id = fields.Many2one(
+        'hr.department', related='employee_id.department_id', string='Project/Dept.')
     company_id = fields.Many2one(
         'res.company', default=lambda self: self.env.user.company_id)
     currency_id = fields.Many2one(
@@ -60,7 +62,8 @@ class RateAdjustment(models.Model):
         16, 2), track_visibility="onchange")
     difference = fields.Monetary(compute='_compute_difference', digits=(
         16, 2), string='Difference')
-    department_adj_id = fields.Char('Project/Dept.')
+    department_adj_id = fields.Many2one(
+        'hr.department', string='Project/Dept.')
 
     def _expand_states(self, states, domain, order):
         return [key for key, val in type(self).state.selection]

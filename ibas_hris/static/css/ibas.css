@@ -36,7 +36,7 @@ ol.a {
 }
 
 .border-bottom {
-  border: 2px solid black;
+  border-bottom: 1px solid black;
 }
 
 p {
