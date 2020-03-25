@@ -38,9 +38,9 @@ class LateralTransfer(models.Model):
     appby = fields.Char('Approved by')
     appbyd = fields.Char(string='Approved by Designation')
     notedby_one = fields.Char('Noted by (1)')
-    notedby_one_d = fields.Char('Noted by (1) designation Resources')
+    notedby_one_d = fields.Char('Noted by (1) Designation')
     notedby_two = fields.Char('Noted by (2)')
-    notedby_two_d = fields.Char('Noted by (2) designation Resources')
+    notedby_two_d = fields.Char('Noted by (2) Designation')
     conformeby = fields.Char('Conforme by:')
     # transfer tab
     new_dept = fields.Char('New Department')

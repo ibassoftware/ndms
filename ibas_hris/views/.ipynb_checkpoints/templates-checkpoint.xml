@@ -382,27 +382,113 @@
                     <div class="page">
                      <link href="/ibas_hris/static/css/ibas.css"
                                 rel="stylesheet" type="text/css"/>
-                    <p>DATE <span class="tab-20"/><span style="padding-left: 6px;"/>:<span class="tab-40"/>_____________________________________</p>
-                    <p>TO<span class="tab-20"/><span style="padding-left: 8px;"/><span class="tab-20"/>:<span class="tab-40"/>_____________________________________</p>
-                    <p>FROM<span class="tab-20"/><span style="padding-left: 4px;"/>:<span class="tab-40"/>_____________________________________</p>
-                    <p>SUBJECT:<span class="tab-40"/> <strong style="font-size: 12px;">RECOMMENDATION FOR RATE ADJUSTMENT/UPDATE
+
+                    <table style="width: 60%;">
+                        <tr style="height: 30px;">
+                            <td style="width: 10%; vertical-align: bottom;">DATE</td>
+                            <td style="width: 5%; vertical-align: bottom;">:</td>
+                            <td style="width: 45%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.date_adj"/></td>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">TO</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.employee_to"/></td>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">FROM</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.employee_from"/></td>
+                        </tr>
+                    </table>
+                   
+                    <br/>
+                    <p>SUBJECT:<span class="tab-20"/> <strong style="font-size: 12px;">RECOMMENDATION FOR RATE ADJUSTMENT/UPDATE
                      RATE/ADJUST ALLOWANCE</strong></p>
+
                     <hr class="roa"/>
                     <p>Recommendation is hereby given to the person listed below:</p>
-                    <p><span class="tab-40"/>Name<span class="tab-40"/><span class="tab-40"/>:<span class="tab-40"/>_______________________</p> 
-                    <p><span class="tab-40"/>Appointment<span style="padding-left: 10px;"/><span class="tab-20"/>:<span class="tab-40"/>_______________________</p> 
-                    <p><span class="tab-40"/>Position<span style="padding-left: 21px;"/><span class="tab-40"/>:<span class="tab-40"/>_______________________</p> 
-                    <p><span class="tab-40"/>Grade Level<span style="padding-left: 34px;"/>:<span class="tab-40"/>_______________________</p> 
-                    <p><span class="tab-40"/>Monthly Salary<span style="padding-left: 12px;"/>:<span class="tab-40"/>_______________________</p> 
-                    <p><span class="tab-40"/>Project/Dept.<span style="padding-left: 23px;"/>:<span class="tab-40"/>_______________________</p> 
+                    <table style="width: 60%; margin-left: 45px">
+                        <tr style="height: 30px;">
+                            <td style="width: 10%; vertical-align: bottom;">Name</td>
+                            <td style="width: 5%; vertical-align: bottom;">:</td>
+                            <td style="width: 45%;border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.employee_id"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Appointment</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.appointment"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Position</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.job_id"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Grade Level</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.grade"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Monthly Salary</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.salary"/></td>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Project/Dept.</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.department_id"/></td>
+                        </tr>
+                    </table>
+
                     <hr class="roa"/>
-                    <p>RECOMMENDATION	:<span style="padding-left: 48px;"/>_______________________</p> 
-                    <p><span class="tab-40"/>Effectivity <span style="padding-left: 42px;"/>:<span class="tab-40"/>_______________________</p> 
-                    <p><span class="tab-40"/>Position<span style="padding-left: 18px;"/><span class="tab-40"/>: <span class="tab-40"/>_______________________</p> 
-                    <p><span class="tab-40"/>Grade Level<span style="padding-left: 30px;"/>:<span class="tab-40"/>_______________________</p> 
-                    <p><span class="tab-40"/>Rate Adjust<span style="padding-left: 32px;"/>:<span class="tab-40"/>_______________________</p> 
-                    <p><span class="tab-40"/><span style="padding-left: 160px;"/>(Difference of Php______from his/her previous rate)</p> 
-                    <p><span class="tab-40"/>Project/Dept.<span style="padding-left: 22px;"/>: <span class="tab-40"/>_______________________</p> 
+                    <table style="width: 60%;">
+                        <tr style="height: 30px;">
+                            <td style="width: 9%; vertical-align: bottom;">RECOMMENDATION</td>
+                            <td style="width: 4%; vertical-align: bottom;">:</td>
+                            <td style="width: 45%;border-bottom: 1px solid black; vertical-align: bottom;"></td>
+                        </tr>
+                    </table>
+                     <table style="width: 60%; margin-left: 55px">
+                        <tr style="height: 30px;">
+                            <td style="width: 12%; vertical-align: bottom;">Effectivity</td>
+                            <td style="width: 3%; vertical-align: bottom;">:</td>
+                            <td style="width: 45%;border-bottom: 1px solid black; vertical-align: bottom;">
+                            <span t-field="doc.effect_from"/> - <span t-field="doc.effect_to"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Position</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.position"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Grade Level</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.grade_adj"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Rate Adjust</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.rate_adjust"/></td>
+                        </tr>
+                        </table>
+                        <table style="width: 80%; margin-left: 50px">
+                        <tr style="height: 30px;">
+                            <td style="width: 10%; vertical-align: bottom;"></td>
+                            <td style="width: 10%; vertical-align: bottom;"></td>
+                            <td style="vertical-align: bottom;"><i>
+                                (Difference of Php <span class="underline" t-field="doc.difference"/> from his/her previous rate) </i>
+                            </td>
+                        </tr>
+                        </table>
+                        <table style="width: 60%; margin-left: 55px">
+                         <tr style="height: 30px;">
+                            <td style="width: 5%; vertical-align: bottom;">Project/Dept.</td>
+                            <td style="width: 2%; vertical-align: bottom;">:</td>
+                            <td style="width: 45%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.department_adj_id"/></td>
+                        </tr>
+                        </table>
+                        
+                    
                     <br/>
                     <br/>
                     <table style="width: 100%;">
@@ -466,23 +552,21 @@
                                 rel="stylesheet" type="text/css"/>
                     <p style="text-align: center;"><strong>LATERAL TRANSFER FORM</strong></p>
                     <table style="width: 100%;">
-                        <tr>
-                            <td style="height: 30px; overflow:hidden;">NAME</td>
-                            <td>:</td>
-                            <td colspan="2"><span class="float-right" style="padding-right: 20px;">_________________________
-                            </span></td>
-                            <td>DATE HIRED</td>
-                            <td>:</td>
-                            <td colspan="2"><span class="float-right" style="padding-right: 20px;">_________________________</span></td>
+                        <tr style="height: 30px;">
+                            <td style="width: 12%; vertical-align: bottom;">NAME</td>
+                            <td style="width: 8%; vertical-align: bottom;">:</td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.employee_id"/></td>
+                            <td style="width: 12%; vertical-align: bottom;">DATE HIRED</td>
+                            <td style="width: 8%; vertical-align: bottom;">:</td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.date_hired"/></td>
                         </tr>
-                        <tr><td colspan="8"></td></tr>
-                        <tr>
-                            <td style="height: 30px; overflow:hidden;">From Dept</td>
-                            <td>:</td>
-                            <td colspan="2"><span class="float-right" style="padding-right: 20px;">_________________________</span></td>
-                            <td>To Dept</td>
-                            <td>:</td>
-                            <td colspan="2"><span class="float-right" style="padding-right: 20px;">_________________________</span></td>
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">From Dept</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="vertical-align: bottom; border-bottom: 1px solid black;"><span t-field="doc.department_id"/></td>
+                            <td style="vertical-align: bottom;">To Dept</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="vertical-align: bottom; border-bottom: 1px solid black;"><span t-field="doc.new_dept"/></td>
                         </tr>
                     </table>
                     <br/>
@@ -490,54 +574,41 @@
                     Through this, all responsibilities, obligations and jurisdictions shall be transferred   
                     to the Receiving Department.  This transfer shall take effect on ___________________.</p>
                     <br/>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td colspan="4"><p style="text-align: center;">FROM</p></td>
-                            <td colspan="4"><p style="text-align: center;">TO</p></td>
+                   <table style="width: 100%;">
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;"></td>
+                            <td style="vertical-align: bottom;"></td>
+                            <td style="vertical-align: bottom; text-align: center;">FROM</td>
+                            <td style="vertical-align: bottom;"></td>
+                            <td style="vertical-align: bottom; text-align: center;">TO</td>
+                            <td style="vertical-align: bottom;"></td>
                         </tr>
-                         <tr>
-                            <td style="height: 30px; overflow:hidden;">POSITION</td>
-                            <td>:</td>
-                            <td colspan="2"><span style="padding-left: 40px;">_________________________ </span></td>
-                            <td colspan="4"><span>_________________________</span></td>
+                        <tr style="height: 30px;">
+                            <td style="width: 12%; vertical-align: bottom;">POSITION</td>
+                            <td style="width: 8%; vertical-align: bottom;">:</td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.job_id"/></td>
+                            <td style="width: 12%; vertical-align: bottom;"></td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.new_job"/></td>
+                            <td style="width: 8%; vertical-align: bottom;"></td>
                         </tr>
-                          <tr>
-                            <td><p style="text-align: center;"></p></td>
-                            <td><p style="text-align: center;"></p></td>
-                            <td><p style="text-align: center;"></p></td>
-                            <td><p style="text-align: center;"></p></td>
-                        </tr>
-            
-                         <tr>
-                            <td style="height: 30px; overflow:hidden;">SALARY</td>
-                            <td>:</td>
-                            <td colspan="2"><span style="padding-left: 40px;">_________________________</span></td>
-                            <td colspan="4"><span>_________________________</span></td>
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">SALARY</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="vertical-align: bottom; border-bottom: 1px solid black;"><span t-field="doc.salary"/></td>
+                            <td style="vertical-align: bottom;"></td>
+                            <td style="vertical-align: bottom; border-bottom: 1px solid black;"><span t-field="doc.new_salary"/></td>
+                            <td style="vertical-align: bottom;"></td>
                         </tr>
                     </table>
                     <hr class="line-1"/>
-                    <table style="width: 100%;">
+                    <table style="width: 80%;">
                         <tr>
-                            <td>Reason for transfer:</td>
-                            <td></td>
-                            <td colspan="2">____________________________________________________________</td>
+                            <td style="width: 20%; vertical-align: bottom;">Reason for transfer:</td>
+                            <td style="width: 10%;">:</td>
+                            <td style="width: 50%; vertical-align: bottom; border-bottom: 1px solid black;">
+                            <span t-field="doc.reason_trans"/></td>
                         </tr>
-                         <tr>
-                            <td><p style="text-align: center;"></p></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td colspan="2">____________________________________________________________</td>
-                        </tr>
-                         <tr>
-                            <td><p style="text-align: center;"></p></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td colspan="2">____________________________________________________________</td>
-                        </tr>
+                        
                     </table>
                     <br/>
                     <p>The employee will _____undergo training / _____ not undergo training for a period of ____________ 
