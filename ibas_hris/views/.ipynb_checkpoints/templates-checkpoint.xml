@@ -603,10 +603,10 @@
                     <hr class="line-1"/>
                     <table style="width: 80%;">
                         <tr>
-                            <td style="width: 20%; vertical-align: bottom;">Reason for transfer:</td>
+                            <td style="width: 20%;">Reason for transfer:</td>
                             <td style="width: 10%;">:</td>
-                            <td style="width: 50%; vertical-align: bottom; border-bottom: 1px solid black;">
-                            <span t-field="doc.reason_trans"/></td>
+                            <td style="width: 50%;">
+                            <span class="underline" t-field="doc.reason_trans"/></td>
                         </tr>
                         
                     </table>
@@ -615,47 +615,45 @@
                     weeks /months and shall be evaluated to determine official transfer.  </p>
                     <br/>
                     <table style="width: 100%;">
+                        <tr style="height: 30px;">
+                            <td></td>
+                            <td></td>
+                            <td>SENDING DEPARTMENT</td>
+                            <td></td>
+                            <td>RECEIVING DEPARTMENT</td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="width: 12%; vertical-align: bottom;">Supervisor</td>
+                            <td style="width: 8%; vertical-align: bottom;">:</td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.supervisor_snd"/></td>
+                            <td style="width: 12%; vertical-align: bottom;"></td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.supervisor_rcv"/></td>
+                            <td style="width: 8%; vertical-align: bottom;"></td>
+                        </tr>
                         <tr>
                             <td></td>
                             <td></td>
-                            <td style="height: 30px; overflow:hidden;"><span style="padding-left: 40px;">SENDING DEPARTMENT</span></td>
-                            <td style="height: 30px; overflow:hidden;">RECEIVING DEPARTMENT</td>
-                        </tr>
-                         <tr>
-                            <td>supervisor</td>
-                            <td>:</td>
-                            <td><span style="padding-left: 40px;">___________________________</span></td>
-                            <td>___________________________</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td style="padding-left: 40px;">Signature over printed name/Date</td>
                             <td>Signature over printed name/Date</td>
-                        </tr>
-                        <tr>
-                            <td><p style="text-align: center;"></p></td>
-                            <td><p style="text-align: center;"></p></td>
-                            <td><p style="text-align: center;"></p></td>
-                            <td><p style="text-align: center;"></p></td>
-                        </tr>
-                        <tr>
-                            <td><p style="text-align: center;"></p></td>
-                            <td><p style="text-align: center;"></p></td>
-                            <td><p style="text-align: center;"></p></td>
-                            <td><p style="text-align: center;"></p></td>
-                        </tr>
-                         <tr>
-                            <td>Dep't Head</td>
-                            <td>:</td>
-                            <td><span style="padding-left: 40px;">___________________________</span></td>
-                            <td>___________________________</td>
-                        </tr>
-                         <tr>
                             <td></td>
-                            <td></td>
-                            <td><span style="padding-left: 40px;">Signature over printed name/Date</span></td>
                             <td>Signature over printed name/Date</td>
+                            <td></td>
+                        </tr>
+            
+                        <tr style="height: 30px;">
+                             <td style="width: 12%; vertical-align: bottom;">Dep't head</td>
+                            <td style="width: 8%; vertical-align: bottom;">:</td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.department_head_snd"/></td>
+                            <td style="width: 12%; vertical-align: bottom;"></td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.department_head_rcv"/></td>
+                            <td style="width: 8%; vertical-align: bottom;"></td>
+                        </tr>
+                         <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Signature over printed name/Date</td>
+                            <td></td>
+                            <td>Signature over printed name/Date</td>
+                            <td></td>
                         </tr>
                     </table>
                     <br/>
@@ -682,7 +680,7 @@
                             <td><p style="text-align: center;"></p></td>
                         </tr>
                         <tr>
-                            <td><p style="text-align: center;"></p></td>
+                            <td><p style="text-align: center;"> <span t-field="doc.appbyd"/> </p></td>
                         </tr>
                         <tr>
                             <td><p class="overline" style="text-align: center;">President/CEO Chief Operations Officer</p></td>
@@ -694,8 +692,8 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td><p style="text-align: center;"></p></td>
-                            <td><p style="text-align: center;"></p></td>
+                            <td><p><span t-field="doc.notedby_one_d"/></p></td>
+                            <td><p><span t-field="doc.notedby_two_d"/></p></td>
                         </tr>
         
                         <tr>
@@ -710,7 +708,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td><p style="text-align: center;"></p></td>
+                            <td><p><span t-field="doc.conformeby"/></p></td>
                             <td><p style="text-align: center;"></p></td>
                         </tr>
                         <tr>
