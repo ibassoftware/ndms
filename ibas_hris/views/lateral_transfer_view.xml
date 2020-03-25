@@ -24,6 +24,16 @@
 						</div>
                         <field name="company_id" invisible="1"/>
                         <field name="currency_id" invisible="1"/>
+                        <label for="send" string="SENDING DEPARTMENT"/>
+                        <div name="send">
+                            <field name="supervisor_snd" placeholder="Supervisor" class="oe_inline"/> - 
+                            <field name="department_head_snd" placeholder="Department" class="oe_inline"/>
+                        </div>
+                       <label for="receive" string="RECEIVING DEPARTMENT"/>
+                        <div name="receive">
+                            <field name="supervisor_rcv" placeholder="Supervisor" class="oe_inline"/> - 
+                            <field name="department_head_rcv" placeholder="Department" class="oe_inline"/>
+                        </div>    
                    </group>
                     <group> 
                     <field name="appby"/>
