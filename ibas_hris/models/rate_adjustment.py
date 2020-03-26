@@ -40,18 +40,22 @@ class RateAdjustment(models.Model):
     date_adj = fields.Date('Date')
     employee_to = fields.Many2one('hr.employee', string='To:')
     employee_from = fields.Many2one('hr.employee', string='From:')
-    recb = fields.Char('Recommended by')
-    recbd = fields.Char(string='Recommended by Designation',
-                        compute='_default_name')
-    notedby = fields.Char('Noted by')
-    notedbyd = fields.Char(compute='_default_name',
-                           string='Noted by Designation')
-    appb_one = fields.Char('Approved by(1)')
-    appbd_one = fields.Char(compute='_default_name',
-                            string='Approved by (1) Designation')
-    appb_two = fields.Char(string='Approved by(2)')
-    appbd_two = fields.Char(
-        compute='_default_name', string='Approved by (2) Designation')
+    recb = fields.Many2one(
+        'hr.employee', domain="[('job_id', '=', recbd)]", string='Recommended by')
+    recbd = fields.Many2one(
+        'hr.job', compute='_default_designation', string='Recommended by Designation')
+    notedby = fields.Many2one(
+        'hr.employee', domain="[('job_id','=', notedbyd)]", string='Noted by')
+    notedbyd = fields.Many2one('hr.job', compute='_default_designation',
+                               string='Noted by Designation')
+    appb_one = fields.Many2one(
+        'hr.employee', domain="[('job_id','=', appbd_one)]", string='Approved by(1)')
+    appbd_one = fields.Many2one('hr.job', compute='_default_designation',
+                                string='Approved by (1) Designation')
+    appb_two = fields.Many2one(
+        'hr.employee', domain="[('job_id','=', appbd_two)]", string='Approved by(2)')
+    appbd_two = fields.Many2one(
+        'hr.job', compute='_default_designation', string='Approved by (2) Designation')
     # Adjustment tab
     recommendation = fields.Char('Recommendation')
     effect_from = fields.Date('Effectivity From:')
@@ -77,10 +81,9 @@ class RateAdjustment(models.Model):
                 rec.difference = (rec.salary - rec.rate_adjust)
 
     @api.depends('employee_id')
-    def _default_name(self):
-        employee_obj = self.env['hr.employee']
+    def _default_designation(self):
         job_obj = self.env['hr.job']
-        # position
+
         hr_officer_job_id = job_obj.search([('name', '=', 'HR Officer')])
         general_manager_job_id = job_obj.search(
             [('name', '=', 'General Manager / HR Head')])
@@ -88,48 +91,24 @@ class RateAdjustment(models.Model):
             [('name', '=', 'Chief Operations Officers')])
         ceo_job_id = job_obj.search(
             [('name', '=', 'President & CEO')])
-        # employee
-        hr_officer_id = employee_obj.search(
-            [('job_id', '=', hr_officer_job_id.id)])
-        general_manager_id = employee_obj.search(
-            [('job_id', '=', general_manager_job_id.id)])
-        coo_id = employee_obj.search(
-            [('job_id', '=', coo_job_id.id)])
-        ceo_id = employee_obj.search(
-            [('job_id', '=', ceo_job_id.id)])
 
-        if hr_officer_id:
-            hr = hr_officer_id[0].name
-        else:
-            hr = hr_officer_id.name
-
-        if general_manager_id:
-            gm = general_manager_id[0].name
-        else:
-            gm = general_manager_id.name
-
-        if coo_id:
-            coo = coo_id[0].name
-        else:
-            coo = coo_id.name
-
-        if ceo_id:
-            ceo = ceo_id[0].name
-        else:
-            ceo = ceo_id.name
-
-        # update
         for rec in self:
-            rec.update({
-                'recbd': hr,
-                'notedbyd': gm,
-                'appbd_one': coo,
-                'appbd_two': ceo,
-            })
-        #self.recbd = hr_officer_id.name
-        #self.notedbyd = general_manager_id.name
-        #self.appbd_one = coo_id.name
-        #self.appbd_two = ceo_id.name
+            if hr_officer_job_id:
+                rec.recbd = hr_officer_job_id[0].id
+            else:
+                rec.recbd = hr_officer_job_id.id
+            if general_manager_job_id:
+                rec.notedbyd = general_manager_job_id[0].id
+            else:
+                rec.notedbyd = general_manager_job_id.id
+            if coo_job_id:
+                rec.appbd_one = coo_job_id[0].id
+            else:
+                rec.appbd_one = coo_job_id.id
+            if ceo_job_id:
+                rec.appbd_two = ceo_job_id[0].id
+            else:
+                rec.appbd_two = ceo_job_id.id
 
     # @api.multi
     # def _compute_regular(self):
