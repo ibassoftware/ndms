@@ -41,21 +41,21 @@ class RateAdjustment(models.Model):
     employee_to = fields.Many2one('hr.employee', string='To:')
     employee_from = fields.Many2one('hr.employee', string='From:')
     recb = fields.Many2one(
-        'hr.employee', domain="[('job_id', '=', recbd)]", string='Recommended by')
+        'hr.employee', string='Recommended by')
     recbd = fields.Many2one(
-        'hr.job', compute='_default_designation', string='Recommended by Designation')
+        'hr.job', related='recb.job_id', string='Recommended by Designation')
     notedby = fields.Many2one(
-        'hr.employee', domain="[('job_id','=', notedbyd)]", string='Noted by')
-    notedbyd = fields.Many2one('hr.job', compute='_default_designation',
+        'hr.employee', string='Noted by')
+    notedbyd = fields.Many2one('hr.job', related='notedby.job_id',
                                string='Noted by Designation')
     appb_one = fields.Many2one(
-        'hr.employee', domain="[('job_id','=', appbd_one)]", string='Approved by(1)')
-    appbd_one = fields.Many2one('hr.job', compute='_default_designation',
+        'hr.employee', string='Approved by(1)')
+    appbd_one = fields.Many2one('hr.job', related='appb_one.job_id',
                                 string='Approved by (1) Designation')
     appb_two = fields.Many2one(
-        'hr.employee', domain="[('job_id','=', appbd_two)]", string='Approved by(2)')
+        'hr.employee', string='Approved by(2)')
     appbd_two = fields.Many2one(
-        'hr.job', compute='_default_designation', string='Approved by (2) Designation')
+        'hr.job', related='appb_two.job_id', string='Approved by (2) Designation')
     # Adjustment tab
     recommendation = fields.Char('Recommendation')
     effect_from = fields.Date('Effectivity From:')
@@ -79,47 +79,3 @@ class RateAdjustment(models.Model):
                 rec.difference = (rec.rate_adjust - rec.salary)
             else:
                 rec.difference = (rec.salary - rec.rate_adjust)
-
-    @api.depends('employee_id')
-    def _default_designation(self):
-        job_obj = self.env['hr.job']
-
-        hr_officer_job_id = job_obj.search([('name', '=', 'HR Officer')])
-        general_manager_job_id = job_obj.search(
-            [('name', '=', 'General Manager / HR Head')])
-        coo_job_id = job_obj.search(
-            [('name', '=', 'Chief Operations Officers')])
-        ceo_job_id = job_obj.search(
-            [('name', '=', 'President & CEO')])
-
-        for rec in self:
-            if hr_officer_job_id:
-                rec.recbd = hr_officer_job_id[0].id
-            else:
-                rec.recbd = hr_officer_job_id.id
-            if general_manager_job_id:
-                rec.notedbyd = general_manager_job_id[0].id
-            else:
-                rec.notedbyd = general_manager_job_id.id
-            if coo_job_id:
-                rec.appbd_one = coo_job_id[0].id
-            else:
-                rec.appbd_one = coo_job_id.id
-            if ceo_job_id:
-                rec.appbd_two = ceo_job_id[0].id
-            else:
-                rec.appbd_two = ceo_job_id.id
-
-    # @api.multi
-    # def _compute_regular(self):
-        #employee_id = self.id
-        #contract_obj = self.env['hr.contract']
-        #contract_type_obj = self.env['hr.contract.type']
-
-        #hr_contract_type = contract_type_obj.search([('name', '=', 'Regular')])
-        # hr_contract = contract_obj.search(
-        #    [('employee_id', '=', employee_id), ('state', '=', 'open'), ('type_id', '=', hr_contract_type.id)])
-
-        # for rec in self:
-        #    if hr_contract:
-        #        rec.regularized = True

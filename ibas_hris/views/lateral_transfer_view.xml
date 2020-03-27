@@ -27,12 +27,12 @@
                         <label for="send" string="SENDING DEPARTMENT"/>
                         <div name="send">
                             <field name="supervisor_snd" placeholder="Supervisor" class="oe_inline"/> - 
-                            <field name="department_head_snd" placeholder="Department" class="oe_inline"/>
+                            <field name="department_head_snd" placeholder="Department Head" class="oe_inline"/>
                         </div>
                        <label for="receive" string="RECEIVING DEPARTMENT"/>
                         <div name="receive">
                             <field name="supervisor_rcv" placeholder="Supervisor" class="oe_inline"/> - 
-                            <field name="department_head_rcv" placeholder="Department" class="oe_inline"/>
+                            <field name="department_head_rcv" placeholder="Department Head" class="oe_inline"/>
                         </div> 
                         <field name="remarks"/>   
                    </group>
@@ -62,6 +62,7 @@
                         <field name="training"/>
                         <field name="period"/>
                         <field name="difference"/>
+                        <field name='effectivity_date'/>
                         </group>
                     </page>
                 </notebook>
