@@ -572,7 +572,7 @@
                     <br/>
                     <p>This is to inform of the lateral transfer of the employee herein listed.  
                     Through this, all responsibilities, obligations and jurisdictions shall be transferred   
-                    to the Receiving Department.  This transfer shall take effect on ___________________.</p>
+                    to the Receiving Department.  This transfer shall take effect on <span class='underline' t-field="doc.effectivity_date"/>.</p>
                     <br/>
                    <table style="width: 100%;">
                         <tr style="height: 30px;">
@@ -680,10 +680,10 @@
                             <td><p style="text-align: center;"></p></td>
                         </tr>
                         <tr>
-                            <td><p style="text-align: center;"> <span t-field="doc.appbyd"/> </p></td>
+                            <td><p style="text-align: center;"> <span t-field="doc.appby"/> </p></td>
                         </tr>
                         <tr>
-                            <td><p class="overline" style="text-align: center;">President/CEO Chief Operations Officer</p></td>
+                            <td><p class="overline" style="text-align: center;"><span class="overline" t-field="doc.appbyd"/></p></td>
                         </tr>
                     </table>
                     <table style="width: 100%;">
@@ -692,13 +692,13 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td><p><span t-field="doc.notedby_one_d"/></p></td>
-                            <td><p><span t-field="doc.notedby_two_d"/></p></td>
+                            <td><p><span t-field="doc.notedby_one"/></p></td>
+                            <td><p><span t-field="doc.notedby_two"/></p></td>
                         </tr>
         
                         <tr>
-                            <td class="overline" style="height: 30px; overflow:hidden;"><p> Human Resources/Date </p></td>
-                            <td class="overline"><p> Admin Head/Date </p></td>
+                            <td class="overline" style="height: 30px; overflow:hidden;"><p> <span class="overline" t-field="doc.notedby_one_d"/> </p></td>
+                            <td class="overline"><p> <span class="overline" t-field="doc.notedby_two_d"/> </p></td>
                         </tr>
                     </table>
                     <br/>
