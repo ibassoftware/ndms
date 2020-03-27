@@ -33,7 +33,8 @@
                         <div name="receive">
                             <field name="supervisor_rcv" placeholder="Supervisor" class="oe_inline"/> - 
                             <field name="department_head_rcv" placeholder="Department" class="oe_inline"/>
-                        </div>    
+                        </div> 
+                        <field name="remarks"/>   
                    </group>
                     <group> 
                     <field name="appby"/>

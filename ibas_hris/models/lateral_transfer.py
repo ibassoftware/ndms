@@ -61,6 +61,7 @@ class LateralTransfer(models.Model):
     period = fields.Float(string='Period')
     difference = fields.Monetary(compute='_compute_difference', digits=(
         16, 2), string='Difference')
+    remarks = fields.Text('Remarks')
 
     def _expand_states(self, states, domain, order):
         return [key for key, val in type(self).state.selection]
