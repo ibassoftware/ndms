@@ -157,8 +157,8 @@ class Payslip(models.Model):
             if att.is_workday:
                 if att.is_tardy:
                     late_in_float += att.late_in_float
-                if att.is_undertime:
-                    undertime_minutes += att.undertime_minutes
+                #if att.is_undertime:
+                undertime_minutes += att.undertime_minutes
                 if att.is_regular:
                     regular_holiday_worked_hours += att.worked_hours < 8 and att.worked_hours or 8
                 if att.is_special:
