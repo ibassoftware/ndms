@@ -157,8 +157,8 @@ class Payslip(models.Model):
             if att.is_workday:
                 if att.is_tardy:
                     late_in_float += att.late_in_float
-                if att.is_undertime:
-                    undertime_minutes += att.undertime_minutes
+                #if att.is_undertime:
+                undertime_minutes += att.undertime_minutes
                 if att.is_regular:
                     regular_holiday_worked_hours += att.worked_hours < 8 and att.worked_hours or 8
                 if att.is_special:
@@ -200,17 +200,17 @@ class Payslip(models.Model):
             ot_day_holiday = self.env['ibas_hris.holiday'].search([('date', '=', ot_day)])
 
             if ot_day_work_hours and not ot_day_holiday:  # Regular Overtime
-                regular_ot_minutes = + ot.ot_minutes
+                regular_ot_minutes += ot.ot_minutes
             elif not ot_day_work_hours and not ot_day_holiday:  # Restday Overtime
-                restday_ot_minutes = + ot.ot_minutes
+                restday_ot_minutes += ot.ot_minutes
             if ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'regular':  # Regular Holiday Overtime
-                regular_holiday_ot_minutes = + ot.ot_minutes
+                regular_holiday_ot_minutes += ot.ot_minutes
             if ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'special':  # Special Holiday Overtime
-                special_holiday_ot_minutes = + ot.ot_minutes
+                special_holiday_ot_minutes += ot.ot_minutes
             if not ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'regular':  # Regular Holiday Restday Overtime
-                regular_holiday_restday_ot_minutes = + ot.ot_minutes
+                regular_holiday_restday_ot_minutes += ot.ot_minutes
             if not ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'special':  # Special Holiday Restday Overtime
-                special_holiday_restday_ot_minutes = + ot.ot_minutes
+                special_holiday_restday_ot_minutes += ot.ot_minutes
 
         res.extend([
             {
