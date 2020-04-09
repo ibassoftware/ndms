@@ -247,20 +247,62 @@
           <field name="model">hr.attendance</field>
           <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
           <field name="arch" type="xml">
+              <xpath expr="//sheet" position="before">
+                <header>
+                    <button string="Recompute Attendance" name="action_computeAttendance" type="object" class="oe_highlight"/>
+                </header>                
+              </xpath>
               
-              <xpath expr="//field[@name='check_out']" position="after">
-                
+              <xpath expr="//field[@name='check_out']" position="after">                
                 <field name="workday"/>
                 <field name="workdate"/>
-               <field name="is_workday"/>
-                <field name="is_tardy"/>
-                <field name="late_in_float"/>
+                <field name="is_workday"/>
+                <field name="is_restday_work"/>                                
                 <field name="is_special"/>
-                <field name="is_regular"/>
-                <field name="is_undertime"/>
-                <field name="undertime_minutes"/>
-
+                <field name="is_regular"/>                                
               </xpath>
+
+              <xpath expr="//group[1]" position="after">
+                <notebook>
+                  <page name="brkdown" string="Work Breakdown">
+                      <group>
+                        <field name="worked_hours" invisible="0"/>
+                        <field name="is_tardy"/>
+                        <field name="late_in_float"/>
+                        <field name="is_undertime"/>
+                        <field name="undertime_minutes"/>                      
+                        <field name="reg_appr_overtime"/>
+                      </group>
+
+                      <group string="Restday">
+                        <field name="rest_day_hrs_wrk"/>
+                        <field name="rest_day_hrs_ot"/>
+                      </group>                      
+
+                      <group string="Regular Holiday">
+                        <field name="reg_hol_hrs_wrk"/>
+                        <field name="reg_hol_hrs_ot"/>
+                      </group>
+
+                      <group string="Special Holiday">
+                        <field name="spec_hol_hrs_wrk"/>
+                        <field name="spec_hol_hrs_ot"/>
+                      </group>  
+
+                      <group string="Restday Regular Holiday">
+                        <field name="rd_reg_hol_hrs_wrk"/>
+                        <field name="rd_reg_hol_hrs_ot"/>
+                      </group>
+
+                      <group string="Restday Special Holidays">
+                        <field name="rd_spec_hol_hrs_wrk"/>
+                        <field name="rd_spec_hol_hrs_ot"/>
+                      </group>                      
+                  </page>                 
+                </notebook>                
+              </xpath>
+
+
 
           </field>
       </record>
