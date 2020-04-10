@@ -1,0 +1,8 @@
+"id","amount_python_compute"
+"ibas_payroll.hr_rule_holidays","result = 0.0
+ hourly_rate = contract.daily_wage / 8
+result += hourly_rate * worked_days.RD.number_of_hours * 1.3
+result += hourly_rate * worked_days.SH.number_of_hours * 1.3
+result += hourly_rate * worked_days.RH.number_of_hours * 1.2
+result += hourly_rate * worked_days.RDSH.number_of_hours * 1.5
+result += hourly_rate * worked_days.RDRH.number_of_hours * 1.3"
