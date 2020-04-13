@@ -35,7 +35,6 @@
         'views/.ipynb_checkpoints/views-checkpoint.xml',
         'views/.ipynb_checkpoints/templates-checkpoint.xml',
         'wizard/hr_attendance_compute_wiz.xml',
-
     ],
     # only loaded in demonstration mode
     'demo': [
