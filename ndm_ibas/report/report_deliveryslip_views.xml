@@ -150,7 +150,7 @@
                 <t t-call="ndm_ibas.external_layout_ndm_delivery_stp">
                     <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
                     <!-- <div class="page" t-attf-style="background-image:url('/asiaglobal/static/src/img/bill.PNG');  no-repeat; background-size: cover;"> -->
-                    <div class="page" style="font-size:22px">
+                    <div class="page" style="font-size:25px">
                         <span t-field="o.scheduled_date" style="top: 22mm;left: 310mm;position:absolute;width:100%;"/>
                         <!-- <span t-esc="datetime.datetime.strptime(o.scheduled_date, '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y')" /> -->
 
@@ -181,46 +181,46 @@
                         </div>
 
                         <!-- SECTION 2 -->
-                        <div style="top: 30mm;left: 170mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 30mm;left: 210mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <span t-field="o.name"/>
                         </div>
 
-                        <div style="top: 37mm;left: 170mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 37mm;left: 210mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- VOLUME -->
                             <span t-field="o.volume"/>
                         </div>
 
-                        <div style="top: 44mm;left: 200mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 37mm;left: 250mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- ACC. VOLUME -->
                             <span t-field="o.acc_vol"/>
                         </div>
 
-                        <div style="top: 51mm;left: 170mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 44mm;left: 210mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- STRENGTH -->
                             <span t-field="o.strength"/>
                         </div>
 
-                        <div style="top: 58mm;left: 200mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 44mm;left: 250mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- AGGREGATE -->
                             <span t-field="o.aggregate"/>
                         </div>
 
-                        <div style="top: 65mm;left: 170mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 51mm;left: 210mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- SLUMP -->
                             <span t-field="o.slump"/>
                         </div>
 
-                        <div style="top: 72mm;left: 170mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 58mm;left: 210mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- GROSS WT. -->
                             <span t-field="o.gross_weight"/>
                         </div>
 
-                        <div style="top: 79mm;left: 170mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 65mm;left: 210mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- TARE WT. -->
                             <span t-field="o.tare_wt"/>
                         </div>
 
-                        <div style="top: 86mm;left: 170mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 72mm;left: 210mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- NET WT. -->
                             <span t-field="o.net_wt"/>
                         </div>
