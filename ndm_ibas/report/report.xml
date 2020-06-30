@@ -142,6 +142,15 @@
             file="ndm_ibas.kongkreto_new_dr" 
             paperformat="ndm_ibas.paperformat_dr_a4" 
         />
+
+        <report 
+            id="action_report_kongkreto_dr_stp" 
+            model="stock.picking" 
+            string="Kongkreto DR (STP)" 
+            report_type="qweb-pdf" 
+            name="ndm_ibas.kongkreto_new_dr_stp" 
+            file="ndm_ibas.kongkreto_new_dr_stp" 
+        />
         
     </data>
 </odoo>
