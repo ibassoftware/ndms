@@ -8,6 +8,8 @@ import base64
 import io
 
 
+DEFAULT_STANDARD_WORK_HOURS = 8.00
+
 
 class ibas_attendance(models.Model):
     _inherit = 'hr.attendance'
@@ -24,6 +26,105 @@ class ibas_attendance(models.Model):
     
     is_undertime = fields.Boolean(compute='_compute_is_undertime', string='Is Undertime', store=True)
     undertime_minutes = fields.Float(compute='_compute_is_undertime', string='Undertime Minutes', store=True)
+
+
+    
+    is_restday_work = fields.Boolean(string='Is Rest Day Work Day?', store=True)
+
+
+    #Rest Days Work
+    rest_day_hrs_wrk = fields.Float( string='Restday Work', store=True)
+    rest_day_hrs_ot = fields.Float(string='Restday Overtime in Minutes', store=True)
+
+
+    #Regular Workdays
+    reg_wrk_ut_min = fields.Float(compute='_compute_is_undertime', string='Undertime Minutes', store=True)
+    reg_late_in_float = fields.Float(string='Lates', compute="_onchange_employee_id", store=True)
+    reg_appr_overtime = fields.Float( string='Overtime in Minutes', store=True)
+
+
+    #Regular Holidays(Approve Work) 
+    reg_hol_hrs_wrk = fields.Float( string='Holidays Work', store=True)
+    reg_hol_hrs_ot = fields.Float( string='Holidays Overtime in Minutes', store=True)
+
+    #Special Holidays(Approve Work)
+    spec_hol_hrs_wrk = fields.Float( string='Holidays Work', store=True)
+    spec_hol_hrs_ot = fields.Float( string='Holidays Overtime in Minutes', store=True)
+
+
+    #Restday Regular Holidays(Approve Work) 
+    rd_reg_hol_hrs_wrk = fields.Float( string='Restday Holidays Work', store=True)
+    rd_reg_hol_hrs_ot = fields.Float( string='Restday Holidays Overtime in Minutes', store=True)
+
+    #Restday Special Holidays(Approve Work)
+    rd_spec_hol_hrs_wrk = fields.Float( string='Holidays Work', store=True)
+    rd_spec_hol_hrs_ot = fields.Float( string='Holidays Overtime in Minutes', store=True)
+
+
+    @api.multi
+    def action_computeAttendance(self):
+        for rec in self:
+            rec._compute_segregate_hourswork()
+
+
+
+    #@api.depends('check_out','is_restday_work')
+    @api.onchange('employee_id','check_in','check_out','is_restday_work', 'is_special', 'is_regular')
+    def _compute_segregate_hourswork(self):
+        #for rec in self:
+        self.rest_day_hrs_wrk = 0.00
+        self.reg_appr_overtime = 0.00
+        self.reg_hol_hrs_wrk = 0.00
+        self.spec_hol_hrs_wrk = 0.00    
+        self.rd_spec_hol_hrs_wrk = 0.00
+        self.rd_reg_hol_hrs_wrk = 0.00
+
+
+        #OT
+        self.reg_hol_hrs_ot = 0.00
+        self.spec_hol_hrs_ot = 0.00
+        self.rest_day_hrs_ot = 0.00
+        self.reg_appr_overtime = 0.00
+        self.rd_spec_hol_hrs_ot = 0.00
+        self.rd_reg_hol_hrs_ot = 0.00
+
+        hours_work = self.worked_hours
+        overtime_in_minutes = 0.0
+
+        if self.worked_hours > DEFAULT_STANDARD_WORK_HOURS:
+            hours_work = DEFAULT_STANDARD_WORK_HOURS
+
+
+        overtimes = self.env['ibas_hris.ot'].search(
+            [('state', '=', 'approved'), ('overtime_from', '>=', self.check_in),
+             ('overtime_from', '<=', self.check_out), ('employee_id', '=', self.employee_id.id)])
+
+        if overtimes:
+            for ot in overtimes:
+                overtime_in_minutes += ot and ot.ot_minutes or 0.0
+
+        if self.is_restday_work:
+            if self.is_special:
+                self.rd_spec_hol_hrs_wrk = hours_work
+                self.rd_spec_hol_hrs_ot = overtime_in_minutes                
+
+            elif self.is_regular:
+                self.rd_reg_hol_hrs_wrk = hours_work
+                self.rd_reg_hol_hrs_ot = overtime_in_minutes
+
+            else:
+                self.rest_day_hrs_wrk = hours_work
+                self.rest_day_hrs_ot = overtime_in_minutes
+        else:
+            if self.is_special:
+                self.spec_hol_hrs_wrk = hours_work
+                self.spec_hol_hrs_ot = overtime_in_minutes
+            elif self.is_regular:
+                self.reg_hol_hrs_wrk = hours_work
+                self.reg_hol_hrs_ot = overtime_in_minutes
+            else:
+                self.reg_appr_overtime = overtime_in_minutes
+
     
     @api.depends('check_out')
     def _compute_is_undertime(self):
@@ -33,7 +134,7 @@ class ibas_attendance(models.Model):
             if (rec.employee_id is not False and rec.check_out != False):
                 rec.workdate = fields.Datetime.from_string(rec.check_in).date()
                 if (rec.employee_id.work_sched is not False):
-                    if rec.is_workday:                       
+                    if rec.is_workday:
                         dow = fields.Date.from_string(rec.check_in).weekday()
                         cnts = rec.employee_id.work_sched.attendance_ids.search([("dayofweek","=",dow),
                         ("calendar_id","=",rec.employee_id.work_sched.id)])

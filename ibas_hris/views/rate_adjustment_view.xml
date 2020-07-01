@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="ibas_hris_rate_adjustment_view_form" model="ir.ui.view">
+        <field name="name">ibas_hris_rate_adjustment_view_form</field>
+        <field name="model">ibas_hris.rate_adjustment</field>
+        <field name="arch" type="xml">
+            <form string="Rate Adjustment">
+            <header>
+				<field name="state" widget="statusbar" statusbar_visible="draft,pending,approved,close,cancel"/>
+				</header>
+            <sheet>
+                <field name='name'/>
+                <group>
+                   <group>
+                        <field name="employee_id"/>
+                        <field name="appointment"/>
+                        <field name="job_id"/>
+                        <field name="grade"/>
+                   
+                        <label for="salary"/>
+						<div class="o_row" name="wage">
+							<field name="salary" nolabel="1" on_change="1"/>
+							<span>
+								/ month
+							</span>
+						</div>
+                        <field name="company_id" invisible="1"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="department_id"/>  
+                   </group>
+                    <group> 
+                    <field name="date_adj"/>
+                    <field name="employee_to"/>
+                    <field name="employee_from"/>
+                    <field name="recb"/>
+                    <field name="recbd"/>
+                    <field name="notedby"/>
+                    <field name="notedbyd"/>
+                    <field name="appb_one"/>
+                    <field name="appbd_one"/>
+                    <field name="appb_two"/>
+                    <field name="appbd_two"/>
+                    </group>
+                </group>
+               <notebook>
+                    <page string="Adjustments">
+                        <group>
+                        <field name="recommendation"/>
+                        <field name="effect_from"/>
+                        <field name="effect_to"/>
+                        <field name="position"/>
+                        <field name="grade_adj"/>
+                        <label for="rate_adjust"/>
+						<div class="o_row" name="wage">
+							<field name="rate_adjust" nolabel="1" on_change="1"/>
+							<span>
+								/ month
+							</span>
+						</div>
+                        <field name="difference"/>
+                        <field name="department_adj_id"/>
+                        </group>
+                    </page>
+                </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                <field name="message_follower_ids" widget="mail_followers"/>
+                <field name="message_ids" widget="mail_thread"  options="{'display_log_button': True}"/>
+	        </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="ibas_hris_rate_adjustment_view_tree" model="ir.ui.view">
+        <field name="name">ibas_hris_rate_adjustment_view_tree</field>
+        <field name="model">ibas_hris.rate_adjustment</field>
+        <field name="arch" type="xml">
+            <tree string="Rate Adjustment">
+                <field name="employee_id"/> 
+            </tree>
+        </field>
+    </record>
+
+    <record id="ibas_hris_rate_adjustment_view_kanban" model="ir.ui.view">
+        <field name="name">ibas_hris_rate_adjustment_view_kanban</field>
+        <field name="model">ibas_hris.rate_adjustment</field>
+        <field name="arch" type="xml">
+            <kanban  default_group_by="state" class="o_kanban_small_column">
+                <field name="state"/>
+                <field name="employee_id" on_change="1" can_create="true" can_write="true"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown"> 
+					            <a class="dropdown-toggle btn" data-toggle="dropdown" href="#">
+						            <span class="fa fa-ellipsis-v"/>
+                                </a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                    <t t-if="widget.editable">
+                                        <li>
+                                        <a data-type="edit" href="#" class=" oe_kanban_action oe_kanban_action_a">
+									        Edit Rate Adjustment
+								        </a>
+                                        </li>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <li>
+                                        <a data-type="delete" href="#" class=" oe_kanban_action oe_kanban_action_a">
+									        Delete
+								        </a>
+                                        </li>
+                                    </t>
+                                </ul>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <div>
+                                    <strong class="o_kanban_record_title" >
+							            <field name="name"/>
+						            </strong>
+                                </div>
+                                <div class="text-muted o_kanban_record_subtitle">           
+				            		<field name="job_id" can_create="true" can_write="true"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <img t-att-src="kanban_image('hr.employee', 'image_medium', record.employee_id.raw_value)" t-att-title="record.employee_id.value" width="24" height="24" class="oe_kanban_avatar pull-right"/>
+                                </div>
+                            </div>
+                            <div class="oe_clear"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_ibas_hris_rate_adjustment" model="ir.actions.act_window">
+        <field name="name">Rate Adjsutment</field>
+        <field name="res_model">ibas_hris.rate_adjustment</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <menuitem
+        id="ibas_hris_rate_adjustment_menu"
+        name="Rate Adjustment"
+        action="action_ibas_hris_rate_adjustment"
+        groups="base.group_user"
+        parent="hr.menu_hr_root"
+        sequence="5"/>
+
+</data>
+</odoo>

@@ -142,6 +142,21 @@
                </page>
                 
               </xpath>
+              <xpath expr="//field[@name='user_id']" position="after">
+                <field name="regularized"/>
+                <field name="rate_of_adjustment_ids" invisible="1"/>
+                <field name="lateral_transfer_ids" invisible="1"/>
+              </xpath>
+              
+
+              <xpath expr="//button[@name='536']" position="before">
+                <button name="open_lt" class="oe_stat_button" icon="fa-book" type="object">
+                   <span> <field name="count_lt"/> Lateral Transfer</span>
+                </button>
+                <button name="open_roa" class="oe_stat_button" icon="fa-book" type="object">
+                  <span> <field name="count_roa"/> Rate of Adjustment</span>
+                </button>
+              </xpath>
 
           </field>
       </record>

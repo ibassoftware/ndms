@@ -153,22 +153,35 @@ class Payslip(models.Model):
         restday_special_holiday_worked_hours = 0.0
         actual_worked_hours = 0.0
         restday_hours = 0.0
+
+        # For Overtime
+        regular_ot_minutes = 0.0
+        restday_ot_minutes = 0.0
+        regular_holiday_ot_minutes = 0.0
+        special_holiday_ot_minutes = 0.0
+        regular_holiday_restday_ot_minutes = 0.0
+        special_holiday_restday_ot_minutes = 0.0        
         for att in attendances:
-            if att.is_workday:
-                if att.is_tardy:
-                    late_in_float += att.late_in_float
-                if att.is_undertime:
-                    undertime_minutes += att.undertime_minutes
-                if att.is_regular:
-                    regular_holiday_worked_hours += att.worked_hours < 8 and att.worked_hours or 8
-                if att.is_special:
-                    special_holiday_worked_hours += att.worked_hours < 8 and att.worked_hours or 8
-            if not att.is_workday:
-                if att.is_regular:
-                    restday_regular_holiday_worked_hours += att.worked_hours < 8 and att.worked_hours or 8
-                if att.is_special:
-                    restday_special_holiday_worked_hours += att.worked_hours < 8 and att.worked_hours or 8
-                restday_hours += att.worked_hours < 8 and att.worked_hours or 8
+            
+            late_in_float += att.late_in_float
+            undertime_minutes += att.undertime_minutes
+
+            regular_holiday_worked_hours += att.reg_hol_hrs_wrk # Regular Holiday
+            special_holiday_worked_hours += att.spec_hol_hrs_wrk # Special Holiday
+            restday_hours += att.rest_day_hrs_wrk # Restday
+            restday_regular_holiday_worked_hours += att.rd_reg_hol_hrs_wrk # Restday Regular Holiday
+            restday_special_holiday_worked_hours += att.rd_spec_hol_hrs_wrk # Restday Special Holiday
+
+            #For Overtime
+            regular_ot_minutes += att.reg_appr_overtime #Regular OT 
+            restday_ot_minutes += att.rest_day_hrs_ot #Restday OT
+            regular_holiday_ot_minutes += att.reg_hol_hrs_ot #Regular Holiday OT
+            special_holiday_ot_minutes += att.spec_hol_hrs_ot #Special Holiday OT
+            regular_holiday_restday_ot_minutes += att.rd_reg_hol_hrs_ot #Restday Regular Holiday OT
+            special_holiday_restday_ot_minutes += att.rd_spec_hol_hrs_ot #Restday Special Holiday OT
+
+
+
             actual_worked_hours += att.worked_hours < 8 and att.worked_hours or 8
 
         # HR-4
@@ -185,32 +198,33 @@ class Payslip(models.Model):
                         absences += 1
 
         # HR-5
-        overtimes = self.env['ibas_hris.ot'].search(
-            [('state', '=', 'approved'), ('overtime_from', '>=', date_from + ' 00:00:00'),
-             ('overtime_from', '<=', date_to + ' 23:59:59'), ('employee_id', '=', employee.id)])
-        regular_ot_minutes = 0.0
-        restday_ot_minutes = 0.0
-        regular_holiday_ot_minutes = 0.0
-        special_holiday_ot_minutes = 0.0
-        regular_holiday_restday_ot_minutes = 0.0
-        special_holiday_restday_ot_minutes = 0.0
-        for ot in overtimes:
-            ot_day = fields.Datetime.from_string(date_from).date()
-            ot_day_work_hours = employee.get_day_work_hours_count(ot_day, calendar=resource_calendar_id)
-            ot_day_holiday = self.env['ibas_hris.holiday'].search([('date', '=', ot_day)])
+        #overtimes = self.env['ibas_hris.ot'].search(
+        #    [('state', '=', 'approved'), ('overtime_from', '>=', date_from + ' 00:00:00'),
+        #     ('overtime_from', '<=', date_to + ' 23:59:59'), ('employee_id', '=', employee.id)])
+        #regular_ot_minutes = 0.0
+        #restday_ot_minutes = 0.0
+        #regular_holiday_ot_minutes = 0.0
+        #special_holiday_ot_minutes = 0.0
+        #regular_holiday_restday_ot_minutes = 0.0
+        #special_holiday_restday_ot_minutes = 0.0
+        #for ot in overtimes:
+        #    ot_day = fields.Datetime.from_string(date_from).date()
+        #    ot_day_work_hours = employee.get_day_work_hours_count(ot_day, calendar=resource_calendar_id)
+        #    ot_day_holiday = self.env['ibas_hris.holiday'].search([('date', '=', ot_day)])
 
-            if ot_day_work_hours and not ot_day_holiday:  # Regular Overtime
-                regular_ot_minutes = + ot.ot_minutes
-            elif not ot_day_work_hours and not ot_day_holiday:  # Restday Overtime
-                restday_ot_minutes = + ot.ot_minutes
-            if ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'regular':  # Regular Holiday Overtime
-                regular_holiday_ot_minutes = + ot.ot_minutes
-            if ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'special':  # Special Holiday Overtime
-                special_holiday_ot_minutes = + ot.ot_minutes
-            if not ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'regular':  # Regular Holiday Restday Overtime
-                regular_holiday_restday_ot_minutes = + ot.ot_minutes
-            if not ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'special':  # Special Holiday Restday Overtime
-                special_holiday_restday_ot_minutes = + ot.ot_minutes
+        #    if ot_day_work_hours and not ot_day_holiday:  # Regular Overtime
+        #        regular_ot_minutes += ot.ot_minutes
+        #    elif not ot_day_work_hours and not ot_day_holiday:  # Restday Overtime
+        #        restday_ot_minutes += ot.ot_minutes
+        #    if ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'regular':  # Regular Holiday Overtime
+        #        regular_holiday_ot_minutes += ot.ot_minutes
+        #    if ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'special':  # Special Holiday Overtime
+        #        special_holiday_ot_minutes += ot.ot_minutes
+        #   if not ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'regular':  # Regular Holiday Restday Overtime
+        #        regular_holiday_restday_ot_minutes += ot.ot_minutes
+        #    if not ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'special':  # Special Holiday Restday Overtime
+        #        special_holiday_restday_ot_minutes += ot.ot_minutes
+
 
         res.extend([
             {
