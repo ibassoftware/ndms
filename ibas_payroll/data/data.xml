@@ -1,5 +1,24 @@
 <odoo>
     <data noupdate="0">
+        <record id="hr_rule_basic_pay_allowance" model="hr.salary.rule">
+            <field name="name">ALLOWANCE</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">Allowance</field>
+            <field name="appears_on_payslip" eval="True"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = 0.0
+if contract.schedule_pay == 'daily':
+    result = contract.allowance * worked_days.NORMWD.number_of_days
+if contract.schedule_pay == 'weekly':
+    result = contract.allowance / 4
+if contract.schedule_pay == 'bi-monthly':
+    result = contract.allowance / 2</field>
+            <field name="sequence" eval="100"/>
+        </record>        
+    </data>
+
+    <data noupdate="0">
         <!--Salary Rule Category Premiums-->
         <record id="PREMIUM" model="hr.salary.rule.category">
             <field name="name">Premiums</field>
@@ -288,7 +307,7 @@ if contract.schedule_pay == 'monthly':
             <field name="appears_on_payslip" eval="True"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.GROSS - categories.DED</field>
+            <field name="amount_python_compute">result = (categories.GROSS - categories.DED) + categories.ALW</field>
             <field name="sequence" eval="400"/>
         </record>
         <!--Salary Rule ADJUSTMENTS-->
