@@ -181,16 +181,16 @@
                         </div>
 
                         <!-- SECTION 2 -->
-                        <div style="top: 10mm;left: 213mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 10mm;left: 215mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <span t-field="o.name"/>
                         </div>
 
-                        <div style="top: 19mm;left: 212mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 19mm;left: 214mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- VOLUME -->
                             <span t-field="o.volume"/>
                         </div>
 
-                        <div style="top: 19mm;left: 292mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 19mm;left: 294mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- ACC. VOLUME -->
                             <span t-field="o.acc_vol"/>
                         </div>
