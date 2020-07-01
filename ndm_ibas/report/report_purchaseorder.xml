@@ -355,57 +355,31 @@
 
                     <br/>
 
-                    <!-- <div class="row" style="font-size:14px;">
-                        <div class="col-xs-4" style="border:1px solid black;padding: 10px;">
-                            <strong>Prepared By:</strong> <p t-field="o.create_uid.name"/>
-                        </div>
-                        <div class="col-xs-4" style="border:1px solid black;padding: 10px;">
-                            <strong>Noted by:</strong> 
-                            <t t-if="'KONGKRETO' in o.company_id.name"> 
-                                <p>Roland Estranero</p>
-                            </t>
-                            <t t-else="">
-                                <p>Engr. In Charge</p>
-                            </t>
-                        </div>
-                        <div class="col-xs-4" style="border:1px solid black;padding: 10px;">
-                            <strong>Approved By:</strong> 
-                            <t t-if="'KONGKRETO' in o.company_id.name"> 
-                                <p>Darrell Sanchez</p>
-                            </t>
-                            <t t-else="">
-                                <p>Engr. Nolando Sanchez (Pres. / CEO)</p>
-                            </t>
-                        </div>
-                    </div> -->
-
                     <div class="row" style="font-size:14px;">
                         <div class="col-xs-4" style="border:1px solid black;padding: 10px;height: 150px;">
                             <strong>Prepared By:</strong> <!-- <p t-field="o.create_uid.name"/> -->
-                            <div class="text-center">
+                            <!-- <div class="text-center">
                                 <t t-if="o.create_uid.e_signature">
                                     <br/>
                                     <img t-if="o.create_uid.e_signature" t-att-src="'data:image/png;base64,%s' % to_text(o.create_uid.e_signature)" width="130" height="65"/><br/>
                                 </t>
                                 <span t-field="o.create_uid.name"/>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-xs-4" style="border:1px solid black;padding: 10px;height: 150px;">
                             <strong>Noted by:</strong>
-                            <div class="text-center">
+                            <!-- <div class="text-center">
                                 <t t-if="o.purchase_notedby_id">
                                     <br/>
                                     <img t-if="o.purchase_notedby_id.e_signature" t-att-src="'data:image/png;base64,%s' % to_text(o.purchase_notedby_id.e_signature)" width="130" height="65"/><br/>
                                 </t>
                                 <span t-if="o.purchase_notedby_id" t-field="o.purchase_notedby_id.name"/>
-                                <!-- Default Noted By if nothing is set in config -->
                                 <t t-if="not o.purchase_notedby_id">
                                     <br/>
                                     <img src="/ndm_ibas/static/img/po_sign_chua.jpg" width="130" height="65"/><br/>
                                 </t>
-                                <!-- <span t-if="not o.purchase_notedby_id">Roland Estranero</span> -->
                                 <span t-if="not o.purchase_notedby_id">Archie Gabriel T. Chua</span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-xs-4" style="border:1px solid black;padding: 10px;height: 150px;">
                             <strong>Approved By:</strong>
