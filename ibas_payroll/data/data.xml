@@ -1,5 +1,24 @@
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
+        <record id="hr_rule_basic_pay_allowance" model="hr.salary.rule">
+            <field name="name">ALLOWANCE</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">Allowance</field>
+            <field name="appears_on_payslip" eval="True"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = 0.0
+if contract.schedule_pay == 'daily':
+    result = contract.allowance * worked_days.NORMWD.number_of_days
+if contract.schedule_pay == 'weekly':
+    result = contract.allowance / 4
+if contract.schedule_pay == 'bi-monthly':
+    result = contract.allowance / 2</field>
+            <field name="sequence" eval="100"/>
+        </record>        
+    </data>
+
+    <data noupdate="0">
         <!--Salary Rule Category Premiums-->
         <record id="PREMIUM" model="hr.salary.rule.category">
             <field name="name">Premiums</field>
@@ -46,7 +65,7 @@ if contract.schedule_pay == 'bi-monthly':
 hourly_rate = contract.daily_wage / 8
 result += hourly_rate * worked_days.RD.number_of_hours * 1.3
 result += hourly_rate * worked_days.SH.number_of_hours * 1.3
-result += hourly_rate * worked_days.RH.number_of_hours * 1.2
+result += hourly_rate * worked_days.RH.number_of_hours * 2
 result += hourly_rate * worked_days.RDSH.number_of_hours * 1.5
 result += hourly_rate * worked_days.RDRH.number_of_hours * 2.6</field>
             <field name="sequence" eval="10"/>
@@ -258,6 +277,17 @@ if contract.schedule_pay == 'monthly':
             <field name="amount_python_compute">result = worked_days.LATE.number_of_hours * (contract.daily_wage / 8)</field>
             <field name="sequence" eval="350"/>
         </record>
+        <!--Salary Rule UNDERTIME-->
+        <record id="hr_rule_undertime" model="hr.salary.rule">
+            <field name="name">UNDERTIME</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">UNDERTIME</field>
+            <field name="appears_on_payslip" eval="True"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">result = worked_days.UNDERTIME.number_of_hours * (contract.daily_wage / 8)</field>
+            <field name="sequence" eval="350"/>
+        </record>        
         <!--Salary Rule ABSENCES-->
         <record id="hr_rule_absences" model="hr.salary.rule">
             <field name="name">ABSENT</field>
@@ -277,7 +307,7 @@ if contract.schedule_pay == 'monthly':
             <field name="appears_on_payslip" eval="True"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.GROSS - categories.DED</field>
+            <field name="amount_python_compute">result = (categories.GROSS - categories.DED) + categories.ALW</field>
             <field name="sequence" eval="400"/>
         </record>
         <!--Salary Rule ADJUSTMENTS-->
