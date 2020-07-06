@@ -149,7 +149,7 @@
               </xpath>
               
 
-              <xpath expr="//button[@name='536']" position="before">
+              <xpath expr="//field[@name='attendance_state']" position="before">
                 <button name="open_lt" class="oe_stat_button" icon="fa-book" type="object">
                    <span> <field name="count_lt"/> Lateral Transfer</span>
                 </button>
@@ -250,15 +250,29 @@
       />
 
       <!-- Report Paper Formats -->
+        <record id="paperformat_probationary" model="report.paperformat">
+            <field name="name">Probatinary Appointment</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
         <record id="paperformat_regularization" model="report.paperformat">
             <field name="name">Memo of Regularization</field>
             <field name="default" eval="True"/>
             <field name="format">custom</field>
             <field name="orientation">Portrait</field>
-            <field name="margin_top">35</field>
-            <field name="margin_bottom">3</field>
-            <field name="margin_left">20</field>
-            <field name="margin_right">20</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
             <field name="header_line" eval="False"/>
             <field name="header_spacing">20</field>
             <field name="dpi">90</field>
@@ -322,6 +336,10 @@
 
 
       <!-- Apply Paper Formats -->
+        <record id="ibas_hris.action_report_ibas_contract" model="ir.actions.report">
+            <field name="paperformat_id" ref="ibas_hris.paperformat_probationary" />
+        </record> 
+
         <record id="ibas_hris.action_report_ibas_employee_regularisation" model="ir.actions.report">
             <field name="paperformat_id" ref="ibas_hris.paperformat_regularization" />
         </record> 
