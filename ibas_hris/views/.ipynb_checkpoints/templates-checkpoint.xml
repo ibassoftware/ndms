@@ -113,7 +113,7 @@
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
                             </t>
                             <t t-elif="doc.schedule_pay== 'weekly'">
-                                <p>As such, you will receive a fixed daily basic pay of Philippine Peso: <strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), Plus Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> allowance payable every Saturday of the week.</p>
+                                <p>As such, you will receive a fixed daily basic pay of Philippine Peso: <strong><span t-field="doc.daily_wage_in_words"/></strong> (<strong><span t-field="doc.daily_wage"/></strong>), Plus Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> allowance payable every Saturday of the week.</p>
                             </t>
                              <t t-else="">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
@@ -189,7 +189,7 @@
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
                             </t>
                             <t t-elif="doc.schedule_pay== 'weekly'">
-                                <p>As such, you will receive a fixed daily basic pay of Philippine Peso: <strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), Plus Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> allowance payable every Saturday of the week.</p>
+                                <p>As such, you will receive a fixed daily basic pay of Philippine Peso: <strong><span t-field="doc.daily_wage_in_words"/></strong> (<strong><span t-field="doc.daily_wage"/></strong>), Plus Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> allowance payable every Saturday of the week.</p>
                             </t>
                             <t t-else="">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
