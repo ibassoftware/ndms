@@ -465,6 +465,21 @@ class ibas_employee_contract(models.Model):
     amount_in_words = fields.Char(
         string='Wage In Words', compute='_onchange_amount', store=True)
 
+    daily_wage_in_words = fields.Char(
+        string='Daily Rate In Words', compute='_onchange_daily_wage', store=True)
+
+    @api.depends('daily_wage')
+    def _onchange_daily_wage(self):
+        for rec in self:
+            whole = num2words(int(rec.daily_wage)) + ' Pesos '
+            whole = whole.replace(' and ', ' ')
+            if "." in str(rec.daily_wage):  # quick check if it is decimal
+                decimal_no = str(rec.daily_wage).split(".")[1]
+            if decimal_no:
+                whole = whole + "and " + decimal_no + '/100'
+            whole = whole.replace(',', '')
+            rec.daily_wage_in_words = whole.upper() + " ONLY"
+
     @api.depends('wage')
     @api.multi
     def _onchange_amount(self):
