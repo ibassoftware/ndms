@@ -1,4 +1,6 @@
 from odoo import models
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class PayrollXlsx(models.AbstractModel):
@@ -40,10 +42,11 @@ class PayrollXlsx(models.AbstractModel):
         for i, ps in enumerate(payslips):
             row = i + 1
             lines = ps.line_ids
+            department = ps.sudo().employee_id.department_id and ps.sudo().employee_id.department_id.name or False
             sheet.write(row, 0, ps.employee_id.first_name)
             sheet.write(row, 1, ps.employee_id.middle_name)
-            sheet.write(row, 2, ps.employee_id.last_name)
-            sheet.write(row, 3, ps.employee_id.department_id and ps.employee_id.department_id.name)
+            sheet.write(row, 2, ps.employee_id.last_name)            
+            sheet.write(row, 3, department)
             sheet.write(row, 4, ps.employee_id.bank_account_number)
             sheet.write(row, 5, sum(lines.filtered(lambda r: r.code == 'GROSS').mapped('total')))
             sheet.write(row, 6, sum(lines.filtered(lambda r: r.code == 'NET').mapped('total')))
