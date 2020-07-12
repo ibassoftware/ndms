@@ -103,12 +103,13 @@
                             <br/>
                             <br/>
                             <br/>
-                            <p style="font-size:16px"><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong></p>
-                            <p style="font-size:16px"><strong><span t-field="doc.employee_id.name"/></strong></p>
-                            <p style="font-size:16px"><strong><span t-field="doc.employee_id.present_address"/></strong></p>
+                            <p style="font-size:16px"><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong><br/>
+                            <strong><span t-field="doc.employee_id.name"/></strong> <br/>
+                            <span t-field="doc.employee_id.present_address"/></p>
                             <p style="text-align: center; font-size: 18px"><strong>PROBATIONARY APPOINTMENT</strong></p>
                             <p>Dear <strong><span t-field="doc.employee_id.name"/></strong>,</p>
-                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp starting from the date of this notice. You shall undergo Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on (<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/>). You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong> up to <strong><span t-field="doc.date_end" t-options='{"format": "MMM-dd-yyyy"}'/></strong>.  Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                           <!-- <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp starting from the date of this notice. You shall undergo Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p> -->
                             <t t-if="doc.schedule_pay== 'bi-monthly'">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
                             </t>
@@ -179,12 +180,12 @@
                             <br/>
                             <br/>
                             <br/>
-                            <p style="font-size:16px"><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong></p>
-                            <p style="font-size:16px"><strong><span t-field="doc.employee_id.name"/></strong></p>
-                            <p style="font-size:16px"><strong><span t-field="doc.employee_id.present_address"/></strong></p>
+                            <p style="font-size:16px"><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong><br/>
+                            <strong><span t-field="doc.employee_id.name"/></strong><br/>
+                            <span t-field="doc.employee_id.present_address"/></p>
                             <p style="text-align: center; font-size: 18px"><strong>PROBATIONARY APPOINTMENT</strong></p>
                             <p>Dear <strong><span t-field="doc.employee_id.name"/></strong>,</p>
-                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of Kongkreto Pilipinas Inc. starting from the date of this notice. You shall undergo Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on (<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/>). You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong> up to <strong><span t-field="doc.date_end" t-options='{"format": "MMM-dd-yyyy"}'/></strong>.  Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
                             <t t-if="doc.schedule_pay== 'bi-monthly'">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
                             </t>
@@ -488,9 +489,13 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="ibas_hris.ibas_external_layout_boxed2">
-                    <div class="page">
+                    <div class="page" style="margin-left:90px; margin-right:90px;">
                         <link href="/ibas_hris/static/css/ibas.css"
                                 rel="stylesheet" type="text/css"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
                         <p style="text-align: center;"><strong>CONFIDENTIALITY AGREEMENT</strong></p>
                         <p> This agreement is made and executed by and between NDM Sanchez Builders and Development Corporation; 
                         the Company and <strong><span t-field="doc.last_name"/></strong> <strong><span t-field="doc.first_name"/></strong>, 
@@ -569,9 +574,13 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="ibas_hris.ibas_external_layout_boxed2">
-                    <div class="page">
+                    <div class="page" style="margin-left:90px; margin-right:90px;">
                      <link href="/ibas_hris/static/css/ibas.css"
                                 rel="stylesheet" type="text/css"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
                         <p style="text-align: center;"><strong>ORIENTATION CHECKLIST</strong></p>
                         <p><strong>Documentation:  Necessary papers to be signed and requirements to be submitted</strong></p>
                     
