@@ -93,6 +93,7 @@ class Trip(models.Model):
     currency_id = fields.Many2one('res.currency', default=_default_currency, string="Currency")
     amount = fields.Monetary(string="Amount", required=True)
     employee_id = fields.Many2one('hr.employee', string="Employee", required=True)
+    remarks = fields.Char('Remarks')
 
     @api.multi
     def name_get(self):

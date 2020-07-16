@@ -301,15 +301,14 @@ class ibas_employee(models.Model):
 
     @api.multi
     def _compute_regular(self):
-        employee_id = self.id
-        contract_obj = self.env['hr.contract']
-        contract_type_obj = self.env['hr.contract.type']
-
-        hr_contract_type = contract_type_obj.search([('name', '=', 'Regular')])
-        hr_contract = contract_obj.search(
-            [('employee_id', '=', employee_id), ('state', '=', 'open'), ('type_id', '=', hr_contract_type.id)])
-
         for rec in self:
+            employee_id = rec.id
+            contract_obj = self.env['hr.contract']
+            contract_type_obj = self.env['hr.contract.type']
+
+            hr_contract_type = contract_type_obj.search([('name', '=', 'Regular')])
+            hr_contract = contract_obj.search(
+                [('employee_id', '=', employee_id), ('state', '=', 'open'), ('type_id', '=', hr_contract_type.id)])            
             if hr_contract:
                 rec.regularized = True
 
@@ -464,6 +463,21 @@ class ibas_employee_contract(models.Model):
 
     amount_in_words = fields.Char(
         string='Wage In Words', compute='_onchange_amount', store=True)
+
+    daily_wage_in_words = fields.Char(
+        string='Daily Rate In Words', compute='_onchange_daily_wage', store=True)
+
+    @api.depends('daily_wage')
+    def _onchange_daily_wage(self):
+        for rec in self:
+            whole = num2words(int(rec.daily_wage)) + ' Pesos '
+            whole = whole.replace(' and ', ' ')
+            if "." in str(rec.daily_wage):  # quick check if it is decimal
+                decimal_no = str(rec.daily_wage).split(".")[1]
+            if decimal_no:
+                whole = whole + "and " + decimal_no + '/100'
+            whole = whole.replace(',', '')
+            rec.daily_wage_in_words = whole.upper() + " ONLY"
 
     @api.depends('wage')
     @api.multi
