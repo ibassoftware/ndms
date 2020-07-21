@@ -108,13 +108,16 @@
                             <span t-field="doc.employee_id.present_address"/></p>
                             <p style="text-align: center; font-size: 18px"><strong>PROBATIONARY APPOINTMENT</strong></p>
                             <p>Dear <strong><span t-field="doc.employee_id.name"/></strong>,</p>
-                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/>. You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong>. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/>. You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong> up to <strong><span t-field="doc.date_end" t-options='{"format": "MMM-dd-yyyy"}'/></strong>. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
                            <!-- <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp starting from the date of this notice. You shall undergo Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p> -->
                             <t t-if="doc.schedule_pay== 'bi-monthly'">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
                             </t>
                             <t t-elif="doc.schedule_pay== 'weekly'">
                                 <p>As such, you will receive a fixed daily basic pay of Philippine Peso:<strong><span t-field="doc.daily_wage_in_words"/></strong> (<strong><span t-field="doc.daily_wage"/></strong>), Plus Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> allowance payable every Saturday of the week.</p>
+                            </t>
+                            <t t-elif="doc.schedule_pay== 'per-trip'">
+                                <p>As such, you will receive a Shoprate or per trip excluding overtime, Sunday and Holiday pay.</p>
                             </t>
                              <t t-else="">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
@@ -185,12 +188,15 @@
                             <span t-field="doc.employee_id.present_address"/></p>
                             <p style="text-align: center; font-size: 18px"><strong>PROBATIONARY APPOINTMENT</strong></p>
                             <p>Dear <strong><span t-field="doc.employee_id.name"/></strong>,</p>
-                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/>. You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong>. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/>. You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong> up to <strong><span t-field="doc.date_end" t-options='{"format": "MMM-dd-yyyy"}'/></strong>. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
                             <t t-if="doc.schedule_pay== 'bi-monthly'">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
                             </t>
                             <t t-elif="doc.schedule_pay== 'weekly'">
                                 <p>As such, you will receive a fixed daily basic pay of Philippine Peso:<strong><span t-field="doc.daily_wage_in_words"/></strong> (<strong><span t-field="doc.daily_wage"/></strong>), Plus Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> allowance payable every Saturday of the week.</p>
+                            </t>
+                            <t t-elif="doc.schedule_pay== 'per-trip'">
+                                <p>As such, you will receive a Shoprate or per trip excluding overtime, Sunday and Holiday pay.</p>
                             </t>
                             <t t-else="">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
@@ -214,9 +220,9 @@
                             </tr>
                             <tr>
                             <td style="text-align: center;">
-                            <p>_________________________<br /><strong>Mrs Susana Sanchez<br /></strong>Chief Finance Officer</p>
+                            <p>_________________________<br /><strong>Michelle Paloma<br /></strong>HR Officer</p>
                             </td>
-                            <td style="text-align: center;">_________________________<br /><strong>Neil Darrell M. Sanchez</strong><br />Chief Operations Officer</td>
+                            <td style="text-align: center;">_________________________<br /><strong>Mrs. Susana Sanchez</strong><br />Chief Finance Officer</td>
                             </tr>
                             </tbody>
                             </table>
@@ -233,7 +239,7 @@
                             </td>
                             </tr>
                             <tr>
-                            <td style="text-align: center;"><p>_________________________<br /><strong>Engr. Marc Bryan M. Sanchez<br /></strong>Chief Operations Officer</p> </td>
+                            <td style="text-align: center;"><p>_________________________<br /><strong>Neil Darrell M. Sanchez<br /></strong>Chief Operations Officer</p> </td>
                             <td style="text-align: center;"><p>_________________________<br /><strong>Engr. Nolando Sanchez<br /></strong>President and CEO</p></td>
                             </tr>
                             </tbody>
