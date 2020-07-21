@@ -646,10 +646,13 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="ibas_hris.ibas_external_layout_boxed2">
-                    <div class="page">
+                    <div class="page" style="margin-left:90px; margin-right:90px;">
                      <link href="/ibas_hris/static/css/ibas.css"
                                 rel="stylesheet" type="text/css"/>
-
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
                     <table style="width: 60%;">
                         <tr style="height: 30px;">
                             <td style="width: 10%; vertical-align: bottom;">DATE</td>
@@ -814,9 +817,13 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="ibas_hris.ibas_external_layout_boxed2">
-                    <div class="page">
+                    <div class="page" style="margin-left:90px; margin-right:90px;">
                     <link href="/ibas_hris/static/css/ibas.css"
                                 rel="stylesheet" type="text/css"/>
+                    <br/>            
+                    <br/>            
+                    <br/>            
+                    <br/>            
                     <p style="text-align: center;"><strong>LATERAL TRANSFER FORM</strong></p>
                     <table style="width: 100%;">
                         <tr style="height: 30px;">
