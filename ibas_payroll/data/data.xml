@@ -16,6 +16,17 @@ if contract.schedule_pay == 'bi-monthly':
     result = contract.allowance / 2</field>
             <field name="sequence" eval="100"/>
         </record>        
+
+        <record id="hr_rule_pay_addt_allowance" model="hr.salary.rule">
+            <field name="name">ADDITIONAL ALLOWANCE</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">ADDALLOWANCE</field>
+            <field name="appears_on_payslip" eval="True"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">fix</field>            
+            <field name="sequence" eval="100"/>
+        </record>        
+
     </data>
 
     <data noupdate="0">
