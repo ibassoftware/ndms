@@ -377,6 +377,7 @@ class ibas_employee_reference(models.Model):
 class ibas_employee_contract(models.Model):
     _inherit = "hr.contract"
 
+    schedule_pay = fields.Selection(selection_add=[('per-trip', 'Per-Trip')])
     allowance = fields.Float(string='Untaxable Allowance')
     daily_wage = fields.Float(string='Daily Rate')
     work_days = fields.Selection([
