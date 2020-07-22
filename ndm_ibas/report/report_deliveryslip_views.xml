@@ -151,8 +151,8 @@
                     <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
                     <!-- <div class="page" t-attf-style="background-image:url('/asiaglobal/static/src/img/bill.PNG');  no-repeat; background-size: cover;"> -->
                     <div class="page" style="font-size:25px">
-                        <span t-field="o.scheduled_date" style="top: 65mm;left: 320mm;position:absolute;width:100%;"/>
-                        <!-- <span t-esc="datetime.datetime.strptime(o.scheduled_date, '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y')" /> -->
+                        <!-- <span t-field="o.scheduled_date" style="top: 65mm;left: 320mm;position:absolute;width:100%;"/> -->
+                        <span t-esc="datetime.datetime.strptime(o.scheduled_date, '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y')" />
 
                         <!-- SECTION 1 -->
                         <div style="top: 75mm;left: 55mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
