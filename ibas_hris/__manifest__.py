@@ -30,22 +30,13 @@
         'views/templates.xml',
         'views/customviews.xml',
         'views/overtime.xml',
-<<<<<<< HEAD
-<<<<<<< HEAD
         'views/.ipynb_checkpoints/views-checkpoint.xml',
         'views/.ipynb_checkpoints/templates-checkpoint.xml',
-=======
-=======
->>>>>>> 976ed7ebce04c1166671a43701e2885afa891bd9
         'views/rate_adjustment_view.xml',
         'views/lateral_transfer_view.xml',
         'views/.ipynb_checkpoints/views-checkpoint.xml',
         'views/.ipynb_checkpoints/templates-checkpoint.xml',
         'wizard/hr_attendance_compute_wiz.xml',
-<<<<<<< HEAD
->>>>>>> dd56d33fd7171303517f39951788ebd525b2c177
-=======
->>>>>>> 976ed7ebce04c1166671a43701e2885afa891bd9
     ],
     # only loaded in demonstration mode
     'demo': [
