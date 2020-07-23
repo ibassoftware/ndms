@@ -152,18 +152,19 @@
                     <!-- <div class="page" t-attf-style="background-image:url('/asiaglobal/static/src/img/bill.PNG');  no-repeat; background-size: cover;"> -->
                     <div class="page" style="font-size:25px">
                         <!-- <span t-field="o.scheduled_date" style="top: 65mm;left: 320mm;position:absolute;width:100%;"/> -->
-                        <span t-esc="datetime.datetime.strptime(o.scheduled_date, '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y')" style="top: 65mm;left: 325mm;position:absolute;width:100%;"/>
+                        <span t-esc="datetime.datetime.strptime(o.scheduled_date, '%Y-%m-%d %H:%M:%S').strftime('%m/%d/%Y')" style="top: 65mm;left: 330mm;position:absolute;width:100%;"/>
 
                         <!-- SECTION 1 -->
                         <div style="top: 75mm;left: 60mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <span t-field="o.partner_id.name"/>
                         </div>
-                        <div style="top: 84mm;left: 65mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 86mm;left: 70mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- STRUCTURE -->
                             <span t-field="o.project_name"/>
                         </div>
-                        <div style="top: 93mm;left: 60mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
-                            <span t-field="o.partner_id.street"/><span t-field="o.partner_id.street2"/><span t-field="o.partner_id.city"/>
+                        <div style="top: 95mm;left: 65mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                            <!-- <span t-field="o.partner_id.street"/><span t-field="o.partner_id.street2"/><span t-field="o.partner_id.city"/> -->
+                            <span t-field="o.project_address"/>
                         </div>
                         <div style="top: 104mm;left: 55mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- TM NO -->
@@ -175,7 +176,7 @@
                             <span t-field="o.driver_name"/>
                         </div>
 
-                        <div style="top: 122mm;left: 65mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 124mm;left: 70mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- TIME OUT -->
                             <span t-field="o.timeout_p"/>
                         </div>
@@ -190,7 +191,7 @@
                             <span t-field="o.volume"/>
                         </div>
 
-                        <div style="top: 84mm;left: 317mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
+                        <div style="top: 84mm;left: 320mm;position:absolute;width:100%;padding-top:0.5em;padding-bottom:0.5em;">
                             <!-- ACC. VOLUME -->
                             <span t-field="o.acc_vol"/>
                         </div>
