@@ -1,12 +1,17 @@
 <odoo>
     <data>
+        <!-- NDM -->
         <!-- Probationary Appointment call-->
-        <template id="ibas_external_layout_boxed">
+        <template id="ibas_external_layout_boxed_prob">
             <div class="header o_boxed_header">
                 <div class="row mb8">
-                    <div class="col-xs-12">
+                    <div class="col-xs-12" style="margin-top:40px">
                         <p style="text-align: center;">
-                            <img src="/ibas_hris/static/src/img/ndmlogo.jpg" />
+                            <!--<img src="/ibas_hris/static/src/img/ndmlogo.jpg" /> -->
+                        
+                            <img src="/ibas_hris/static/src/img/ndmlogo.jpg"  style="width:600px;height:80px;" />
+                            <img src="/ibas_hris/static/src/img/uaf_logo.png" style="width:220px;height:80px;"/>
+                        
                         </p>
                     </div>
                 </div>
@@ -20,17 +25,58 @@
                 
             </div>
         </template>
+        <!-- KONGKRETO -->
+        <template id="ibas_external_layout_boxed_prob2">
+            <div class="header">
+                <div class="row mb8">
+                    <div class="col-xs-12">
+                        <p>
+                            <img src="/ibas_hris/static/src/img/logo_kongkreto.png"  style="width:1000px;height:160px;" />
+                            <!--<img src="/ibas_hris/static/src/img/uaf_logo.png" style="width:165px;height:65px;"/> -->
+                        </p>
+                    </div>
+                </div>
+            </div>
 
+            <div class="article o_report_layout_boxed">
+                <t t-raw="0" />
+            </div>
 
-     <!-- Memo of Regularization -->
+            <div class="footer" style="margin-left:-16px !important; margin-right:-2px !important">
+                <img src="/ibas_hris/static/src/img/footer_kongkreto.png"  style="width:1100px;height:110px;" />
+            </div>
+        </template>
 
+        <!-- NDM -->
+        <!-- Memo of Regularization -->
+        <!-- Confidentiality Agreement -->
         <template id="ibas_external_layout_boxed2">
+                <div class="header" style="margin-left:90px !important;">
+                    <div>
+                        <div class="col-xs-12" style="margin-top:55px">
+                            <p>
+                                <img src="/ibas_hris/static/src/img/ndmlogo.jpg"  style="width:480px;height:65px;" />
+                                <img src="/ibas_hris/static/src/img/uaf_logo.png" style="width:170px;height:65px;"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+         
+
+            <div class="article">
+                <t t-raw="0" />
+            </div>
+
+        </template>    
+
+        <!-- KONGKRETO -->   
+        <template id="ibas_external_layout_boxed3">
             <div class="header">
                 <div>
                     <div class="col-xs-12">
                         <p>
-                            <img src="/ibas_hris/static/src/img/ndmlogo.jpg"  style="width:480px;height:65px;" />
-                            <img src="/ibas_hris/static/src/img/uaf_logo.png" style="width:165px;height:65px;"/>
+                            <img src="/ibas_hris/static/src/img/logo_kongkreto.png"  style="width:1000px;height:160px;" />
+                            <!--<img src="/ibas_hris/static/src/img/uaf_logo.png" style="width:165px;height:65px;"/> -->
                         </p>
                     </div>
                 </div>
@@ -40,57 +86,86 @@
                 <t t-raw="0" />
             </div>
 
-        </template>    
+            <div class="footer" style="margin-left:-16px !important; margin-right:-2px !important">
+                <img src="/ibas_hris/static/src/img/footer_kongkreto.png"  style="width:1100px;height:110px;" />
+            </div>
+
+        </template>     
 
     <!-- Probationary Appointment -->
     <template id="probationary_contract">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
-                <t t-call="ibas_hris.ibas_external_layout_boxed">
-                    <div class="page">
-                            <p><span t-field="doc.employee_id.name"/></p>
-                            <p><span t-field="doc.employee_id.present_address"/></p>
-                            <p style="text-align: center;"><strong>PROBATIONARY APPOINTMENT</strong></p>
-                            <p>Dear <span t-field="doc.employee_id.name"/>,</p>
-                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp starting from the date of this notice. You shall undergo Probationary period of <span t-field="doc.probationary_period_words"/> (<span t-field="doc.probationary_period"/>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
-                            <p>As such, you will receive a fixed monthly basic pay of Philippine Peso: <span t-field="doc.amount_in_words"/> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of  <t t-esc="'{:,.2f}'.format(doc.allowance)"/> every month</p>
+            <t t-if="doc.company_id.id==1">
+                <t t-call="ibas_hris.ibas_external_layout_boxed_prob">
+                    <div class="page" style="margin-left:60px; margin-right:60px; font-size: 14px;">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p style="font-size:16px"><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong><br/>
+                            <strong><span t-field="doc.employee_id.name"/></strong> <br/>
+                            <span t-field="doc.employee_id.present_address"/></p>
+                            <p style="text-align: center; font-size: 18px"><strong>PROBATIONARY APPOINTMENT</strong></p>
+                            <p>Dear <strong><span t-field="doc.employee_id.name"/></strong>,</p>
+                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/>. You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong> up to <strong><span t-field="doc.date_end" t-options='{"format": "MMM-dd-yyyy"}'/></strong>. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                           <!-- <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp starting from the date of this notice. You shall undergo Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p> -->
+                            <t t-if="doc.schedule_pay== 'bi-monthly'">
+                                <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
+                            </t>
+                            <t t-elif="doc.schedule_pay== 'weekly'">
+                                <p>As such, you will receive a fixed daily basic pay of Philippine Peso:<strong><span t-field="doc.daily_wage_in_words"/></strong> (<strong><span t-field="doc.daily_wage"/></strong>), Plus Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> allowance payable every Saturday of the week.</p>
+                            </t>
+                            <t t-elif="doc.schedule_pay== 'per-trip'">
+                                <p>As such, you will receive a Shoprate or per trip excluding overtime, Sunday and Holiday pay.</p>
+                            </t>
+                             <t t-else="">
+                                <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
+                            </t>
                             <p>Your regular work schedule is from Monday to Saturday, 8:00AM to 5:00PM at NDM Sanchez Builders main office, San Agustin, Sto. Tomas, Batangas. When the need arises, you will be required to extend work well past 5:00PM. You are hereby to requested report directly to our VP for Finance (Mrs. Susana M. Sanchez) and report, priority works during weekly meetings or if Management requires you to do so. A Job Description is attached to this Appointment Memo for your kind perusal.</p>
                             <p>You agree to faithfully and honestly abide all the Company's present policies, instructions and guidelines, as well as those, which may be issued from time to time. Any violation thereof may subject you to appropriate disciplinary action, to include dismissal for cause.</p>
                             <p>The locked-in period must be strictly adhered to however, a notice of resignation must be served to the Company at least fifteen (15) days in advance with proper turn-over of thirty (30) days. Failure on your part to observe this probation may cause the Company to hold you liable for damages, in which case salaries, 13<sup>th</sup> month pay and other economic benefits due to you, if any, may be withheld.</p>
                             <p>Accountabilities incurred against NDM SANCHEZ BUILDERS or its properties (should damage or loss be attributed to your undoing following a due process in inquiry by management) shall be deducted from your pay, should you fail to effect payment after due notice.</p>
                             <p>If the foregoing is amenable to you, kindly indicate your conformity by signing on the space provided below.</p>
                             <p>NDM SANCHEZ BUILDERS &amp; DEVEOPMENT CORPORATION</p>
+                            <br/>
                             <table style="width: 100%;">
                             <tbody>
                             <tr>
-                            <td>
+                            <td style="width: 50%;">
                             <p style="text-align: center;">Recommended By:</p>
                             </td>
-                            <td style="text-align: center;">
-                            <p>Noted by:</p>
+                            <td style="width: 50%;">
+                            <p style="text-align: center;">Noted by:</p>
                             </td>
                             </tr>
                             <tr>
                             <td style="text-align: center;">
-                            <p>_________________________<br /><strong>Mrs Susana Sanchez<br /></strong>Chief Finance Officer</p>
+                            <p>_________________________<br /><strong>Michelle G. Paloma<br /></strong>HR Officer</p>
                             </td>
-                            <td style="text-align: center;">_________________________<br /><strong>Engr. Marc Bryan Sanchez</strong><br />Chief Operations Officer</td>
+                            <td style="text-align: center;">_________________________<br /><strong>Susana M. Sanchez</strong><br />Chief Finance Officer</td>
                             </tr>
                             </tbody>
                             </table>
                             <p></p>
+                            
                             <table style="width: 100%;">
                             <tbody>
                             <tr>
-                            <td>
+                            <td style="width: 50%;">
+                            <p style="text-align: center;">Approved By:</p>
+                            </td>
+                            <td style="width: 50%;">
                             <p style="text-align: center;">Approved By:</p>
                             </td>
                             </tr>
                             <tr>
-                            <td style="text-align: center;">_________________________<br /><strong>Engr. Nolando Sanchez<br /></strong>President and CEO</td>
+                            <td style="text-align: center;"><p>_________________________<br /><strong>Engr. Marc Bryan M. Sanchez<br /></strong>Chief Operations Officer</p> </td>
+                            <td style="text-align: center;"><p>_________________________<br /><strong>Engr. Nolando Sanchez<br /></strong>President and CEO</p></td>
                             </tr>
                             </tbody>
                             </table>
+
                             <br/>
                             <br/>
                             <br/>
@@ -99,6 +174,87 @@
                             <p>Date ________________________________</p>
                     </div>
                 </t>
+            </t>  
+
+            <t t-if="doc.company_id.id==3">
+                <t t-call="ibas_hris.ibas_external_layout_boxed_prob2">
+                    <div class="page" style="margin-left:60px; margin-right:60px; font-size: 14px;">
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p style="font-size:16px"><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong><br/>
+                            <strong><span t-field="doc.employee_id.name"/></strong><br/>
+                            <span t-field="doc.employee_id.present_address"/></p>
+                            <p style="text-align: center; font-size: 18px"><strong>PROBATIONARY APPOINTMENT</strong></p>
+                            <p>Dear <strong><span t-field="doc.employee_id.name"/></strong>,</p>
+                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/>. You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong> up to <strong><span t-field="doc.date_end" t-options='{"format": "MMM-dd-yyyy"}'/></strong>. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                            <t t-if="doc.schedule_pay== 'bi-monthly'">
+                                <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
+                            </t>
+                            <t t-elif="doc.schedule_pay== 'weekly'">
+                                <p>As such, you will receive a fixed daily basic pay of Philippine Peso:<strong><span t-field="doc.daily_wage_in_words"/></strong> (<strong><span t-field="doc.daily_wage"/></strong>), Plus Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> allowance payable every Saturday of the week.</p>
+                            </t>
+                            <t t-elif="doc.schedule_pay== 'per-trip'">
+                                <p>As such, you will receive a Shoprate or per trip excluding overtime, Sunday and Holiday pay.</p>
+                            </t>
+                            <t t-else="">
+                                <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
+                            </t>
+                            <p>Your regular work schedule is from Monday to Saturday, 8:00AM to 5:00PM at NDM Sanchez Builders main office, San Agustin, Sto. Tomas, Batangas. When the need arises, you will be required to extend work well past 5:00PM. You are hereby to requested report directly to our VP for Finance (Mrs. Susana M. Sanchez) and report, priority works during weekly meetings or if Management requires you to do so. A Job Description is attached to this Appointment Memo for your kind perusal.</p>
+                            <p>You agree to faithfully and honestly abide all the Company's present policies, instructions and guidelines, as well as those, which may be issued from time to time. Any violation thereof may subject you to appropriate disciplinary action, to include dismissal for cause.</p>
+                            <p>The locked-in period must be strictly adhered to however, a notice of resignation must be served to the Company at least fifteen (15) days in advance with proper turn-over of thirty (30) days. Failure on your part to observe this probation may cause the Company to hold you liable for damages, in which case salaries, 13<sup>th</sup> month pay and other economic benefits due to you, if any, may be withheld.</p>
+                            <p>Accountabilities incurred against KONGKRETO PILIPINAS INC. or its properties (should damage or loss be attributed to your undoing following a due process in inquiry by management) shall be deducted from your pay, should you fail to effect payment after due notice.</p>
+                            <p>If the foregoing is amenable to you, kindly indicate your conformity by signing on the space provided below.</p>
+                            <p>KONGKRETO PILIPINAS INC.</p>
+                            <br/>
+                            <table style="width: 100%;">
+                            <tbody>
+                            <tr>
+                            <td style="width: 50%;">
+                            <p style="text-align: center;">Recommended By:</p>
+                            </td>
+                            <td style="width: 50%;">
+                            <p style="text-align: center;">Noted by:</p>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td style="text-align: center;">
+                            <p>_________________________<br /><strong>Michelle Paloma<br /></strong>HR Officer</p>
+                            </td>
+                            <td style="text-align: center;">_________________________<br /><strong>Mrs. Susana Sanchez</strong><br />Chief Finance Officer</td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            <p></p>
+                           
+                            <table style="width: 100%;">
+                            <tbody>
+                            <tr>
+                            <td style="width: 50%;">
+                            <p style="text-align: center;">Approved By:</p>
+                            </td>
+                            <td style="width: 50%;">
+                            <p style="text-align: center;">Approved By:</p>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td style="text-align: center;"><p>_________________________<br /><strong>Neil Darrell M. Sanchez<br /></strong>Chief Operations Officer</p> </td>
+                            <td style="text-align: center;"><p>_________________________<br /><strong>Engr. Nolando Sanchez<br /></strong>President and CEO</p></td>
+                            </tr>
+                            </tbody>
+                            </table>
+
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p>Conforme: <br/> _______________________________</p>
+                            <p>_______________________________</p>
+                            <p>Date ________________________________</p>
+                    </div>
+                </t>
+            </t>    
+
             </t>
         </t>
     </template>
@@ -107,22 +263,31 @@
     <template id="memo_of_regularization">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
+            <t t-if="doc.company_id.id==1">
+                
                 <t t-call="ibas_hris.ibas_external_layout_boxed2">
-                    <div class="page">
+                    <div class="page" style="margin-left:90px; margin-right:90px;" >
                         <link href="/ibas_hris/static/css/ibas.css"
                                 rel="stylesheet" type="text/css"/>
-                        <p><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/> </p>
-                        <p><span t-field="doc.first_name"/> <span t-field="doc.last_name"/></p>
-                        <p><span t-field="doc.present_address"/></p>
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <p><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong></p>
+                        <p><strong><span t-field="doc.first_name"/> <span t-field="doc.last_name"/> </strong></p>
+                        <p><strong><span t-field="doc.present_address"/></strong></p>
+                       
+
                         <p style="text-align: center;"><strong>MEMO FOR REGULARIZATION</strong></p>
                         <br/>
-                        <p>We are glad to inform you that  effective <span t-field="doc.date_hired"/> your employment with NDM SANCHEZ BUILDERS AND DEVELOPMENT</p>
-                        <p>CORPORATION is now <strong>REGULAR</strong>, under the following condition:</p>
+                        <p>We are glad to inform you that  effective <strong><span t-field="doc.date_hired"  t-field-options='{"format": "MMMM d y"}'/></strong> 
+                        your employment with NDM SANCHEZ BUILDERS AND DEVELOPMENT CORPORATION is now 
+                        <strong>REGULAR</strong>, under the following condition:</p>
                         <ol class='a m-left-62'>
                             <li>
                                 <p class='m-left-16'> 
                                 Your official designation in the company in the company is
-                                <span t-field="doc.job_id"/> with a monthly basic rate of 
+                                <strong><span t-field="doc.job_id"/></strong> with a monthly basic rate of 
                                 <strong> Php <t t-esc="'{:,.2f}'.format(doc.contract_id.wage)"/></strong> and 
                                 <strong>Php <t t-esc="'{:,.2f}'.format(doc.contract_id.allowance)"/> </strong>
                                 monthly allowance at the date herein stated.</p>
@@ -154,7 +319,7 @@
                         <br/>
                         <br/>
                         <br/>
-                        <br/>
+                    
                          <table style="width: 100%;">
                             <tbody>
                             <tr>
@@ -167,9 +332,119 @@
                             </tr>
                             <tr>
                             <td style="text-align: center;">
-                            <p>_________________________<br /><strong>Mrs Susana Sanchez<br /></strong>Chief Finance Officer</p>
+                            <p>_________________________<br /><strong>Mrs. Susana M. Sanchez<br /></strong>Chief FinanceOfficer </p>
                             </td>
-                            <td style="text-align: center;">_________________________<br /><strong>Engr. Marc Bryan Sanchez</strong><br />Chief Operations Officer</td>
+                            <td style="text-align: center;">_________________________<br /><strong>Engr. Marc Bryan M. Sanchez</strong><br />Chief Operations Officer</td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            <br/>
+                            <br/>
+                            <table style="width: 100%;">
+                            <tbody>
+                            <tr>
+                            <td>
+                            <p style="text-align: center;">Approved By:</p>
+                            </td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            <br/>
+
+                            <table style="width: 100%;">
+                            <tr>
+                          <!--  <td class="p-left-200">
+                            <span class="overline"><strong>Susana M. Sanchez</strong></span>
+                            <br />Chief Finance Officer</td>  
+                            
+                            <td class="p-left-110">
+                            <span class="overline"><strong>Engr. Nolando Sanchez</strong></span>
+                            <br />President and CEO</td> -->
+                            <td style="text-align: center;">_________________________<br /><strong>Engr. Nolando Sanchez</strong><br />President and CEO</td>
+                            </tr>            
+                            </table>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p>Conforme: <br/> _______________________________</p>
+                            <p>_______________________________</p>
+                            <p>Date ________________________________</p>
+                    </div>
+                </t>
+            </t>
+
+            <t t-if="doc.company_id.id==3">
+                
+                <t t-call="ibas_hris.ibas_external_layout_boxed3">
+                    <div class="page" style="margin-left:90px; margin-right:90px;" >
+                        <link href="/ibas_hris/static/css/ibas.css"
+                                rel="stylesheet" type="text/css"/>
+
+                        <br/>
+                        <br/>
+                        <br/>
+                        <p><strong><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </strong></p>
+                        <p><strong><span t-field="doc.first_name"/> <span t-field="doc.last_name"/> </strong></p>
+                        <p><strong><span t-field="doc.present_address"/></strong></p>
+                       
+
+                        <p style="text-align: center;"><strong>MEMO FOR REGULARIZATION</strong></p>
+                        <br/>
+                        <p>We are glad to inform you that  effective <strong><span t-field="doc.date_hired"  t-field-options='{"format": "MMMM d y"}'/></strong> 
+                        your employment with NDM SANCHEZ BUILDERS AND DEVELOPMENT CORPORATION is now 
+                        <strong>REGULAR</strong>, under the following condition:</p>
+                        <ol class='a m-left-62'>
+                            <li>
+                                <p class='m-left-16'> 
+                                Your official designation in the company in the company is
+                                <strong><span t-field="doc.job_id"/></strong> with a monthly basic rate of 
+                                <strong> Php <t t-esc="'{:,.2f}'.format(doc.contract_id.wage)"/></strong> and 
+                                <strong>Php <t t-esc="'{:,.2f}'.format(doc.contract_id.allowance)"/> </strong>
+                                monthly allowance at the date herein stated.</p>
+                            </li>
+                            <li>
+                                <p class='m-left-16'>You agree to abide by the job description discussed to
+                                you on your hiring date or with any other related work which may arise from 
+                                time to time or as instructed directly by your immediate superior.</p>
+                            </li>
+                            <li>
+                                <p class='m-left-16'>You agree to devote full time working hours to the company.</p>
+                            </li>
+                            <li>
+                                <p class='m-left-16'>You agree that information, records and documents of the company are confidential information, and 
+                                unauthorized copying of the company records is sufficient cause for the company to terminate your service immediately. </p>
+                            </li>
+                            <li>
+                                <p class='m-left-16'>You agree that all the company assets, records and documents used by you shall be surrendered upon request 
+                                by your immediate superior and under same circumstances shall be returned by you upon termination of your work from the company.</p>
+                            </li>
+                            <li>
+                                  <p class='m-left-16'>You are bound to agree, familiarize and abide by all company Policies and rule written on the employee Handbook.</p>
+                            </li>
+                        </ol>
+                        
+                        <p>If the above terms and condition are applicable, please indicate your acceptance by signing on the space provided below.</p>
+                        <br/>
+                        <p>KONGKRETO PILIPINAS INC.</p>
+                        <br/>
+                        <br/>
+                        <br/>
+                    
+                         <table style="width: 100%;">
+                            <tbody>
+                            <tr>
+                            <td>
+                            <p style="text-align: center;">Recommended By:</p>
+                            </td>
+                            <td style="text-align: center;">
+                            <p>Noted by:</p>
+                            </td>
+                            </tr>
+                            <tr>
+                            <td style="text-align: center;">
+                            <p>_________________________<br /><strong>Michelle G. Paloma<br /></strong>HR Officer</p>
+                            </td>
+                            <td style="text-align: center;">_________________________<br /><strong>Neil Darrell M. Sanchez</strong><br />Chief Operations Officer</td>
                             </tr>
                             </tbody>
                             </table>
@@ -186,31 +461,549 @@
                             </table>
                             <br/>
                             <br/>
-                            <br/>
 
                             <table style="width: 100%;">
                             <tr>
-                            <td class="p-left">
+                            <!--<td class="p-left-200">
                             <span class="overline"><strong>Susana M. Sanchez</strong></span>
                             <br />Chief Finance Officer</td> 
                             
-                            <td class="p-left-10">
+                            <td class="p-left-110">
                             <span class="overline"><strong>Engr. Nolando Sanchez</strong></span>
-                            <br />President and CEO</td>
+                            <br />President and CEO</td> -->
+
+                            <td style="text-align: center;">_________________________<br /><strong>Susana M. Sanchez</strong><br />Chief Finance Officer</td>
+                            <td style="text-align: center;">_________________________<br /><strong>Engr. Nolando Sanchez</strong><br />President and CEO</td>
                             </tr>            
                             </table>
-    
                             <br/>
                             <br/>
                             <br/>
-                            <p>Conforme: <u> <span t-field="doc.first_name"/> <span t-field="doc.last_name"/> </u> </p>
-                            <p>Date <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%m-%d-%Y')"/></p>
+                            <p>Conforme: <br/> _______________________________</p>
+                            <p>_______________________________</p>
+                            <p>Date ________________________________</p>
+                    </div>
+                </t>
+            </t>
 
+            </t>
+        </t>
+    </template>
+
+    <!-- Confidentiality Agreement -->
+    <template id="confidentiality_agreement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ibas_hris.ibas_external_layout_boxed2">
+                    <div class="page" style="margin-left:90px; margin-right:90px;">
+                        <link href="/ibas_hris/static/css/ibas.css"
+                                rel="stylesheet" type="text/css"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                        <p style="text-align: center;"><strong>CONFIDENTIALITY AGREEMENT</strong></p>
+                        <p> This agreement is made and executed by and between NDM Sanchez Builders and Development Corporation; 
+                        the Company and <strong><span t-field="doc.last_name"/></strong> <strong><span t-field="doc.first_name"/></strong>, 
+                        <strong><span t-field="doc.job_id"/></strong>; the employee;</p>
+                        <p>In that during the course of employment with the Company, 
+                        the employee is subject to this Confidentiality Agreement.</p>
+
+                        <p>
+                         Employee shall not disclose CONFIDENTIAL INFORMATION to third parties nor use CONFIDENTIAL INFORMATION 
+                         for any purposes whatsoever except for the purpose of performing services on behalf of the Company or for 
+                         performing necessary activities on the job.  CONFIDENTIAL INFORMATION means all Company or client supplied materials 
+                         and all non-public materials received from and/or pertaining to the business of the Company and/or clients including 
+                         the following:
+                        </p>
+                        <br/>
+                        <ul>
+                            <li>Communications – written such as e-mail messages and faxes especially from clients,
+                             reports as well as verbal messages</li>
+                            <li>Project names</li>
+                            <li>Client Information</li>
+                            <li>Systems and Project Design</li>
+                            <li>Pricing and Volume</li>
+                            <li>Prospective and Existing Customer List</li>
+                            <li>Business Development and Marketing Directions</li>
+                            <li>Financial Data</li>
+                            <li>Accounting Data</li>
+                            <li>Cost and Pricing Formulas</li>
+                            <li>Tax Matters/Situation</li>
+                            <li>Corporate/Customer/Supplier Contract Terms/Conditions</li>
+                            <li>Corporate Policies and Procedures</li>
+                            <li>Legal Matters   </li>
+                            <li>Corporate Background Data</li>
+                            <li>Minutes of Board Meetings</li>
+                            <li>Payroll</li>
+                        </ul>
+                        <p> Any breach or violation of this Confidentiality Agreement may result to termination of employment with the 
+                            Company and possible prosecution under the following provisions of the Company’s Code of Conduct:
+                        </p>
+                        <br/>
+                        <ul>
+                            <li>Willfully divulging, releasing or giving out Company’s confidential information or records to unauthorized persons.</li>
+                            <li>Unauthorized disclosure of production, business or trade secrets.</li>
+                        </ul>
+                        <p>Please acknowledge receipt and signify conformity.</p>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+                        
+
+                        <table style="width: 100%;">
+                            <tr style="text-align: center;">
+                                <td><span class="uppercase" t-field="doc.first_name"/> <span class="uppercase" t-field="doc.last_name"/></td>
+                                <td></td>
+                                <td><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center;">_____________________</td>
+                                <td style="text-align: center;">_________________________</td>
+                                <td style="text-align: center;">_____________________</td>
+                            </tr>
+                             <tr style="text-align: center;">
+                                <td>Printed name</td>
+                                <td>Signature</td>
+                                <td>Date</td>
+                            </tr>
+                        </table>
                     </div>
                 </t>
             </t>
         </t>
     </template>
+
+    <!-- Orientation Checklist -->
+    <template id="orientation_checklist">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ibas_hris.ibas_external_layout_boxed2">
+                    <div class="page" style="margin-left:90px; margin-right:90px;">
+                     <link href="/ibas_hris/static/css/ibas.css"
+                                rel="stylesheet" type="text/css"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                        <p style="text-align: center;"><strong>ORIENTATION CHECKLIST</strong></p>
+                        <p><strong>Documentation:  Necessary papers to be signed and requirements to be submitted</strong></p>
+                    
+                        <ol class="m-left-62 line-height-2">
+                            <li>Hiring Contract/Job Description/Position Orientation/Major Duties and Responsibilities</li>
+                            <li>Confidentiality Agreement</li>
+                            <li>Social Security System (SSS) / Tax Identification Number (TIN)</li>
+                            <li>Philippine Health Insurance Corporation – Philhealth</li>
+                            <li>Home Development Mutual Fund – HDMF or Pag-ibig Fund    </li>
+                            <li>Police Clearance and/or NBI Clearance/Barangay Certificate</li>
+                            <li>Medical Tests/Drug test/X-Ray/Others – expenses will be shouldered by the newly hired 
+                            employee while succeeding required annual tests during the employment will be shouldered by the company.</li>
+                        </ol>
+                        <br/>
+                        <p><strong>Getting started:  Orientation on the following company details</strong></p>
+                     
+                        <ol class="m-left-62 line-height-2">
+                            <li>Company and Departmental Organizational Chart </li>
+                            <li>Company Policy and Employee Manual
+                                <ul>
+                                    <li>Work shift hours and Overtime; Cut-off and Pay days; Dress Code and Uniform; 
+                                    Filing of Leave of Absence, Undertime and Tardiness; Lunch and Snack Breaks; </li>
+                                </ul>
+                            </li>
+                            <li>Company Safety Rules and Health Hazard – let the new employee provide a list of names, 
+                            addresses and contact numbers of persons to contact for emergency cases; 
+                            Orientation will be based on Safety Procedure from ISO </li>
+                            <li>Introduction to assigned department and co-employees and/or Work Site Familiarization/Tour of the work areas and other facilities of the company (files/records; lunch and restroom areas; 
+                            office supplies and other special equipment; Policies on telephone, mobile and internet usage)</li>
+                        </ol>
+                     
+                        <p><strong>Departmental Orientation: Introduce to Department Head and co-employees/staff</strong></p>
+                        <ol class="m-left-62 line-height-2">
+                        <li>Departmental Policies and House Rules – Proper completion and deadlines; Assignment of initial work items; 
+                        Performance expectations; General operating procedure</li>   
+                        <li>Performance Standards and Training Procedures: (Ask new hire if he has attended training and/or seminars which may be related to his present job assignment; 
+                        Set a performance rating for the new hire as guidelines for his evaluation.) </li>   
+                        </ol>
+                        <p> This is to acknowledge that all the above details have been discussed and oriented to me clearly.   
+                        Any concerns which may arise from the above orientation should be discussed and be given priority actions. </p>  
+                        <br/>
+                        <p>Conforme:</p>
+                        <br/>
+                        <br/>
+                        <p class='uppercase'><span t-field="doc.first_name"/> <span t-field="doc.last_name"/></p>
+                        <p class="overline">Printed Name and Signature</p>
+                        <br/>
+                        <p>Date: <span class="underline" t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/> </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Rate of adjustment -->
+    <template id="rate_of_adjustment">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ibas_hris.ibas_external_layout_boxed2">
+                    <div class="page" style="margin-left:90px; margin-right:90px;">
+                     <link href="/ibas_hris/static/css/ibas.css"
+                                rel="stylesheet" type="text/css"/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <table style="width: 60%;">
+                        <tr style="height: 30px;">
+                            <td style="width: 10%; vertical-align: bottom;">DATE</td>
+                            <td style="width: 5%; vertical-align: bottom;">:</td>
+                            <td style="width: 45%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.date_adj"/></td>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">TO</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.employee_to"/></td>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">FROM</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.employee_from"/></td>
+                        </tr>
+                    </table>
+                   
+                    <br/>
+                    <p>SUBJECT:<span class="tab-20"/> <strong style="font-size: 12px;">RECOMMENDATION FOR RATE ADJUSTMENT/UPDATE
+                     RATE/ADJUST ALLOWANCE</strong></p>
+
+                    <hr class="roa"/>
+                    <p>Recommendation is hereby given to the person listed below:</p>
+                    <table style="width: 60%; margin-left: 45px">
+                        <tr style="height: 30px;">
+                            <td style="width: 10%; vertical-align: bottom;">Name</td>
+                            <td style="width: 5%; vertical-align: bottom;">:</td>
+                            <td style="width: 45%;border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.employee_id"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Appointment</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.appointment"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Position</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.job_id"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Grade Level</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.grade"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Monthly Salary</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.salary"/></td>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Project/Dept.</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.department_id"/></td>
+                        </tr>
+                    </table>
+
+                    <hr class="roa"/>
+                    <table style="width: 60%;">
+                        <tr style="height: 30px;">
+                            <td style="width: 9%; vertical-align: bottom;">RECOMMENDATION</td>
+                            <td style="width: 4%; vertical-align: bottom;">:</td>
+                            <td style="width: 45%;border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.recommendation"/></td>
+                        </tr>
+                    </table>
+                     <table style="width: 60%; margin-left: 55px">
+                        <tr style="height: 30px;">
+                            <td style="width: 12%; vertical-align: bottom;">Effectivity</td>
+                            <td style="width: 3%; vertical-align: bottom;">:</td>
+                            <td style="width: 45%;border-bottom: 1px solid black; vertical-align: bottom;">
+                            <span t-field="doc.effect_from"/> - <span t-field="doc.effect_to"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Position</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.position"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Grade Level</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.grade_adj"/></td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">Rate Adjust</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.rate_adjust"/></td>
+                        </tr>
+                        </table>
+                        <table style="width: 80%; margin-left: 50px">
+                        <tr style="height: 30px;">
+                            <td style="width: 10%; vertical-align: bottom;"></td>
+                            <td style="width: 10%; vertical-align: bottom;"></td>
+                            <td style="vertical-align: bottom;"><i>
+                                (Difference of Php <span class="underline" t-field="doc.difference"/> from his/her previous rate) </i>
+                            </td>
+                        </tr>
+                        </table>
+                        <table style="width: 60%; margin-left: 55px">
+                         <tr style="height: 30px;">
+                            <td style="width: 5%; vertical-align: bottom;">Project/Dept.</td>
+                            <td style="width: 2%; vertical-align: bottom;">:</td>
+                            <td style="width: 45%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.department_adj_id"/></td>
+                        </tr>
+                        </table>
+                        
+                    
+                    <br/>
+                    <br/>
+                    <table style="width: 100%;">
+                    <tbody>
+                    <tr>
+                    <td>
+                    <p style="text-align: center;">Recommended By:</p>
+                    </td>
+                    <td style="text-align: center;">
+                    <p>Noted by:</p>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td style="text-align: center;">
+                    <p>_________________________<br /><strong><span t-field="doc.recb"/><br /></strong><span t-field="doc.recbd"/></p>
+                    </td>
+                    <td style="text-align: center;">_________________________<br /><strong><span t-field="doc.notedby"/></strong><br /><span t-field="doc.notedbyd"/></td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <table style="width: 100%;">
+                    <tbody>
+                    <tr>
+                    <td>
+                    <p style="text-align: center;">Approved By:</p>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <table style="width: 100%;">
+                    <tbody>
+                    <tr>
+                    <td style="text-align: center;">
+                    <p>_________________________<br /><strong><span t-field="doc.appb_one"/><br /></strong><span t-field="doc.appbd_one"/></p>
+                    </td>
+                    <td style="text-align: center;">_________________________<br />
+                    <strong><span t-field="doc.appb_two"/></strong><br /><span t-field="doc.appbd_two"/></td>
+                    </tr>
+                    </tbody>
+                    </table>            
+                       
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Lateral Transfer -->
+    <template id="lateral_transfer">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="ibas_hris.ibas_external_layout_boxed2">
+                    <div class="page" style="margin-left:90px; margin-right:90px;">
+                    <link href="/ibas_hris/static/css/ibas.css"
+                                rel="stylesheet" type="text/css"/>
+                    <br/>            
+                    <br/>            
+                    <br/>            
+                    <br/>            
+                    <p style="text-align: center;"><strong>LATERAL TRANSFER FORM</strong></p>
+                    <table style="width: 100%;">
+                        <tr style="height: 30px;">
+                            <td style="width: 12%; vertical-align: bottom;">NAME</td>
+                            <td style="width: 8%; vertical-align: bottom;">:</td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.employee_id"/></td>
+                            <td style="width: 12%; vertical-align: bottom;">DATE HIRED</td>
+                            <td style="width: 8%; vertical-align: bottom;">:</td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.date_hired"/></td>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">From Dept</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="vertical-align: bottom; border-bottom: 1px solid black;"><span t-field="doc.department_id"/></td>
+                            <td style="vertical-align: bottom;">To Dept</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="vertical-align: bottom; border-bottom: 1px solid black;"><span t-field="doc.new_dept"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <p>This is to inform of the lateral transfer of the employee herein listed.  
+                    Through this, all responsibilities, obligations and jurisdictions shall be transferred   
+                    to the Receiving Department.  This transfer shall take effect on <span class='underline' t-field="doc.effectivity_date"/>.</p>
+                    <br/>
+                   <table style="width: 100%;">
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;"></td>
+                            <td style="vertical-align: bottom;"></td>
+                            <td style="vertical-align: bottom; text-align: center;">FROM</td>
+                            <td style="vertical-align: bottom;"></td>
+                            <td style="vertical-align: bottom; text-align: center;">TO</td>
+                            <td style="vertical-align: bottom;"></td>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td style="width: 12%; vertical-align: bottom;">POSITION</td>
+                            <td style="width: 8%; vertical-align: bottom;">:</td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.job_id"/></td>
+                            <td style="width: 12%; vertical-align: bottom;"></td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.new_job"/></td>
+                            <td style="width: 8%; vertical-align: bottom;"></td>
+                        </tr>
+                        <tr style="height: 30px;">
+                            <td style="vertical-align: bottom;">SALARY</td>
+                            <td style="vertical-align: bottom;">:</td>
+                            <td style="vertical-align: bottom; border-bottom: 1px solid black;"><span t-field="doc.salary"/></td>
+                            <td style="vertical-align: bottom;"></td>
+                            <td style="vertical-align: bottom; border-bottom: 1px solid black;"><span t-field="doc.new_salary"/></td>
+                            <td style="vertical-align: bottom;"></td>
+                        </tr>
+                    </table>
+                    <hr class="line-1"/>
+                    <table style="width: 80%;">
+                        <tr>
+                            <td style="width: 20%;">Reason for transfer:</td>
+                            <td style="width: 10%;">:</td>
+                            <td style="width: 50%;">
+                            <span class="underline" t-field="doc.reason_trans"/></td>
+                        </tr>
+                        
+                    </table>
+                    <br/>
+                    <p>The employee will 
+                    <t t-if="doc.training == True">
+                    <i class="underline">&#x2714;</i></t><t t-else="">__</t>
+                    undergo training / 
+                    <t t-if="doc.training == False">
+                    <i class="underline">&#x2714;</i></t><t t-else="">__</t> not undergo training for a period of 
+                    <span class="underline" t-field="doc.period"/>
+                    weeks /months and shall be evaluated to determine official transfer.  </p>
+                    <br/>
+                        <table style="width: 100%;">
+                        <tr style="height: 30px;">
+                            <td></td>
+                            <td></td>
+                            <td>SENDING DEPARTMENT</td>
+                            <td></td>
+                            <td>RECEIVING DEPARTMENT</td>
+                        </tr>
+                         <tr style="height: 30px;">
+                            <td style="width: 12%; vertical-align: bottom;">Supervisor</td>
+                            <td style="width: 8%; vertical-align: bottom;">:</td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.supervisor_snd"/></td>
+                            <td style="width: 12%; vertical-align: bottom;"></td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.supervisor_rcv"/></td>
+                            <td style="width: 8%; vertical-align: bottom;"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Signature over printed name/Date</td>
+                            <td></td>
+                            <td>Signature over printed name/Date</td>
+                            <td></td>
+                        </tr>
+            
+                        <tr style="height: 30px;">
+                             <td style="width: 12%; vertical-align: bottom;">Dep't head</td>
+                            <td style="width: 8%; vertical-align: bottom;">:</td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.department_head_snd"/></td>
+                            <td style="width: 12%; vertical-align: bottom;"></td>
+                            <td style="width: 30%; border-bottom: 1px solid black; vertical-align: bottom;"><span t-field="doc.department_head_rcv"/></td>
+                            <td style="width: 8%; vertical-align: bottom;"></td>
+                        </tr>
+                         <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Signature over printed name/Date</td>
+                            <td></td>
+                            <td>Signature over printed name/Date</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table>
+                        <tr>
+                            <td><p>Remarks:</p></td>
+                        </tr>
+                        <tr>
+                            <td class="underline"><span t-field="doc.remarks"/></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td><p style="text-align: center;">Approved by:</p></td>
+                        </tr>
+                        <tr>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+                        <tr>
+                            <td><p style="text-align: center;"> <span t-field="doc.appby"/> </p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="overline" style="text-align: center;"><span class="overline" t-field="doc.appbyd"/></p></td>
+                        </tr>
+                    </table>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="height: 30px; overflow:hidden;"><p>Noted by:</p></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><p><span t-field="doc.notedby_one"/></p></td>
+                            <td><p><span t-field="doc.notedby_two"/></p></td>
+                        </tr>
+        
+                        <tr>
+                            <td class="overline" style="height: 30px; overflow:hidden;"><p> <span class="overline" t-field="doc.notedby_one_d"/> </p></td>
+                            <td class="overline"><p> <span class="overline" t-field="doc.notedby_two_d"/> </p></td>
+                        </tr>
+                    </table>
+                    <br/>
+                     <table style="width: 100%;">
+                        <tr>
+                            <td style="height: 30px; overflow:hidden;"><p>Conforme by:</p></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><p><span t-field="doc.conformeby"/></p></td>
+                            <td><p style="text-align: center;"></p></td>
+                        </tr>
+                        <tr>
+                            <td><p class="overline"> signature over printed name </p></td>
+                        </tr>
+                        <tr>
+                             <td><p> Date </p></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <p><strong>Note:</strong></p>
+                    <p> Attach to this is copy of Job Description, Duties and Responsibilities for 
+                    new designation/position which will be performed by the employee to the new department.
+                    </p>             
+                    </div>
+                
+                </t>
+            </t>
+        </t>
+    </template>
+
 
 
     </data>

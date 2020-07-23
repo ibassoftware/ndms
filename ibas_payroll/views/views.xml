@@ -107,6 +107,7 @@
                     <field name="loc_from"/>
                     <field name="loc_to"/>
                     <field name="amount"/>
+                    <field name="remarks"/>
                 </tree>
             </field>
         </record>
@@ -123,6 +124,7 @@
                             <field name="loc_from"/>
                             <field name="loc_to"/>
                             <field name="amount"/>
+                            <field name="remarks"/>
                             <field name="currency_id" groups="base.group_multi_currency"/>
                         </group>
                     </sheet>

@@ -102,6 +102,17 @@ class ibas_attendance(models.Model):
         if overtimes:
             for ot in overtimes:
                 overtime_in_minutes += ot and ot.ot_minutes or 0.0
+            if overtime_in_minutes < 30:
+                overtime_in_minutes = 0
+            elif overtime_in_minutes >=30 and overtime_in_minutes < 60:
+                overtime_in_minutes = 30
+            elif overtime_in_minutes >=60 and overtime_in_minutes < 89:
+                overtime_in_minutes = 60
+            elif overtime_in_minutes >=90:
+                overtime_in_minutes = 90
+
+
+
 
         if self.is_restday_work:
             if self.is_special:
