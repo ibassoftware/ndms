@@ -8,8 +8,8 @@
                 <header>
                     <field name="state" widget="statusbar"/>
                     <button class="oe_highlight" name="submit" type="object" states="draft" string="Submit"/> 
-                    <button class="oe_highlight" name="approve" type="object" states="submitted" string="Approve" group="hr_attendance.group_hr_attendance_manager"/>
-                    <button class="oe_highlight" name="deny" type="object" states="submitted,approved" string="Deny" group="hr_attendance.group_hr_attendance_manager"/>
+                    <button class="oe_highlight" name="approve" type="object" states="submitted" string="Approve" groups="hr_attendance.group_hr_attendance_manager"/>
+                    <button class="oe_highlight" name="deny" type="object" states="submitted,approved" string="Deny" groups="hr_attendance.group_hr_attendance_manager"/>
                 </header>
                 <sheet>
                     <group>
