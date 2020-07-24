@@ -22,7 +22,7 @@
                 <form>
                     <header>
                         <button string="Start" type="object" name="action_open" class="oe_highlight" states="draft"/>
-                        <button string="Set to Draft" type="object" name="action_set_to_draft"  states="open"/>
+                        <button string="Set to Draft" type="object" name="action_set_to_draft" attrs="{'invisible':['|',('amount_total_deducted','!=', 0),('state','not in', ['open','done'])]}"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
