@@ -7,6 +7,8 @@ from datetime import datetime, timedelta
 
 _logger = logging.getLogger(__name__)
 
+import math
+
 class IBASOT(models.Model):
     _name = 'ibas_hris.ot'
     _inherit = ['mail.thread']
@@ -38,14 +40,17 @@ class IBASOT(models.Model):
     def approve(self):
         for rec in self:
             overtime_in_minutes = rec.ot_minutes
-            if overtime_in_minutes < 30:
-                overtime_in_minutes = 0
-            elif overtime_in_minutes >=30 and overtime_in_minutes < 60:
-                overtime_in_minutes = 30
-            elif overtime_in_minutes >=60 and overtime_in_minutes < 89:
-                overtime_in_minutes = 60
-            elif overtime_in_minutes >=90:
-                overtime_in_minutes = 90   
+            #if overtime_in_minutes < 30:
+            #    overtime_in_minutes = 0
+            #elif overtime_in_minutes >=30 and overtime_in_minutes < 60:
+            #    overtime_in_minutes = 30
+            #elif overtime_in_minutes >=60 and overtime_in_minutes < 89:
+            #    overtime_in_minutes = 60
+            #elif overtime_in_minutes >=90:
+            #    overtime_in_minutes = 90   
+            if overtime_in_minutes  > 0.0:
+                overtime =  (int(int(overtime_in_minutes)/30)) * 30 #(int(math.ceil(overtime_in_minutes / 10.0)) * 10) - 10
+                overtime_in_minutes = overtime        
             
 
             #CHeck Attendance
