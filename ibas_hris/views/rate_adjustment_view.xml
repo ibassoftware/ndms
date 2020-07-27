@@ -136,7 +136,7 @@
     </record>
 
     <record id="action_ibas_hris_rate_adjustment" model="ir.actions.act_window">
-        <field name="name">Rate Adjsutment</field>
+        <field name="name">Rate Adjustment</field>
         <field name="res_model">ibas_hris.rate_adjustment</field>
         <field name="view_type">form</field>
         <field name="view_mode">kanban,tree,form</field>
