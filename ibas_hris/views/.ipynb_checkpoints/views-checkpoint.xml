@@ -222,6 +222,24 @@
         file="ibas_hris.memo_of_regularization"
       />
 
+      <report
+        id="action_report_ibas_employee_confidentiality_agreement"
+        model="hr.employee"
+        string="Print Confidentiality Agreement"
+        report_type="qweb-pdf"
+        name="ibas_hris.confidentiality_agreement"
+        file="ibas_hris.confidentiality_agreement"
+      />
+
+      <report
+        id="action_report_ibas_employee_orientation_checklist"
+        model="hr.employee"
+        string="Print Orientation Checklist"
+        report_type="qweb-pdf"
+        name="ibas_hris.orientation_checklist"
+        file="ibas_hris.orientation_checklist"
+      />
+      
       <!-- Report Paper Formats -->
         <record id="paperformat_probationary" model="report.paperformat">
             <field name="name">Probatinary Appointment</field>
@@ -315,6 +333,14 @@
 
         <record id="ibas_hris.action_report_ibas_employee_regularisation" model="ir.actions.report">
             <field name="paperformat_id" ref="ibas_hris.paperformat_regularization" />
+        </record> 
+
+        <record id="ibas_hris.action_report_ibas_employee_confidentiality_agreement" model="ir.actions.report">
+            <field name="paperformat_id" ref="ibas_hris.paperformat_confidentiality" />
+        </record> 
+
+        <record id="ibas_hris.action_report_ibas_employee_orientation_checklist" model="ir.actions.report">
+            <field name="paperformat_id" ref="ibas_hris.paperformat_orientation" />
         </record> 
 
 
