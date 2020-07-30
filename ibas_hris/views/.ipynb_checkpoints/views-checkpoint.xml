@@ -82,12 +82,20 @@
                  <field name="bank_account_number"/>
                </xpath>
 
-              <xpath expr="//field[@name='barcode']" position="replace">
+             <!-- <xpath expr="//field[@name='barcode']" position="replace">
                 
                 <field name="employee_number"/>
                 <field name="bio_number"/>
                 
-               </xpath>
+               </xpath> -->
+
+               
+              <xpath expr="//group[@name='active_group']" position="after">
+                <group string="Identification">
+                  <field name="employee_number"/>
+                  <field name="bio_number"/>
+                </group>
+              </xpath>
 
                
                <xpath expr="//field[@name='address_home_id']" position="replace">
@@ -149,7 +157,7 @@
               </xpath>
               
 
-              <xpath expr="//field[@name='attendance_state']" position="before">
+              <xpath expr="//button[@name='toggle_active']" position="before">
                 <button name="open_lt" class="oe_stat_button" icon="fa-book" type="object">
                    <span> <field name="count_lt"/> Lateral Transfer</span>
                 </button>
