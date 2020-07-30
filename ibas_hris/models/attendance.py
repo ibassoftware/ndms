@@ -107,12 +107,15 @@ class ibas_attendance(models.Model):
             if overtime_in_minutes  > 0.0:
                 #raise Warning(overtime)
                 overtime =  (int(int(overtime_in_minutes)/30)) * 30
-                raise Warning(overtime)
+                #raise Warning(overtime)
                 overtime_in_minutes = overtime
-            
-            
 
+        if self.is_undertime:
+            if self.worked_hours >= 9:
+                self.is_undertime = False
+                self.undertime_minutes  = 0.00
 
+                
 
 
         if self.is_restday_work:
@@ -174,7 +177,15 @@ class ibas_attendance(models.Model):
                             lapse =  myworkday - checker_date
                             if (lapse.total_seconds() > 0 ):
                                 rec.undertime_minutes = (lapse.total_seconds() / 60)
-                                rec.is_undertime = True 
+                                rec.is_undertime = True
+
+                #Check UnderTime
+                if rec.is_undertime:
+                    if rec.worked_hours >= 9:
+                        rec.is_undertime = False
+                        rec.undertime_minutes  = 0.00
+
+
                             
         
     

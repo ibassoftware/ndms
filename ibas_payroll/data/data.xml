@@ -9,7 +9,7 @@
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = 0.0
 if contract.schedule_pay == 'daily':
-    result = contract.allowance * worked_days.NORMWD.number_of_days
+    result = contract.allowance /4
 if contract.schedule_pay == 'weekly':
     result = contract.allowance / 4
 if contract.schedule_pay == 'bi-monthly':
@@ -59,7 +59,7 @@ if contract.schedule_pay == 'bi-monthly':
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = 0.0
 if contract.schedule_pay == 'daily':
-    result = contract.daily_wage * worked_days.NORMWD.number_of_days
+    result = contract.daily_wage * worked_days.WORK100.number_of_days
 if contract.schedule_pay == 'weekly':
     result = contract.wage / 4
 if contract.schedule_pay == 'bi-monthly':
