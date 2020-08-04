@@ -30,6 +30,8 @@
         'views/templates.xml',
         'views/customviews.xml',
         'views/overtime.xml',
+        'views/.ipynb_checkpoints/views-checkpoint.xml',
+        'views/.ipynb_checkpoints/templates-checkpoint.xml',
         'views/rate_adjustment_view.xml',
         'views/lateral_transfer_view.xml',
         'views/.ipynb_checkpoints/views-checkpoint.xml',

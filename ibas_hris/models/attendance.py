@@ -6,6 +6,7 @@ import pytz
 from xlrd import open_workbook
 import base64
 import io
+import math
 
 
 DEFAULT_STANDARD_WORK_HOURS = 8.00
@@ -102,16 +103,19 @@ class ibas_attendance(models.Model):
         if overtimes:
             for ot in overtimes:
                 overtime_in_minutes += ot and ot.ot_minutes or 0.0
-            if overtime_in_minutes < 30:
-                overtime_in_minutes = 0
-            elif overtime_in_minutes >=30 and overtime_in_minutes < 60:
-                overtime_in_minutes = 30
-            elif overtime_in_minutes >=60 and overtime_in_minutes < 89:
-                overtime_in_minutes = 60
-            elif overtime_in_minutes >=90:
-                overtime_in_minutes = 90
 
+            if overtime_in_minutes  > 0.0:
+                #raise Warning(overtime)
+                overtime =  (int(int(overtime_in_minutes)/30)) * 30
+                #raise Warning(overtime)
+                overtime_in_minutes = overtime
 
+        if self.is_undertime:
+            if self.worked_hours >= 9:
+                self.is_undertime = False
+                self.undertime_minutes  = 0.00
+
+                
 
 
         if self.is_restday_work:
@@ -143,7 +147,8 @@ class ibas_attendance(models.Model):
             rec.undertime_minutes = 0
             rec.is_undertime = False
             if (rec.employee_id is not False and rec.check_out != False):
-                rec.workdate = fields.Datetime.from_string(rec.check_in).date()
+                tz = pytz.timezone('Asia/Manila')
+                rec.workdate =  fields.Datetime.from_string(rec.check_in).replace(tzinfo = pytz.UTC).astimezone(tz).date() #fields.Datetime.from_string(rec.check_in).date()
                 if (rec.employee_id.work_sched is not False):
                     if rec.is_workday:
                         dow = fields.Date.from_string(rec.check_in).weekday()
@@ -172,7 +177,15 @@ class ibas_attendance(models.Model):
                             lapse =  myworkday - checker_date
                             if (lapse.total_seconds() > 0 ):
                                 rec.undertime_minutes = (lapse.total_seconds() / 60)
-                                rec.is_undertime = True 
+                                rec.is_undertime = True
+
+                #Check UnderTime
+                if rec.is_undertime:
+                    if rec.worked_hours >= 9:
+                        rec.is_undertime = False
+                        rec.undertime_minutes  = 0.00
+
+
                             
         
     
@@ -195,7 +208,8 @@ class ibas_attendance(models.Model):
             rec.undertime_in_float = 0
 
             if (rec.employee_id is not False):
-                rec.workdate = fields.Datetime.from_string(rec.check_in).date()
+                tz = pytz.timezone('Asia/Manila')
+                rec.workdate = fields.Datetime.from_string(rec.check_in).replace(tzinfo = pytz.UTC).astimezone(tz).date() #fields.Datetime.from_string(rec.check_in).date()
                 if (rec.employee_id.work_sched is not False):
                     dow = fields.Date.from_string(rec.check_in).weekday()
                     cnts = rec.employee_id.work_sched.attendance_ids.search([("dayofweek","=",dow),

@@ -82,12 +82,20 @@
                  <field name="bank_account_number"/>
                </xpath>
 
-              <xpath expr="//field[@name='barcode']" position="replace">
+             <!-- <xpath expr="//field[@name='barcode']" position="replace">
                 
                 <field name="employee_number"/>
                 <field name="bio_number"/>
                 
-               </xpath>
+               </xpath> -->
+
+               
+              <xpath expr="//group[@name='active_group']" position="after">
+                <group string="Identification">
+                  <field name="employee_number"/>
+                  <field name="bio_number"/>
+                </group>
+              </xpath>
 
                
                <xpath expr="//field[@name='address_home_id']" position="replace">
@@ -149,7 +157,7 @@
               </xpath>
               
 
-              <xpath expr="//field[@name='attendance_state']" position="before">
+              <xpath expr="//button[@name='toggle_active']" position="before">
                 <button name="open_lt" class="oe_stat_button" icon="fa-book" type="object">
                    <span> <field name="count_lt"/> Lateral Transfer</span>
                 </button>
@@ -231,25 +239,7 @@
         name="ibas_hris.orientation_checklist"
         file="ibas_hris.orientation_checklist"
       />
-
-      <report
-        id="action_report_ibas_employee_rate_of_adjustment"
-        model="ibas_hris.rate_adjustment"
-        string="Print Rate Adjustment Form"
-        report_type="qweb-pdf"
-        name="ibas_hris.rate_of_adjustment"
-        file="ibas_hris.rate_of_adjustment"
-      />
-
-      <report
-        id="action_report_ibas_employee_lateral_transfer"
-        model="ibas_hris.lateral_transfer"
-        string="Print Lateral Transfer Form"
-        report_type="qweb-pdf"
-        name="ibas_hris.lateral_transfer"
-        file="ibas_hris.lateral_transfer"
-      />
-
+      
       <!-- Report Paper Formats -->
         <record id="paperformat_probationary" model="report.paperformat">
             <field name="name">Probatinary Appointment</field>
@@ -352,14 +342,6 @@
         <record id="ibas_hris.action_report_ibas_employee_orientation_checklist" model="ir.actions.report">
             <field name="paperformat_id" ref="ibas_hris.paperformat_orientation" />
         </record> 
-
-        <record id="ibas_hris.action_report_ibas_employee_rate_of_adjustment" model="ir.actions.report">
-            <field name="paperformat_id" ref="ibas_hris.paperformat_roa" />
-        </record>
-
-         <record id="ibas_hris.action_report_ibas_employee_lateral_transfer" model="ir.actions.report">
-            <field name="paperformat_id" ref="ibas_hris.paperformat_lt" />
-        </record>
 
 
     <!-- explicit list view definition -->

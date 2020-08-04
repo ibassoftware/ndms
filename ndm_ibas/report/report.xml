@@ -150,7 +150,6 @@
             report_type="qweb-pdf" 
             name="ndm_ibas.kongkreto_new_dr_stp" 
             file="ndm_ibas.kongkreto_new_dr_stp" 
-            paperformat="ndm_ibas.paperformat_report_dr_stp"
         />
         
     </data>
