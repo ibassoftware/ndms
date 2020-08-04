@@ -6,12 +6,7 @@
             <t t-call="ndm_ibas.external_layout_ndm_account_invoice_orig">
                 <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
                 <div class="page" style="font-size:11px !important;">
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <br/>
+                    
                     <div class="row">
                         <div name="invoice_address" class="col-xs-5 col-xs-offset-7">
                             <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
