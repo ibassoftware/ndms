@@ -119,7 +119,29 @@
                                             <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                         </td>
                                     </tr>
-                                    <t t-set="tax_groups_length" t-value="len(o._get_tax_amount_by_group())"/>
+                                    <t t-if="len(o.tax_line_ids) &gt; 1">
+                                        <t t-foreach="o.tax_line_ids" t-as="tax">
+                                            <tr>
+                                                <td>
+                                                    <span t-esc="tax.name"/>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-esc="tax.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
+                                        <tr style="border-bottom:1px solid #dddddd;">
+                                            <td>
+                                                <span>Tax Total</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-esc="amount_by_group[1]" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <!-- <t t-set="tax_groups_length" t-value="len(o._get_tax_amount_by_group())"/>
                                     <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
                                         <tr style="border-bottom:1px solid #dddddd;">
                                             <t t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
@@ -142,7 +164,7 @@
                                                 </td>
                                             </t>
                                         </tr>
-                                    </t>
+                                    </t> -->
                                     <tr class="border-black">
                                         <td>
                                             <strong>Total</strong>
