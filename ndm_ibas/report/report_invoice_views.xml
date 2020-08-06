@@ -123,7 +123,7 @@
                                         <t t-foreach="o.tax_line_ids" t-as="tax">
                                             <tr>
                                                 <td>
-                                                    <span t-esc="tax.name"/>
+                                                    <span t-esc="tax.description"/>
                                                 </td>
                                                 <td class="text-right">
                                                     <span t-esc="tax.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
