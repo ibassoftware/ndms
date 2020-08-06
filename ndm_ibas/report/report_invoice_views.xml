@@ -121,7 +121,7 @@
                                     </tr>
                                     <t t-if="len(o.tax_line_ids) &gt; 1">
                                         <t t-foreach="o.tax_line_ids" t-as="tax">
-                                            <tr>
+                                            <tr style="font-size:10px !important;padding-top:1px;padding-bottom:1px;">
                                                 <td>
                                                     <span t-esc="tax.tax_id.description"/>
                                                 </td>
