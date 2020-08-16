@@ -9,6 +9,7 @@ import io
 class OfficialBusiness(models.Model):
     _name = 'ibas_hris.official_business'
     _description = 'Official Business'
+    #_inherit = ['mail.alias.mixin', 'mail.thread', 'portal.mixin']
     
     from_date = fields.Datetime(string='From', required=True)
     to_date = fields.Datetime(string='To', required=True)

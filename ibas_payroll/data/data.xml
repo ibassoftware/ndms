@@ -353,7 +353,8 @@ if contract.schedule_pay == 'monthly':
             <field name="category_id" ref="ibas_payroll.LOANS"/>
             <field name="code">SSSLOAN</field>
             <field name="appears_on_payslip" eval="True"/>
-            <field name="condition_select">none</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = payslip.deduct_loans</field>                
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = sum(employee.loan_ids.filtered(lambda r: r.state == 'open' and r.type == 'sss').mapped('amount_deduct'))</field>
             <field name="sequence" eval="700"/>
@@ -364,7 +365,8 @@ if contract.schedule_pay == 'monthly':
             <field name="category_id" ref="ibas_payroll.LOANS"/>
             <field name="code">HDMFLOAN</field>
             <field name="appears_on_payslip" eval="True"/>
-            <field name="condition_select">none</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = payslip.deduct_loans</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = sum(employee.loan_ids.filtered(lambda r: r.state == 'open' and r.type == 'hdmf').mapped('amount_deduct'))</field>
             <field name="sequence" eval="710"/>
@@ -375,7 +377,8 @@ if contract.schedule_pay == 'monthly':
             <field name="category_id" ref="ibas_payroll.LOANS"/>
             <field name="code">OTHLOAN</field>
             <field name="appears_on_payslip" eval="True"/>
-            <field name="condition_select">none</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = payslip.deduct_loans</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = sum(employee.loan_ids.filtered(lambda r: r.state == 'open' and r.type == 'other').mapped('amount_deduct'))</field>
             <field name="sequence" eval="720"/>

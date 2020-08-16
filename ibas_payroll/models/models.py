@@ -135,6 +135,9 @@ class Payslip(models.Model):
     deduct_hdmf = fields.Boolean('Deduct HDMF')
     generate_backpay = fields.Boolean('Generate 13 th Month Pay / BackPay')
 
+    deduct_loans = fields.Boolean('Deduct Loans')
+    project_analtc_acct_id = fields.Many2one('account.analytic.account', string="Project")
+
     @api.model
     def get_worked_day_lines(self, contracts, date_from, date_to):
         res = super(Payslip, self).get_worked_day_lines(contracts, date_from, date_to)
