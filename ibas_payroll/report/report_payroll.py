@@ -27,9 +27,20 @@ class PayrollXlsx(models.AbstractModel):
         sheet.write(0, 13, "HDMF Personal")
         sheet.write(0, 14, "HDMF Company Share")
         sheet.write(0, 15, "Witholding Tax")
-        sheet.write(0, 16, "Total Deductions")
-        sheet.write(0, 17, "Adjustments")
-        sheet.write(0, 18, "Advances")
+        #Added By SDS
+        sheet.write(0, 16, "SSS Loan")
+        sheet.write(0, 17, "HDMF Loan")
+        sheet.write(0, 18, "Other Loan")
+
+        sheet.write(0, 19, "Total Deductions") # OLD Map 16
+
+        #Added By SDS
+        sheet.write(0, 20, "Allowance")
+        sheet.write(0, 21, "Additional Allowance")
+
+
+        sheet.write(0, 22, "Adjustments") # OLD 17
+        sheet.write(0, 23, "Advances") # OLD 18
 
         domain = [('state', '=', 'done')]
         if date_from:
@@ -63,6 +74,19 @@ class PayrollXlsx(models.AbstractModel):
             sheet.write(row, 14, sum(lines.filtered(lambda r: r.code == 'HDMFER').mapped('total')))
 
             sheet.write(row, 15, sum(lines.filtered(lambda r: r.code == 'WT').mapped('total')))
-            sheet.write(row, 16, sum(lines.filtered(lambda r: r.category_id.code == 'DED').mapped('total')))
-            sheet.write(row, 17, sum(lines.filtered(lambda r: r.code == 'ADJ').mapped('total')))
-            sheet.write(row, 18, sum(lines.filtered(lambda r: r.code == 'ADV').mapped('total')))
+
+
+            #SDS
+            sheet.write(row, 16, sum(lines.filtered(lambda r: r.category_id.code == 'SSLOAN').mapped('total')))
+            sheet.write(row, 17, sum(lines.filtered(lambda r: r.category_id.code == 'HDMFLOAN').mapped('total')))
+            sheet.write(row, 18, sum(lines.filtered(lambda r: r.category_id.code == 'OTHLOAN').mapped('total')))
+
+            sheet.write(row, 19, sum(lines.filtered(lambda r: r.category_id.code == 'DED').mapped('total')))
+
+            #SDS
+            sheet.write(row, 20, sum(lines.filtered(lambda r: r.category_id.code == 'Allowance').mapped('total')))
+            sheet.write(row, 21, sum(lines.filtered(lambda r: r.category_id.code == 'ADDALLOWANCE').mapped('total')))
+            
+
+            sheet.write(row, 22, sum(lines.filtered(lambda r: r.code == 'ADJ').mapped('total'))) # OLD 17
+            sheet.write(row, 23, sum(lines.filtered(lambda r: r.code == 'ADV').mapped('total'))) # OLD 18
