@@ -93,20 +93,20 @@
         <field name="model">ibas_hris.official_business</field>
         <field name="arch" type="xml">
             <form string="Official Business">
-            <header>
-            <button string="Submit" name="submit_ob" 
-            type="object" class="oe_highlight" states='draft'/> 
+                <header>
+                    <button string="Submit" name="submit_ob" 
+                    type="object" class="oe_highlight" states='draft'/> 
 
-             <button string="Approve" name="approve_ob" 
-            type="object" class="oe_highlight" states='draft,submitted'
-            groups='hr_attendance.group_hr_attendance_manager'/>  
+                     <button string="Approve" name="approve_ob" 
+                    type="object" class="oe_highlight" states='draft,submitted'
+                    groups='hr_attendance.group_hr_attendance_manager'/>  
 
-            <button string="Deny" name="deny_ob" 
-            type="object" class="oe_highlight" states='submitted'
-            groups='hr_attendance.group_hr_attendance_manager'/>  
+                    <button string="Deny" name="deny_ob" 
+                    type="object" class="oe_highlight" states='submitted'
+                    groups='hr_attendance.group_hr_attendance_manager'/>  
 
-            <field name="state" widget="statusbar"/>
-            </header>
+                    <field name="state" widget="statusbar"/>
+                </header>
                 <sheet>
                     <group>
                         <field name="employee_id"/>
@@ -115,6 +115,11 @@
                         <field name="Description"/>
                     </group>
                 </sheet>
+                <!--
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" help="Follow this project to automatically track the events associated to tasks and issues of this project." groups="base.group_user"/>
+                </div>
+                -->
             </form>
         </field>
     </record>

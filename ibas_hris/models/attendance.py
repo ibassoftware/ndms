@@ -94,6 +94,8 @@ class ibas_attendance(models.Model):
 
         if self.worked_hours > DEFAULT_STANDARD_WORK_HOURS:
             hours_work = DEFAULT_STANDARD_WORK_HOURS
+            self.worked_hours = DEFAULT_STANDARD_WORK_HOURS
+
 
 
         overtimes = self.env['ibas_hris.ot'].search(
