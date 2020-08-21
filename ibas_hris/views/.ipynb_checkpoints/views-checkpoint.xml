@@ -239,6 +239,33 @@
         name="ibas_hris.orientation_checklist"
         file="ibas_hris.orientation_checklist"
       />
+
+      <report
+        id="action_report_ibas_employee_rate_of_adjustment"
+        model="ibas_hris.rate_adjustment"
+        string="Print Rate Adjustment Form"
+        report_type="qweb-pdf"
+        name="ibas_hris.rate_of_adjustment"
+        file="ibas_hris.rate_of_adjustment"
+      />
+
+      <report
+        id="action_report_ibas_employee_lateral_transfer"
+        model="ibas_hris.lateral_transfer"
+        string="Print Lateral Transfer Form"
+        report_type="qweb-pdf"
+        name="ibas_hris.lateral_transfer"
+        file="ibas_hris.lateral_transfer"
+      />
+
+       <report
+        id="action_report_ibas_payslip"
+        model="hr.payslip"
+        string="Print Payslip"
+        report_type="qweb-pdf"
+        name="ibas_hris.ibas_payslip"
+        file="ibas_hris.ibas_payslip"
+      />
       
       <!-- Report Paper Formats -->
         <record id="paperformat_probationary" model="report.paperformat">
@@ -342,6 +369,14 @@
         <record id="ibas_hris.action_report_ibas_employee_orientation_checklist" model="ir.actions.report">
             <field name="paperformat_id" ref="ibas_hris.paperformat_orientation" />
         </record> 
+
+         <record id="ibas_hris.action_report_ibas_employee_rate_of_adjustment" model="ir.actions.report">
+            <field name="paperformat_id" ref="ibas_hris.paperformat_roa" />
+        </record>
+
+         <record id="ibas_hris.action_report_ibas_employee_lateral_transfer" model="ir.actions.report">
+            <field name="paperformat_id" ref="ibas_hris.paperformat_lt" />
+        </record>
 
 
     <!-- explicit list view definition -->
