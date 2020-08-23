@@ -146,6 +146,10 @@
             <field name="model">hr.payslip</field>
             <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
             <field name="arch" type="xml">
+                <button name="refund_sheet" position="replace">
+                    <button string="Refund" name="refund_sheet" type='object' attrs="{'invisible':[('state','in',['confirm','done']),'|',('credit_note', '=' ,True),('refunded', '=' ,True)]}" />
+                </button>
+
                 <field name="credit_note" position="after">
                     <field name="deduct_sss"/>
                     <field name="deduct_philhealth"/>
@@ -153,6 +157,7 @@
                     <field name="generate_backpay"/>
                     <field name="project_analtc_acct_id" groups="account.group_account_invoice"/>
                     <field name="deduct_loans"/>
+                    <field name="refunded" invisible="1"/>
                     
                 </field>
             </field>

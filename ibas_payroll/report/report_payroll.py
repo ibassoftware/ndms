@@ -39,6 +39,9 @@ class PayrollXlsx(models.AbstractModel):
         bg_net_pay = workbook.add_format(
             {'bg_color': 'yellow', 'border': 1, 'border_color': '#D9D9D9'})
 
+
+        company_id  = data['form']['company_id']
+
         sheet = workbook.add_worksheet()
 
         sheet.set_column('A:A', 2.22)
@@ -89,6 +92,9 @@ class PayrollXlsx(models.AbstractModel):
             domain.append(('date_from', '>=', date_from))
         if date_to:
             domain.append(('date_from', '<=', date_to))
+
+        if company_id:
+            domain.append(('company_id', '=', company_id))
 
         payslips = self.env['hr.payslip'].search(domain)
 

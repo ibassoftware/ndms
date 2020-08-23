@@ -221,7 +221,7 @@
         name="ibas_hris.memo_of_regularization"
         file="ibas_hris.memo_of_regularization"
       />
-
+    
       <report
         id="action_report_ibas_employee_confidentiality_agreement"
         model="hr.employee"
@@ -377,7 +377,6 @@
          <record id="ibas_hris.action_report_ibas_employee_lateral_transfer" model="ir.actions.report">
             <field name="paperformat_id" ref="ibas_hris.paperformat_lt" />
         </record>
-
 
     <!-- explicit list view definition -->
     <!--
