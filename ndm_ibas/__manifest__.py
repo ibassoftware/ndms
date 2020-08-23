@@ -15,7 +15,7 @@
       
     """,
 
-    'author': "  EXCODE",
+    'author': "IBAS",
     'website': "",
 
     # Categories can be used to filter modules in modules listing
@@ -29,7 +29,7 @@
 
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'security/ndm_security.xml',
         # 'templates.xml',
         'data/report_paperformat_data.xml',

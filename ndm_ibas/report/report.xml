@@ -10,7 +10,7 @@
             name="ndm_ibas.ndm_report_account_invoice_stp"
             file="ndm_ibas.ndm_report_account_invoice_stp"
             menu="True"
-            paperformat="ndm_ibas.paperformat_report_ndm_account_invoice"
+            paperformat="ndm_ibas.paperformat_report_ndm_account_invoice_stp"
             
         />
 
