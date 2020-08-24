@@ -10,6 +10,7 @@ class PayrollXlsx(models.AbstractModel):
     def generate_xlsx_report(self, workbook, data, objs):
         date_from = data['form']['date_start']
         date_to = data['form']['date_end']
+        company_id  = data['form']['company_id']
         sheet = workbook.add_worksheet()
         sheet.write(0, 0, "First Name")
         sheet.write(0, 1, "Middle Name")
@@ -48,6 +49,9 @@ class PayrollXlsx(models.AbstractModel):
         if date_to:
             domain.append(('date_from', '<=', date_to))
 
+        if company_id:
+            domain.append(('company_id', '=', company_id))
+
         payslips = self.env['hr.payslip'].search(domain)
 
         for i, ps in enumerate(payslips):
@@ -77,9 +81,9 @@ class PayrollXlsx(models.AbstractModel):
 
 
             #SDS
-            sheet.write(row, 16, sum(lines.filtered(lambda r: r.category_id.code == 'SSLOAN').mapped('total')))
-            sheet.write(row, 17, sum(lines.filtered(lambda r: r.category_id.code == 'HDMFLOAN').mapped('total')))
-            sheet.write(row, 18, sum(lines.filtered(lambda r: r.category_id.code == 'OTHLOAN').mapped('total')))
+            sheet.write(row, 16, sum(lines.filtered(lambda r: r.code == 'SSSLOAN').mapped('total')))
+            sheet.write(row, 17, sum(lines.filtered(lambda r: r.code == 'HDMFLOAN').mapped('total')))
+            sheet.write(row, 18, sum(lines.filtered(lambda r: r.code == 'OTHLOAN').mapped('total')))
 
             sheet.write(row, 19, sum(lines.filtered(lambda r: r.category_id.code == 'DED').mapped('total')))
 

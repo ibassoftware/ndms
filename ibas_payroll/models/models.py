@@ -156,6 +156,8 @@ class Payslip(models.Model):
     deduct_loans = fields.Boolean('Deduct Loans')
     project_analtc_acct_id = fields.Many2one('account.analytic.account', string="Project")
 
+    refunded = fields.Boolean('Refunded', default=False)
+
     @api.model
     def get_worked_day_lines(self, contracts, date_from, date_to):
         res = super(Payslip, self).get_worked_day_lines(
@@ -164,6 +166,7 @@ class Payslip(models.Model):
         contract = self.contract_id
         employee = self.employee_id
         resource_calendar_id = employee.work_sched or contract.resource_calendar_id
+        #raise Warning(contract.resource_calendar_id)
         attendances = att_obj.search(
             [('employee_id', '=', contract.employee_id.id), ('check_in', '>=', date_from), ('check_in', '<=', date_to)])
 
@@ -386,3 +389,33 @@ class Payslip(models.Model):
                         {'amount_total_deducted': loan.amount_total_deducted + l.total})
                     loan and loan._compute_state()
         return res
+
+    @api.onchange('employee_id', 'date_from', 'date_to', 'struct_id')
+    def onchange_employee(self):
+        return super(Payslip, self).onchange_employee()
+
+
+    @api.multi
+    def refund_sheet(self):
+        for payslip in self:
+            copied_payslip = payslip.copy({'credit_note': True, 'name': _('Refund: ') + payslip.name})
+            payslip.refunded = True
+            copied_payslip.compute_sheet()
+            copied_payslip.action_payslip_done()
+
+        formview_ref = self.env.ref('hr_payroll.view_hr_payslip_form', False)
+        treeview_ref = self.env.ref('hr_payroll.view_hr_payslip_tree', False)
+
+        return {
+            'name': ("Refund Payslip"),
+            'view_mode': 'tree, form',
+            'view_id': False,
+            'view_type': 'form',
+            'res_model': 'hr.payslip',
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+            'domain': "[('id', 'in', %s)]" % copied_payslip.ids,
+            'views': [(treeview_ref and treeview_ref.id or False, 'tree'), (formview_ref and formview_ref.id or False, 'form')],
+            'context': {}
+        }
+
