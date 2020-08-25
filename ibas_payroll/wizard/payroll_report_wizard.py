@@ -7,7 +7,7 @@ class PayrollReportWizard(models.TransientModel):
     date_from = fields.Date('From Date')
     date_to = fields.Date('To Date')
     company_id = fields.Many2one('res.company', string='Company')
-    #bank_account = fields.Many2one('res.company', string='Company')
+    bank_account = fields.Char(string='Bank Account')
 
     @api.multi
     def get_report(self):
@@ -18,6 +18,7 @@ class PayrollReportWizard(models.TransientModel):
                 'date_start': self.date_from,
                 'date_end': self.date_to,
                 'company_id':  self.company_id and self.company_id.id or False,
+                'bank_account':  self.bank_account or False
             },
         }
         return self.env.ref('ibas_payroll.report_payroll_xlsx').report_action(self, data=data)
