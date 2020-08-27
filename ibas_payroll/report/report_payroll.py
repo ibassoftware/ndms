@@ -11,6 +11,7 @@ class PayrollXlsx(models.AbstractModel):
         date_from = data['form']['date_start']
         date_to = data['form']['date_end']
         company_id  = data['form']['company_id']
+        bank_account  = data['form']['bank_account'] and data['form']['bank_account'].upper()
         sheet = workbook.add_worksheet()
         sheet.write(0, 0, "First Name")
         sheet.write(0, 1, "Middle Name")
@@ -55,6 +56,12 @@ class PayrollXlsx(models.AbstractModel):
         payslips = self.env['hr.payslip'].search(domain)
 
         for i, ps in enumerate(payslips):
+
+            #Check if Bank Account Number Filter
+            if bank_account:
+                if bank_account != ps.employee_id.bank_account_number.upper():
+                    continue
+
             row = i + 1
             lines = ps.line_ids
             department = ps.sudo().employee_id.department_id and ps.sudo().employee_id.department_id.name or False
