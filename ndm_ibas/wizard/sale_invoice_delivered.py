@@ -12,7 +12,8 @@ class SaleInvoiceDelivered(models.TransientModel):
 		for delivery in line.mapped('move_ids'):
 			if delivery.state == "done":
 				dr_no = delivery.picking_id.name
-				location = delivery.picking_id.project_name
+				# location = delivery.picking_id.project_name
+				location = delivery.picking_id.project_address
 				plate_no = delivery.picking_id.plate_no
 				# location_no = delivery.location_no
 				qty = delivery.quantity_done

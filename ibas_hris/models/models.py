@@ -306,9 +306,10 @@ class ibas_employee(models.Model):
             contract_obj = self.env['hr.contract']
             contract_type_obj = self.env['hr.contract.type']
 
-            hr_contract_type = contract_type_obj.search([('name', '=', 'Regular')])
+            hr_contract_type = contract_type_obj.search(
+                [('name', '=', 'Regular')])
             hr_contract = contract_obj.search(
-                [('employee_id', '=', employee_id), ('state', '=', 'open'), ('type_id', '=', hr_contract_type.id)])            
+                [('employee_id', '=', employee_id), ('state', '=', 'open'), ('type_id', '=', hr_contract_type.id)])
             if hr_contract:
                 rec.regularized = True
 
@@ -377,7 +378,8 @@ class ibas_employee_reference(models.Model):
 class ibas_employee_contract(models.Model):
     _inherit = "hr.contract"
 
-    schedule_pay = fields.Selection(selection_add=[('per-trip', 'Per-Trip')])
+    schedule_pay = fields.Selection(
+        selection_add=[('per-trip', 'Per-Trip'), ('daily', 'Daily')])
     allowance = fields.Float(string='Untaxable Allowance')
     daily_wage = fields.Float(string='Daily Rate')
     work_days = fields.Selection([
