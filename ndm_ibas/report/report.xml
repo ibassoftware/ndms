@@ -10,7 +10,7 @@
             name="ndm_ibas.ndm_report_account_invoice_stp"
             file="ndm_ibas.ndm_report_account_invoice_stp"
             menu="True"
-            paperformat="ndm_ibas.paperformat_report_ndm_account_invoice"
+            paperformat="ndm_ibas.paperformat_report_ndm_account_invoice_stp"
             
         />
 
@@ -150,7 +150,6 @@
             report_type="qweb-pdf" 
             name="ndm_ibas.kongkreto_new_dr_stp" 
             file="ndm_ibas.kongkreto_new_dr_stp" 
-            paperformat="ndm_ibas.paperformat_report_dr_stp"
         />
         
     </data>
