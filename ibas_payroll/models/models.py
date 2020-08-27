@@ -28,16 +28,12 @@ class Loan(models.Model):
 
     employee_id = fields.Many2one('hr.employee', string="Employee", readonly=True,
                                   states={'draft': [('readonly', False)]})
-    date_from = fields.Date('From Date', readonly=True, states={
-                            'draft': [('readonly', False)]})
-    date_to = fields.Date('To Date', readonly=True, states={
-                          'draft': [('readonly', False)]})
+    date_from = fields.Date('From Date', readonly=True, states={'draft': [('readonly', False)]})
+    date_to = fields.Date('To Date', readonly=True, states={'draft': [('readonly', False)]})
     currency_id = fields.Many2one('res.currency', default=_default_currency, string="Currency", readonly=True,
                                   states={'draft': [('readonly', False)]})
-    amount_total = fields.Monetary(string="Total Loan Amount", readonly=True, states={
-                                   'draft': [('readonly', False)]})
-    amount_deduct = fields.Monetary(string="Deduction Amount", readonly=True, states={
-                                    'draft': [('readonly', False)]})
+    amount_total = fields.Monetary(string="Total Loan Amount", readonly=True, states={'draft': [('readonly', False)]})
+    amount_deduct = fields.Monetary(string="Deduction Amount", readonly=True, states={'draft': [('readonly', False)]})
     type = fields.Selection([('sss', 'SSS'), ('hdmf', 'HDMF'), ('other', 'OTHER')], string='Type', readonly=True,
                             states={'draft': [('readonly', False)]})
     amount_total_deducted = fields.Monetary(string="Total Deducted Amount", readonly=True,
@@ -55,15 +51,10 @@ class Loan(models.Model):
         self.write({'state': 'open'})
 
     @api.multi
-    def action_set_to_draft(self):
-        self.write({'state': 'draft'})
-
-    @api.multi
     def unlink(self):
         for loan in self:
             if loan.state in ['open', 'done']:
-                raise UserError(
-                    _('Deleting of open or paid loans is not allowed.'))
+                raise UserError(_('Deleting of open or paid loans is not allowed.'))
         return super(Loan, self).unlink()
 
     @api.multi
@@ -72,13 +63,10 @@ class Loan(models.Model):
         for loan in self:
             amount_str = 0.0
             if loan.currency_id.position == 'before':
-                amount_str = loan.currency_id.symbol + \
-                    ' ' + str(loan.amount_total)
+                amount_str = loan.currency_id.symbol + ' ' + str(loan.amount_total)
             if loan.currency_id.position == 'after':
-                amount_str = str(loan.amount_total) + ' ' + \
-                    loan.currency_id.symbol
-            result.append((loan.id, "[%s] %s" %
-                           (amount_str, loan.employee_id.name)))
+                amount_str = str(loan.amount_total) + ' ' + loan.currency_id.symbol
+            result.append((loan.id, "[%s] %s" % (amount_str, loan.employee_id.name)))
         return result
 
 
@@ -93,8 +81,7 @@ class TripTemplate(models.Model):
     name = fields.Char('Name', compute="_compute_name", store=True)
     loc_from = fields.Char('From Location', required=True)
     loc_to = fields.Char('To Location', required=True)
-    currency_id = fields.Many2one(
-        'res.currency', default=_default_currency, string="Currency")
+    currency_id = fields.Many2one('res.currency', default=_default_currency, string="Currency")
     amount = fields.Monetary(string="Amount", required=True)
 
     @api.depends('loc_from', 'loc_to')
@@ -111,23 +98,19 @@ class Trip(models.Model):
         return self.env.user.company_id.currency_id.id
 
     date = fields.Date('Date', required=True)
-    trip_template_id = fields.Many2one(
-        'ibas_hris.trip_template', string='Template')
+    trip_template_id = fields.Many2one('ibas_hris.trip_template', string='Template')
     loc_from = fields.Char('From Location', required=True)
     loc_to = fields.Char('To Location', required=True)
-    currency_id = fields.Many2one(
-        'res.currency', default=_default_currency, string="Currency")
+    currency_id = fields.Many2one('res.currency', default=_default_currency, string="Currency")
     amount = fields.Monetary(string="Amount", required=True)
-    employee_id = fields.Many2one(
-        'hr.employee', string="Employee", required=True)
+    employee_id = fields.Many2one('hr.employee', string="Employee", required=True)
     remarks = fields.Char('Remarks')
 
     @api.multi
     def name_get(self):
         result = []
         for trip in self:
-            result.append((trip.id, "[%s] %s" % (
-                trip.employee_id.name, (trip.loc_from or '') + ' -> ' + (trip.loc_to or ''))))
+            result.append((trip.id, "[%s] %s" % (trip.employee_id.name, (trip.loc_from or '') + ' -> ' + (trip.loc_to or ''))))
         return result
 
     @api.onchange('trip_template_id')
@@ -151,8 +134,7 @@ class Employee(models.Model):
         payslips = self.env['hr.payslip'].search(
             [('employee_id', '=', self.id), ('date_from', '>=', date_from), ('date_from', '<=', date_to),
              ('id', '!=', current_payslip.id)])
-        lines = payslips.mapped('line_ids').filtered(
-            lambda r: r.code == 'NETPAY')
+        lines = payslips.mapped('line_ids').filtered(lambda r: r.code == 'NETPAY')
         return sum(lines.mapped('total'))
 
 
@@ -171,8 +153,7 @@ class Payslip(models.Model):
 
     @api.model
     def get_worked_day_lines(self, contracts, date_from, date_to):
-        res = super(Payslip, self).get_worked_day_lines(
-            contracts, date_from, date_to)
+        res = super(Payslip, self).get_worked_day_lines(contracts, date_from, date_to)
         att_obj = self.env['hr.attendance']
         contract = self.contract_id
         employee = self.employee_id
@@ -203,29 +184,27 @@ class Payslip(models.Model):
         regular_holiday_ot_minutes = 0.0
         special_holiday_ot_minutes = 0.0
         regular_holiday_restday_ot_minutes = 0.0
-        special_holiday_restday_ot_minutes = 0.0
+        special_holiday_restday_ot_minutes = 0.0        
         for att in attendances:
-
+            
             late_in_float += att.late_in_float
             undertime_minutes += att.undertime_minutes
 
-            regular_holiday_worked_hours += att.reg_hol_hrs_wrk  # Regular Holiday
-            special_holiday_worked_hours += att.spec_hol_hrs_wrk  # Special Holiday
-            restday_hours += att.rest_day_hrs_wrk  # Restday
-            # Restday Regular Holiday
-            restday_regular_holiday_worked_hours += att.rd_reg_hol_hrs_wrk
-            # Restday Special Holiday
-            restday_special_holiday_worked_hours += att.rd_spec_hol_hrs_wrk
+            regular_holiday_worked_hours += att.reg_hol_hrs_wrk # Regular Holiday
+            special_holiday_worked_hours += att.spec_hol_hrs_wrk # Special Holiday
+            restday_hours += att.rest_day_hrs_wrk # Restday
+            restday_regular_holiday_worked_hours += att.rd_reg_hol_hrs_wrk # Restday Regular Holiday
+            restday_special_holiday_worked_hours += att.rd_spec_hol_hrs_wrk # Restday Special Holiday
 
-            # For Overtime
-            regular_ot_minutes += att.reg_appr_overtime  # Regular OT
-            restday_ot_minutes += att.rest_day_hrs_ot  # Restday OT
-            regular_holiday_ot_minutes += att.reg_hol_hrs_ot  # Regular Holiday OT
-            special_holiday_ot_minutes += att.spec_hol_hrs_ot  # Special Holiday OT
-            # Restday Regular Holiday OT
-            regular_holiday_restday_ot_minutes += att.rd_reg_hol_hrs_ot
-            # Restday Special Holiday OT
-            special_holiday_restday_ot_minutes += att.rd_spec_hol_hrs_ot
+            #For Overtime
+            regular_ot_minutes += att.reg_appr_overtime #Regular OT 
+            restday_ot_minutes += att.rest_day_hrs_ot #Restday OT
+            regular_holiday_ot_minutes += att.reg_hol_hrs_ot #Regular Holiday OT
+            special_holiday_ot_minutes += att.spec_hol_hrs_ot #Special Holiday OT
+            regular_holiday_restday_ot_minutes += att.rd_reg_hol_hrs_ot #Restday Regular Holiday OT
+            special_holiday_restday_ot_minutes += att.rd_spec_hol_hrs_ot #Restday Special Holiday OT
+
+
 
             actual_worked_hours += att.worked_hours < 8 and att.worked_hours or 8
 
@@ -236,16 +215,14 @@ class Payslip(models.Model):
                                                                                   microsecond=999999)):
             if not attendances.filtered(lambda r: str(day) <= r.check_in <= str(
                     day.replace(hour=23, minute=59, second=59, microsecond=999999)) and r.is_workday):
-                work_hours = employee.get_day_work_hours_count(
-                    day, calendar=resource_calendar_id)
+                work_hours = employee.get_day_work_hours_count(day, calendar=resource_calendar_id)
                 if work_hours:
-                    holiday = self.env['ibas_hris.holiday'].search(
-                        [('date', '=', day.date())])
+                    holiday = self.env['ibas_hris.holiday'].search([('date', '=', day.date())])
                     if not holiday:
                         absences += 1
 
         # HR-5
-        # overtimes = self.env['ibas_hris.ot'].search(
+        #overtimes = self.env['ibas_hris.ot'].search(
         #    [('state', '=', 'approved'), ('overtime_from', '>=', date_from + ' 00:00:00'),
         #     ('overtime_from', '<=', date_to + ' 23:59:59'), ('employee_id', '=', employee.id)])
         #regular_ot_minutes = 0.0
@@ -254,7 +231,7 @@ class Payslip(models.Model):
         #special_holiday_ot_minutes = 0.0
         #regular_holiday_restday_ot_minutes = 0.0
         #special_holiday_restday_ot_minutes = 0.0
-        # for ot in overtimes:
+        #for ot in overtimes:
         #    ot_day = fields.Datetime.from_string(date_from).date()
         #    ot_day_work_hours = employee.get_day_work_hours_count(ot_day, calendar=resource_calendar_id)
         #    ot_day_holiday = self.env['ibas_hris.holiday'].search([('date', '=', ot_day)])
@@ -271,6 +248,7 @@ class Payslip(models.Model):
         #        regular_holiday_restday_ot_minutes += ot.ot_minutes
         #    if not ot_day_work_hours and ot_day_holiday and ot_day_holiday.holiday_type == 'special':  # Special Holiday Restday Overtime
         #        special_holiday_restday_ot_minutes += ot.ot_minutes
+
 
         res.extend([
             {
@@ -388,22 +366,16 @@ class Payslip(models.Model):
         for rec in self:
             for l in rec.line_ids:
                 if l.code == 'SSSLOAN':
-                    loan = rec.employee_id.loan_ids.filtered(
-                        lambda r: r.state == 'open' and r.type == 'sss')
-                    loan and loan[0].write(
-                        {'amount_total_deducted': loan.amount_total_deducted + l.total})
+                    loan = rec.employee_id.loan_ids.filtered(lambda r: r.state == 'open' and r.type == 'sss')
+                    loan and loan[0].write({'amount_total_deducted': loan.amount_total_deducted + l.total})
                     loan and loan._compute_state()
                 if l.code == 'HDMFLOAN':
-                    loan = rec.employee_id.loan_ids.filtered(
-                        lambda r: r.state == 'open' and r.type == 'hdmf')
-                    loan and loan[0].write(
-                        {'amount_total_deducted': loan.amount_total_deducted + l.total})
+                    loan = rec.employee_id.loan_ids.filtered(lambda r: r.state == 'open' and r.type == 'hdmf')
+                    loan and loan[0].write({'amount_total_deducted': loan.amount_total_deducted + l.total})
                     loan and loan._compute_state()
                 if l.code == 'OTHLOAN':
-                    loan = rec.employee_id.loan_ids.filtered(
-                        lambda r: r.state == 'open' and r.type == 'other')
-                    loan and loan[0].write(
-                        {'amount_total_deducted': loan.amount_total_deducted + l.total})
+                    loan = rec.employee_id.loan_ids.filtered(lambda r: r.state == 'open' and r.type == 'other')
+                    loan and loan[0].write({'amount_total_deducted': loan.amount_total_deducted + l.total})
                     loan and loan._compute_state()
         return res
 
