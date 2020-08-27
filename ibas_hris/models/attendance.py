@@ -107,9 +107,7 @@ class ibas_attendance(models.Model):
                 overtime_in_minutes += ot and ot.ot_minutes or 0.0
 
             if overtime_in_minutes  > 0.0:
-                #raise Warning(overtime)
                 overtime =  (int(int(overtime_in_minutes)/30)) * 30
-                #raise Warning(overtime)
                 overtime_in_minutes = overtime
 
         if self.is_undertime:
@@ -209,14 +207,32 @@ class ibas_attendance(models.Model):
             rec.is_undertime = False
             rec.undertime_in_float = 0
 
+
+
             if (rec.employee_id is not False):
                 tz = pytz.timezone('Asia/Manila')
                 rec.workdate = fields.Datetime.from_string(rec.check_in).replace(tzinfo = pytz.UTC).astimezone(tz).date() #fields.Datetime.from_string(rec.check_in).date()
+                #SDS No CHANGES
+
+                #date_previous = fields.Date.from_string(rec.workdate)-timedelta(days=1)                
+                #with_holiday_pay = False
+
+                #Check if Previous Day has Attendance and if Not Check if Day of that Date is a Rest Day date
+
+                #attendance = self.env['hr.attendance'].search([('workdate', '=', date_previous),('employee_id', '=', rec.employee_id.id)])
+                #if attendance:
+                #    with_holiday_pay = True
+                #else:
+                    #Now Check if No Attendance and if Date is a Rest Day
+                #    dow = date_previous.weekday()
+                #    cnt = rec.employee_id.resource_calendar_id.attendance_ids.search_count([("dayofweek","=",dow)])
+                #    if cnt == 0:
+                #        with_holiday_pay = True
+
                 if (rec.employee_id.work_sched is not False):
                     dow = fields.Date.from_string(rec.check_in).weekday()
                     cnts = rec.employee_id.work_sched.attendance_ids.search([("dayofweek","=",dow),
                     ("calendar_id","=",rec.employee_id.work_sched.id)])
-                    # raise Warning(_(cnts))
                     if (cnts):
                         splitTime = str(cnts[0].hour_from).split(".")
                         myHour = int(splitTime[0]) - 8
@@ -240,13 +256,16 @@ class ibas_attendance(models.Model):
                             myworkday = datetime(year,month,day,myHour,myMinute,0,0,pytz.UTC)
                             rec.workday = myworkday
                             if holidays[0].holiday_type == "regular":
-                                rec.is_regular = True
+                                #Added By SDS To Check if the Previous Day has attendance
+                                rec.is_regular = True #True
                                 rec.is_workday = False
                                 return
                             else:
-                                rec.is_special = True
+                                rec.is_special = True #True
                                 rec.is_workday = False
                                 return
+
+
 
 
         

@@ -59,6 +59,8 @@ class PayrollXlsx(models.AbstractModel):
 
             #Check if Bank Account Number Filter
             if bank_account:
+                if not ps.employee_id.bank_account_number:
+                    continue
                 if bank_account != ps.employee_id.bank_account_number.upper():
                     continue
 

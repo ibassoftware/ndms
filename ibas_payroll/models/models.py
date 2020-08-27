@@ -400,7 +400,7 @@ class Payslip(models.Model):
                 return
             self.contract_id = self.env['hr.contract'].browse(contract_ids[0])
 
-        raise Warning(self.struct_id)
+        #raise Warning(self.struct_id)
 
         if not self.contract_id.struct_id:
             return
