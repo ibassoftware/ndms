@@ -155,8 +155,9 @@
                     <field name="deduct_philhealth"/>
                     <field name="deduct_hdmf"/>
                     <field name="generate_backpay"/>
+                    <field name="deduct_tax"/>
+                    <field name="deduct_loans"/>                    
                     <field name="project_analtc_acct_id" groups="account.group_account_invoice"/>
-                    <field name="deduct_loans"/>
                     <field name="refunded" invisible="1"/>
                     
                 </field>
