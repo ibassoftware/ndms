@@ -168,6 +168,7 @@ class Payslip(models.Model):
     project_analtc_acct_id = fields.Many2one('account.analytic.account', string="Project")
 
     refunded = fields.Boolean('Refunded', default=False)
+    deduct_tax = fields.Boolean('Deduct Withholding Tax', default=False)
 
     @api.model
     def get_worked_day_lines(self, contracts, date_from, date_to):
@@ -407,6 +408,31 @@ class Payslip(models.Model):
                     loan and loan._compute_state()
         return res
 
+    @api.model
+    def get_inputs_w_selected_struct(self, contracts,struct_id, date_from, date_to):
+
+        res = []
+
+        structure_ids = contracts.get_all_structures()
+        structure_ids.append(struct_id)
+
+        rule_ids = self.env['hr.payroll.structure'].browse(structure_ids).get_all_rules()
+        sorted_rule_ids = [id for id, sequence in sorted(rule_ids, key=lambda x:x[1])]
+
+        inputs = self.env['hr.salary.rule'].browse(sorted_rule_ids).mapped('input_ids')
+
+        for contract in contracts:
+            for input in inputs:
+                input_data = {
+                    'name': input.name,
+                    'code': input.code,
+                    'contract_id': contract.id,
+                }
+            res += [input_data]
+
+        return res
+
+
     @api.onchange('employee_id', 'date_from', 'date_to', 'struct_id')
     def onchange_employee(self):
         if (not self.employee_id) or (not self.date_from) or (not self.date_to):
@@ -428,12 +454,12 @@ class Payslip(models.Model):
                 return
             self.contract_id = self.env['hr.contract'].browse(contract_ids[0])
 
-        raise Warning(self.struct_id)
+        #raise Warning(self.struct_id)
 
         if not self.contract_id.struct_id:
             return
 
-        if not self.struct_id:
+        if not self.struct_id:            
             self.struct_id = self.contract_id.struct_id
         elif len(self.struct_id) ==0:
             self.struct_id = self.contract_id.struct_id
@@ -447,7 +473,10 @@ class Payslip(models.Model):
             worked_days_lines += worked_days_lines.new(r)
         self.worked_days_line_ids = worked_days_lines
 
-        input_line_ids = self.get_inputs(contracts, date_from, date_to)
+        if self.struct_id != self.contract_id.struct_id:
+            input_line_ids = self.get_inputs_w_selected_struct(contracts,self.struct_id.id, date_from, date_to)
+        else:
+            input_line_ids = self.get_inputs(contracts, date_from, date_to)
         input_lines = self.input_line_ids.browse([])
 
         for r in input_line_ids:

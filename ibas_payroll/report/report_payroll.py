@@ -54,14 +54,20 @@ class PayrollXlsx(models.AbstractModel):
             domain.append(('company_id', '=', company_id))
 
         payslips = self.env['hr.payslip'].search(domain)
+        
+        payslip_ids = []
+        for payslip in payslips:
+            if bank_account:
+                if not payslip.employee_id.bank_account_number:
+                    continue
+                if bank_account != payslip.employee_id.bank_account_number.upper():
+                    continue
+            payslip_ids.append(payslip.id)
+
+        payslips = self.env['hr.payslip'].browse(payslip_ids)
+
 
         for i, ps in enumerate(payslips):
-
-            #Check if Bank Account Number Filter
-            if bank_account:
-                if bank_account != ps.employee_id.bank_account_number.upper():
-                    continue
-
             row = i + 1
             lines = ps.line_ids
             department = ps.sudo().employee_id.department_id and ps.sudo().employee_id.department_id.name or False

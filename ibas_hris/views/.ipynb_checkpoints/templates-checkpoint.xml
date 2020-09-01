@@ -1,6 +1,52 @@
 <odoo>
     <data>
         <!-- NDM -->
+
+        <!-- Payslip-->
+        <template id="ibas_external_layout_payslip">
+             <div class="header">
+            <div class="row">
+                <div class="col-xs-3 mb4">
+                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % to_text(res_company.logo)" style="max-height: 45px;"/>
+                </div>
+                <div class="col-xs-9 text-right" style="margin-top:22px;" t-field="res_company.report_header" name="moto"/>
+            </div>
+            <div t-if="res_company.logo or res_company.report_header" class="row zero_min_height">
+                <div class="col-xs-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+            <div class="row">
+                <!--<div class="col-xs-6" name="company_address">
+                    <span t-field="company.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}" style="border-bottom: 1px solid black; display:inline-block;"/>
+                </div>-->
+            </div>
+        </div>
+
+        <div class="article o_report_layout_standard">
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <li t-if="res_company.phone">Phone: <span t-field="res_company.phone"/></li>
+                    <li t-if="res_company.email">Email: <span t-field="res_company.email"/></li>
+                    <li t-if="res_company.website">Web: <span t-field="res_company.website"/></li>
+                    <li t-if="res_company.vat"><t t-esc="res_company.country_id.vat_label or 'TIN'"/>: <span t-field="res_company.vat"/></li>
+                </ul>
+
+                <div name="financial_infos">
+                    <span t-field="res_company.report_footer"/>
+                </div>
+
+                <div class="text-muted">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </div>
+        </template>
+
         <!-- Probationary Appointment call-->
         <template id="ibas_external_layout_boxed_prob">
             <div class="header o_boxed_header">
@@ -1003,6 +1049,80 @@
             </t>
         </t>
     </template>
+
+      <!--Payslip-->
+        <template id="ibas_payslip">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="ibas_hris.ibas_external_layout_payslip">
+                    <div class="page">
+                        <h2>Pay Slip</h2>
+                        <p t-field="o.name"/>
+
+                        <table class="table table-condensed table-bordered">
+                            <tr>
+                                <td><strong>Name</strong></td>
+                                <td><span t-field="o.employee_id"/></td>
+                                <td><strong>Designation</strong></td>
+                                <td><span t-field="o.employee_id.job_id"/></td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Rate per Day</strong></td>
+                                <td><span t-field="o.contract_id.daily_wage"/></td>
+                                <td><strong>Scheduled Pay</strong></td>
+                                <td><span t-field="o.contract_id.schedule_pay"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Payroll period</strong></td>
+                                <td colspan="3">
+                                    <span t-field="o.date_from"/> - <span t-field="o.date_to"/>
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td><strong>Reference</strong></td>
+                                <td><span t-field="o.number"/></td>
+                                <td><strong>Bank Account</strong></td>
+                                <td><span t-field="o.employee_id.bank_account_id"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Date From</strong></td>
+                                <td><span t-field="o.date_from"/></td>
+                                <td><strong>Date To</strong></td>
+                                <td><span t-field="o.date_to"/></td>
+                            </tr>
+                        </table>
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <!--<th>Code</th>-->
+                                    <th>Name</th>
+                                    <!--<th>Quantity/rate</th>-->
+                                    <th>Amount</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                    <!--<td><span t-field="line.code"/></td>-->
+                                    <td><span t-field="line.name"/></td>
+                                    <!--<td><span t-field="line.quantity"/></td>-->
+                                    <td><span t-esc="line.amount" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></td>
+                                    <td><span t-esc="line.total" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="text-right"><strong>Authorized signature</strong></p>
+                    </div>
+                </t>
+            </t>
+        </t>
+        </template>
+
 
 
 
