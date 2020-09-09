@@ -401,11 +401,18 @@ class Payslip(models.Model):
                         {'amount_total_deducted': loan.amount_total_deducted + l.total})
                     loan and loan._compute_state()
                 if l.code == 'OTHLOAN':
-                    loan = rec.employee_id.loan_ids.filtered(
+                    #Due to Multiple Loans for OTHER type iterate                     
+                    loans = rec.employee_id.loan_ids.filtered(
                         lambda r: r.state == 'open' and r.type == 'other')
-                    loan and loan[0].write(
-                        {'amount_total_deducted': loan.amount_total_deducted + l.total})
-                    loan and loan._compute_state()
+                    #loan_amount_total = l.total
+                    for loan in loans:
+                        amount_deduct = loan.amount_deduct
+                        loan[0].write({'amount_total_deducted': loan.amount_total_deducted + amount_deduct})
+                        loan._compute_state()
+
+                    #loan and loan[0].write(
+                    #    {'amount_total_deducted': loan.amount_total_deducted + l.total})
+                    #loan and loan._compute_state()
         return res
 
     @api.model
