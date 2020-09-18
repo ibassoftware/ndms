@@ -1,6 +1,52 @@
 <odoo>
     <data>
         <!-- NDM -->
+
+        <!-- Payslip-->
+        <template id="ibas_external_layout_payslip">
+             <div class="header">
+            <div class="row">
+                <div class="col-xs-3 mb4">
+                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % to_text(res_company.logo)" style="max-height: 45px;"/>
+                </div>
+                <div class="col-xs-9 text-right" style="margin-top:22px;" t-field="res_company.report_header" name="moto"/>
+            </div>
+            <div t-if="res_company.logo or res_company.report_header" class="row zero_min_height">
+                <div class="col-xs-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+            <div class="row">
+                <!--<div class="col-xs-6" name="company_address">
+                    <span t-field="company.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}" style="border-bottom: 1px solid black; display:inline-block;"/>
+                </div>-->
+            </div>
+        </div>
+
+        <div class="article o_report_layout_standard">
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <li t-if="res_company.phone">Phone: <span t-field="res_company.phone"/></li>
+                    <li t-if="res_company.email">Email: <span t-field="res_company.email"/></li>
+                    <li t-if="res_company.website">Web: <span t-field="res_company.website"/></li>
+                    <li t-if="res_company.vat"><t t-esc="res_company.country_id.vat_label or 'TIN'"/>: <span t-field="res_company.vat"/></li>
+                </ul>
+
+                <div name="financial_infos">
+                    <span t-field="res_company.report_footer"/>
+                </div>
+
+                <div class="text-muted">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </div>
+        </template>
+
         <!-- Probationary Appointment call-->
         <template id="ibas_external_layout_boxed_prob">
             <div class="header o_boxed_header">
@@ -108,7 +154,7 @@
                             <span t-field="doc.employee_id.present_address"/></p>
                             <p style="text-align: center; font-size: 18px"><strong>PROBATIONARY APPOINTMENT</strong></p>
                             <p>Dear <strong><span t-field="doc.employee_id.name"/></strong>,</p>
-                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/>. You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong> up to <strong><span t-field="doc.date_end" t-options='{"format": "MMM-dd-yyyy"}'/></strong>. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on <b><span t-field="doc.date_start"  t-field-options='{"format": "MMMM d y"}'/></b>. You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong> up to <strong><span t-field="doc.date_end" t-options='{"format": "MMM-dd-yyyy"}'/></strong>. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
                            <!-- <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp starting from the date of this notice. You shall undergo Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p> -->
                             <t t-if="doc.schedule_pay== 'bi-monthly'">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
@@ -122,7 +168,7 @@
                              <t t-else="">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
                             </t>
-                            <p>Your regular work schedule is from Monday to Saturday, 8:00AM to 5:00PM at NDM Sanchez Builders main office, San Agustin, Sto. Tomas, Batangas. When the need arises, you will be required to extend work well past 5:00PM. You are hereby to requested report directly to our VP for Finance (Mrs. Susana M. Sanchez) and report, priority works during weekly meetings or if Management requires you to do so. A Job Description is attached to this Appointment Memo for your kind perusal.</p>
+                            <p>Your regular work schedule is from Monday to Saturday, 8:00AM to 5:00PM at NDM Sanchez Builders main office, San Agustin, Sto. Tomas, Batangas. When the need arises, you will be required to extend work well past 5:00PM. You are hereby to requested report directly to our <strong><span t-field="doc.employee_id.parent_id.job_id.name"/> (<span t-field="doc.employee_id.parent_id.name"/>)</strong> and report, priority works during weekly meetings or if Management requires you to do so. A Job Description is attached to this Appointment Memo for your kind perusal.</p>
                             <p>You agree to faithfully and honestly abide all the Company's present policies, instructions and guidelines, as well as those, which may be issued from time to time. Any violation thereof may subject you to appropriate disciplinary action, to include dismissal for cause.</p>
                             <p>The locked-in period must be strictly adhered to however, a notice of resignation must be served to the Company at least fifteen (15) days in advance with proper turn-over of thirty (30) days. Failure on your part to observe this probation may cause the Company to hold you liable for damages, in which case salaries, 13<sup>th</sup> month pay and other economic benefits due to you, if any, may be withheld.</p>
                             <p>Accountabilities incurred against NDM SANCHEZ BUILDERS or its properties (should damage or loss be attributed to your undoing following a due process in inquiry by management) shall be deducted from your pay, should you fail to effect payment after due notice.</p>
@@ -188,7 +234,7 @@
                             <span t-field="doc.employee_id.present_address"/></p>
                             <p style="text-align: center; font-size: 18px"><strong>PROBATIONARY APPOINTMENT</strong></p>
                             <p>Dear <strong><span t-field="doc.employee_id.name"/></strong>,</p>
-                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B-%d-%Y')"/>. You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong> up to <strong><span t-field="doc.date_end" t-options='{"format": "MMM-dd-yyyy"}'/></strong>. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
+                            <p>This is to formalize your employment as <strong><span t-field="doc.job_id"/></strong> of NDM Sanchez Builders and Development Corp to take effect on  <b><span t-field="doc.date_start"  t-field-options='{"format": "MMMM d y"}'/></b>. You shall undergo a Probationary period of <strong><span t-field="doc.probationary_period_words"/> </strong>(<strong><span t-field="doc.probationary_period"/></strong>) months starting <strong><span t-field="doc.date_start" t-options='{"format": "MMM-dd-yyyy"}'/></strong> up to <strong><span t-field="doc.date_end" t-options='{"format": "MMM-dd-yyyy"}'/></strong>. Your Immediate Superior will evaluate your performance at the end of that period for recommendations regarding your tenure of work to the Company.</p>
                             <t t-if="doc.schedule_pay== 'bi-monthly'">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
                             </t>
@@ -201,7 +247,7 @@
                             <t t-else="">
                                 <p>As such, you will receive a fixed monthly basic pay of Philippine Peso:<strong><span t-field="doc.amount_in_words"/></strong> (<strong><span t-field="doc.wage"/></strong>), payable every 10<sup>th</sup> and 25<sup>th</sup> of the month. And an allowance of Php  <strong><t t-esc="'{:,.2f}'.format(doc.allowance)"/></strong> every month.</p>
                             </t>
-                            <p>Your regular work schedule is from Monday to Saturday, 8:00AM to 5:00PM at NDM Sanchez Builders main office, San Agustin, Sto. Tomas, Batangas. When the need arises, you will be required to extend work well past 5:00PM. You are hereby to requested report directly to our VP for Finance (Mrs. Susana M. Sanchez) and report, priority works during weekly meetings or if Management requires you to do so. A Job Description is attached to this Appointment Memo for your kind perusal.</p>
+                            <p>Your regular work schedule is from Monday to Saturday, 8:00AM to 5:00PM at  KONGKRETO PILIPINAS INC. main office, San Agustin, Sto. Tomas, Batangas. When the need arises, you will be required to extend work well past 5:00PM. You are hereby to requested report directly to our <strong><span t-field="doc.employee_id.parent_id.job_id.name"/> (<span t-field="doc.employee_id.parent_id.name"/>)</strong> and report, priority works during weekly meetings or if Management requires you to do so. A Job Description is attached to this Appointment Memo for your kind perusal.</p>
                             <p>You agree to faithfully and honestly abide all the Company's present policies, instructions and guidelines, as well as those, which may be issued from time to time. Any violation thereof may subject you to appropriate disciplinary action, to include dismissal for cause.</p>
                             <p>The locked-in period must be strictly adhered to however, a notice of resignation must be served to the Company at least fifteen (15) days in advance with proper turn-over of thirty (30) days. Failure on your part to observe this probation may cause the Company to hold you liable for damages, in which case salaries, 13<sup>th</sup> month pay and other economic benefits due to you, if any, may be withheld.</p>
                             <p>Accountabilities incurred against KONGKRETO PILIPINAS INC. or its properties (should damage or loss be attributed to your undoing following a due process in inquiry by management) shall be deducted from your pay, should you fail to effect payment after due notice.</p>
@@ -1003,6 +1049,80 @@
             </t>
         </t>
     </template>
+
+      <!--Payslip-->
+        <template id="ibas_payslip">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="ibas_hris.ibas_external_layout_payslip">
+                    <div class="page">
+                        <h2>Pay Slip</h2>
+                        <p t-field="o.name"/>
+
+                        <table class="table table-condensed table-bordered">
+                            <tr>
+                                <td><strong>Name</strong></td>
+                                <td><span t-field="o.employee_id"/></td>
+                                <td><strong>Designation</strong></td>
+                                <td><span t-field="o.employee_id.job_id"/></td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Rate per Day</strong></td>
+                                <td><span t-field="o.contract_id.daily_wage"/></td>
+                                <td><strong>Scheduled Pay</strong></td>
+                                <td><span t-field="o.contract_id.schedule_pay"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Payroll period</strong></td>
+                                <td colspan="3">
+                                    <span t-field="o.date_from"/> - <span t-field="o.date_to"/>
+                                </td>
+                            </tr>
+                           
+                            <tr>
+                                <td><strong>Reference</strong></td>
+                                <td><span t-field="o.number"/></td>
+                                <td><strong>Bank Account</strong></td>
+                                <td><span t-field="o.employee_id.bank_account_id"/></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Date From</strong></td>
+                                <td><span t-field="o.date_from"/></td>
+                                <td><strong>Date To</strong></td>
+                                <td><span t-field="o.date_to"/></td>
+                            </tr>
+                        </table>
+
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <!--<th>Code</th>-->
+                                    <th>Name</th>
+                                    <!--<th>Quantity/rate</th>-->
+                                    <th>Amount</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr t-foreach="o.line_ids.filtered(lambda line: line.appears_on_payslip)" t-as="line">
+                                    <!--<td><span t-field="line.code"/></td>-->
+                                    <td><span t-field="line.name"/></td>
+                                    <!--<td><span t-field="line.quantity"/></td>-->
+                                    <td><span t-esc="line.amount" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></td>
+                                    <td><span t-esc="line.total" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.company_id.currency_id}"/></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="text-right"><strong>Authorized signature</strong></p>
+                    </div>
+                </t>
+            </t>
+        </t>
+        </template>
+
 
 
 

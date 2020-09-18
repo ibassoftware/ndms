@@ -9,7 +9,7 @@
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = 0.0
 if contract.schedule_pay == 'daily':
-    result = contract.allowance * worked_days.NORMWD.number_of_days
+    result = contract.allowance /4
 if contract.schedule_pay == 'weekly':
     result = contract.allowance / 4
 if contract.schedule_pay == 'bi-monthly':
@@ -23,7 +23,9 @@ if contract.schedule_pay == 'bi-monthly':
             <field name="code">ADDALLOWANCE</field>
             <field name="appears_on_payslip" eval="True"/>
             <field name="condition_select">none</field>
-            <field name="amount_select">fix</field>            
+            <field name="amount_select">code</field>
+            <field name="input_ids" eval="[(0, 0, {'code': 'INPADDALL', 'name': 'Additional Allowance',})]"/>
+            <field name="amount_python_compute">result = inputs.INPADDALL.amount</field>
             <field name="sequence" eval="100"/>
         </record>        
 
@@ -57,7 +59,7 @@ if contract.schedule_pay == 'bi-monthly':
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = 0.0
 if contract.schedule_pay == 'daily':
-    result = contract.wage * worked_days.NORMWD.number_of_days
+    result = contract.daily_wage * worked_days.WORK100.number_of_days
 if contract.schedule_pay == 'weekly':
     result = contract.wage / 4
 if contract.schedule_pay == 'bi-monthly':
@@ -223,8 +225,13 @@ result += hourly_rate * worked_days.RDRHOT.number_of_hours * 3.38 </field>
             <field name="category_id" ref="hr_payroll.DED"/>
             <field name="code">WT</field>
             <field name="appears_on_payslip" eval="True"/>
+            <!--
             <field name="condition_select">none</field>
-            <field name="amount_select">code</field>
+            -->
+
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = payslip.deduct_tax</field>                
+            <field name="amount_select">code</field>    
             <field name="amount_python_compute">result = 0.0
 gross = categories.GROSS
 # Daily
@@ -329,8 +336,8 @@ if contract.schedule_pay == 'monthly':
             <field name="appears_on_payslip" eval="True"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="input_ids" eval="[(0, 0, {'code': 'ADJ', 'name': 'Adjustment Value',})]"/>
-            <field name="amount_python_compute">result = inputs.ADJ.amount</field>
+            <field name="input_ids" eval="[(0, 0, {'code': 'INPADJ', 'name': 'Adjustment Value',})]"/>
+            <field name="amount_python_compute">result = inputs.INPADJ.amount</field>
             <field name="sequence" eval="500"/>
         </record>
         <!--Salary Rule ADVANCES-->
@@ -341,8 +348,8 @@ if contract.schedule_pay == 'monthly':
             <field name="appears_on_payslip" eval="True"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="input_ids" eval="[(0, 0, {'code': 'ADV', 'name': 'Advances Value',})]"/>
-            <field name="amount_python_compute">result = inputs.ADV.amount</field>
+            <field name="input_ids" eval="[(0, 0, {'code': 'INPADV', 'name': 'Advances Value',})]"/>
+            <field name="amount_python_compute">result = inputs.INPADV.amount</field>
             <field name="sequence" eval="600"/>
         </record>
         <!--Salary Rule SSS Loan-->
@@ -351,7 +358,8 @@ if contract.schedule_pay == 'monthly':
             <field name="category_id" ref="ibas_payroll.LOANS"/>
             <field name="code">SSSLOAN</field>
             <field name="appears_on_payslip" eval="True"/>
-            <field name="condition_select">none</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = payslip.deduct_loans</field>                
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = sum(employee.loan_ids.filtered(lambda r: r.state == 'open' and r.type == 'sss').mapped('amount_deduct'))</field>
             <field name="sequence" eval="700"/>
@@ -362,7 +370,8 @@ if contract.schedule_pay == 'monthly':
             <field name="category_id" ref="ibas_payroll.LOANS"/>
             <field name="code">HDMFLOAN</field>
             <field name="appears_on_payslip" eval="True"/>
-            <field name="condition_select">none</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = payslip.deduct_loans</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = sum(employee.loan_ids.filtered(lambda r: r.state == 'open' and r.type == 'hdmf').mapped('amount_deduct'))</field>
             <field name="sequence" eval="710"/>
@@ -373,7 +382,8 @@ if contract.schedule_pay == 'monthly':
             <field name="category_id" ref="ibas_payroll.LOANS"/>
             <field name="code">OTHLOAN</field>
             <field name="appears_on_payslip" eval="True"/>
-            <field name="condition_select">none</field>
+            <field name="condition_select">python</field>
+            <field name="condition_python">result = payslip.deduct_loans</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = sum(employee.loan_ids.filtered(lambda r: r.state == 'open' and r.type == 'other').mapped('amount_deduct'))</field>
             <field name="sequence" eval="720"/>
