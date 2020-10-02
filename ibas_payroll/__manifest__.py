@@ -12,7 +12,7 @@
     'website': "https://www.linkedin.com/in/jothimani-r",
     'category': 'Human Resources',
     'version': '0.1',
-    'depends': ['ibas_hris'],
+    'depends': ['ibas_hris', 'report_xlsx'],
     'data': [
         'security/ir.model.access.csv',
         'data/data.xml',
