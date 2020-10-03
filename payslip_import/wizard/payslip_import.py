@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
+import time
 import xlrd
 
 from collections import OrderedDict
+from datetime import datetime
 
 from odoo import api, fields, models
 from odoo.tools import pycompat
@@ -33,6 +35,8 @@ class PayslipImport(models.TransientModel):
     _description = 'Payslip Import'
 
     file = fields.Binary('File', required=True)
+    date_from = fields.Date(string='Date From', required=True, default=time.strftime('%Y-%m-01'))
+    date_to = fields.Date(string='Date To', required=True, default=datetime.now())
 
     def get_data(self, sheet):
         keys = [c.value for c in sheet.row(0)]
@@ -65,7 +69,9 @@ class PayslipImport(models.TransientModel):
                     'worked_days_line_ids': worked_days_entries,
                     'contract_id': employee.contract_id.id,
                     'struct_id': employee.contract_id.struct_id.id,
-                    'is_imported': True
+                    'is_imported': True,
+                    'date_to': self.date_to,
+                    'date_from': self.date_from
                 }
                 record = HR_PAYSLIP.create(values)
                 record.onchange_employee()

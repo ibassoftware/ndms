@@ -8,6 +8,14 @@
                 <group>
                     <field name="file"/>
                 </group>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                    </group>
+                    <group>
+                        <field name="date_to"/>
+                    </group>
+                </group>
                 <footer>
                     <button string='Import' name="payslip_import" type="object" class="btn-primary"/>
                     <button string="Cancel" class="btn-default" special="cancel"/>
