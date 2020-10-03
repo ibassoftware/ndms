@@ -64,7 +64,8 @@ class PayslipImport(models.TransientModel):
                     'employee_id': employee.id,
                     'worked_days_line_ids': worked_days_entries,
                     'contract_id': employee.contract_id.id,
-                    'struct_id': employee.contract_id.struct_id.id
+                    'struct_id': employee.contract_id.struct_id.id,
+                    'is_imported': True
                 }
                 record = HR_PAYSLIP.create(values)
                 record.onchange_employee()
