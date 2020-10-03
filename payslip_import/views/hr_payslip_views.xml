@@ -10,4 +10,16 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_hr_payslip_filter_inherit_payslip_import" model="ir.ui.view">
+        <field name="name"></field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="before">
+                <filter string="This Month" name="this_month" domain="[('date_from', '&gt;=', context_today().strftime('%%Y-%%m-01'))]"/>
+                <filter string="Last Month" name="last_month" domain="['&amp;', ('date_from', '&gt;=', (context_today() - relativedelta(months=1)).strftime('%%Y-%%m-01')), ('date_to', '&lt;', context_today().strftime('%%Y-%%m-01'))]"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>
