@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
-from odoo.addons.hr_payroll.models.hr_payslip import HrPayslip
 
 
 class Payslip(models.Model):
@@ -12,7 +11,7 @@ class Payslip(models.Model):
     @api.model
     def get_worked_day_lines(self, contracts, date_from, date_to):
         if self.is_imported:
-            return HrPayslip.get_worked_day_lines(self, contracts, date_from, date_to)
+            return self.worked_days_line_ids.read(['name', 'sequence', 'code', 'number_of_days', 'number_of_hours', 'contract_id'])
         else:
             return super(Payslip, self).get_worked_day_lines(
                 contracts, date_from, date_to)
