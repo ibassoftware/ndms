@@ -40,6 +40,7 @@
                             <field name="amount_deduct"/>
                             <field name="type"/>
                             <field name="amount_total_deducted" readonly="1"/>
+                            <field name="remarks"/>
                         </group>
                     </sheet>
                 </form>
@@ -158,6 +159,7 @@
                     <field name="deduct_tax"/>
                     <field name="deduct_loans"/>                    
                     <field name="project_analtc_acct_id" groups="account.group_account_invoice"/>
+                    <field name="other_loans"/>
                     <field name="refunded" invisible="1"/>
                     
                 </field>

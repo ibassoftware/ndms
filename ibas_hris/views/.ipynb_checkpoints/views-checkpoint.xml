@@ -181,6 +181,7 @@
                 <field name="work_days"/>
                 <field name="daily_wage"/>
                 <field name="daily_wage_in_words"/>
+                <field name="shop_rate"/>
                 <field name="allowance"/>
                 <field name="probationary_period"/>
               </xpath>
@@ -265,6 +266,7 @@
         report_type="qweb-pdf"
         name="ibas_hris.ibas_payslip"
         file="ibas_hris.ibas_payslip"
+        menu="False"
       />
       
       <!-- Report Paper Formats -->

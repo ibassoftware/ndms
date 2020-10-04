@@ -383,7 +383,7 @@ if contract.schedule_pay == 'monthly':
             <field name="code">OTHLOAN</field>
             <field name="appears_on_payslip" eval="True"/>
             <field name="condition_select">python</field>
-            <field name="condition_python">result = payslip.deduct_loans</field>
+            <field name="condition_python">result = payslip.other_loans</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">result = sum(employee.loan_ids.filtered(lambda r: r.state == 'open' and r.type == 'other').mapped('amount_deduct'))</field>
             <field name="sequence" eval="720"/>

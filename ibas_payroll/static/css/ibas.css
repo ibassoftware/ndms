@@ -1,0 +1,17 @@
+/* 
+ol.a {
+  list-style-type: lower-alpha;
+} */
+
+/* .no-border {
+  border: 0px solid white;
+} */
+
+body {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.double-top-bot {
+  border-top: thick double black;
+  border-bottom: thick double black;
+}
