@@ -1,0 +1,399 @@
+<odoo>
+    <data>
+
+    <!-- Payslip-->
+    <template id="ibas_external_layout_payslip2">
+        <t t-foreach="docs" t-as="doc">
+        <div class="header">
+            <div class="row">
+                <div class="col-xs-4 text-center">
+                    <span style="font-size:20px; color: orange">CATEGORY:</span>
+                </div>
+                <div class="col-xs-8 text-center">
+                    <span style="font-size:20px; color: orange" t-field="doc.employee_id.department_id.name"/>
+                </div>
+            </div>
+            <div class="col-xs-12" style="margin-top: 10px;">
+                <div style="border-bottom: 1px solid black;"/>
+            </div>
+        </div>
+
+        <div class="article o_report_layout_standard">
+            <t t-raw="0"/>
+        </div>
+
+        <div class="footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <li t-if="res_company.phone">Phone: <span t-field="res_company.phone"/></li>
+                    <li t-if="res_company.email">Email: <span t-field="res_company.email"/></li>
+                    <li t-if="res_company.website">Web: <span t-field="res_company.website"/></li>
+                    <li t-if="res_company.vat"><t t-esc="res_company.country_id.vat_label or 'TIN'"/>: <span t-field="res_company.vat"/></li>
+                </ul>
+            </div>
+        </div>
+        </t>
+    </template>
+    
+
+    <!-- Payslip -->
+    <template id="ibas_payslip_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+            <t t-call="ibas_payroll.ibas_external_layout_payslip2">
+            <div class="page">
+            <link href="/ibas_payroll/static/css/ibas.css" rel="stylesheet" type="text/css"/>
+                <t t-set="rate_per_hour" t-value="doc.contract_id.daily_wage / 8"/>
+
+                <t t-set="basic" t-value="0.0"/>
+                <t t-set="overtime" t-value="0.0"/>
+                <t t-set="holiday" t-value="0.0"/>
+                <t t-set="allowance" t-value="0.0"/>
+                <t t-set="gross" t-value="0.0"/>
+                <t t-set="late" t-value="0.0"/>
+                <t t-set="undertime" t-value="0.0"/>
+                <t t-set="absent" t-value="0.0"/>
+                <t t-set="tax" t-value="0.0"/>
+                <t t-set="sssee" t-value="0.0"/>
+                <t t-set="sssloan" t-value="0.0"/>
+                <t t-set="hdmfee" t-value="0.0"/>
+                <t t-set="hdmfloan" t-value="0.0"/>
+                <t t-set="philhealth" t-value="0.0"/>
+                <t t-set="advance" t-value="0.0"/>
+                <t t-set="adjustment" t-value="0.0"/>
+                <t t-set="netsalary" t-value="0.0"/>
+                
+                <t t-foreach="doc.line_ids" t-as="line">
+                    <!-- income -->
+                    <t t-if="line.code == 'BASICPAY'">
+                        <t t-set="basic" t-value="basic + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'OVERTIME'">
+                        <t t-set="overtime" t-value="overtime + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'HOLIDAY'">
+                        <t t-set="holiday" t-value="holiday + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'Allowance'">
+                        <t t-set="allowance" t-value="allowance + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'GROSS'">
+                        <t t-set="gross" t-value="gross + line.total"/>
+                    </t>
+                    <!-- deduction -->
+                    <t t-if="line.code == 'LATE'">
+                        <t t-set="late" t-value="late + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'UNDERTIME'">
+                        <t t-set="undertime" t-value="undertime + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'ABSENT'">
+                        <t t-set="absent" t-value="absent + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'WT'">
+                        <t t-set="tax" t-value="tax + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'SSSEE'">
+                        <t t-set="sssee" t-value="sssee + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'SSSLOAN'">
+                        <t t-set="sssloan" t-value="sssloan + line.total"/>
+                    </t> 
+                    <t t-elif="line.code == 'HDMFEE'">
+                        <t t-set="hdmfee" t-value="hdmfee + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'HDMFLOAN'">
+                        <t t-set="hdmfloan" t-value="hdmfloan + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'PHILEE'">
+                        <t t-set="philhealth" t-value="philhealth + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'ADV'">
+                        <t t-set="advance" t-value="advance + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'ADJ'">
+                        <t t-set="adjustment" t-value="adjustment + line.total"/>
+                    </t>
+                    <t t-elif="line.code == 'NETSAL'">
+                        <t t-set="netsalary" t-value="netsalary + line.total"/>
+                    </t>
+                </t>
+
+                <t t-set="regular_days" t-value="0.0"/>
+                <t t-set="regular_hours" t-value="0.0"/>
+
+                <t t-foreach="doc.worked_days_line_ids" t-as="line">
+                    <t t-if="line.code == 'WORK100'">
+                        <t t-set="regular_days" t-value="regular_days + line.number_of_days"/>
+                        <t t-set="regular_hours" t-value="regular_hours + line.number_of_hours"/>
+                    </t>
+                </t>
+
+                <t t-set="ot_hours" t-value="0.0"/>
+                <t t-set="sh_hours" t-value="0.0"/>
+                <t t-set="rh_hours" t-value="0.0"/>
+                <t t-set="rhot_hours" t-value="0.0"/>
+                <t t-set="late_hours" t-value="0.0"/>
+                <t t-set="undertime_hours" t-value="0.0"/>
+                <t t-set="absent_days" t-value="0.0"/>
+
+                <t t-foreach="doc.worked_days_line_ids" t-as="line">
+                    <t t-if="line.code == 'OT'">
+                        <t t-set="ot_hours" t-value="ot_hours + line.number_of_hours"/>
+                    </t>
+                    <t t-elif="line.code == 'SH'">
+                        <t t-set="sh_hours" t-value="sh_hours + line.number_of_hours"/>
+                    </t>
+                    <t t-elif="line.code == 'RH'">
+                        <t t-set="rh_hours" t-value="rh_hours + line.number_of_hours"/>
+                    </t>
+                    <t t-elif="line.code == 'RHOT'">
+                        <t t-set="rhot_hours" t-value="rhot_hours + line.number_of_hours"/>
+                    </t>
+                    <t t-elif="line.code == 'LATE'">
+                        <t t-set="late_hours" t-value="late_hours + line.number_of_hours"/>
+                    </t>
+                    <t t-elif="line.code == 'UNDERTIME'">
+                        <t t-set="undertime_hours" t-value="undertime_hours + line.number_of_hours"/>
+                    </t>
+                    <t t-elif="line.code == 'ABSENT'">
+                        <t t-set="absent_days" t-value="absent_days + line.number_of_days"/>
+                    </t>
+
+                </t>
+
+                
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 18%;" class="text-right"><span style="margin-right: 10px;">Employee Name:</span></td>
+                        <td style="font-size: 16px; width: 42%;" colspan="2"><strong><span t-field="doc.employee_id.name"/></strong></td>
+                        <td colspan="2" style="text-align: right; width: 20%;"><span style="margin-right: 10px;">Payroll Period: </span></td>
+                        <td style="width: 20%;"><span t-field="doc.contract_id.date_start"/> - <span t-field="doc.contract_id.date_end"/></td>       
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;"><span style="margin-right: 10px;">Rate per Day:</span></td>
+                        <td colspan="2"><span t-esc="'{0:,.2f}'.format(doc.contract_id.daily_wage)"/></td>
+                        <!-- <td><span>Blank</span></td> -->
+                        <!-- <td><span>Blank</span></td> -->
+                        <td colspan="2" style="text-align: right"><span style="margin-right: 10px;">Frequency:</span></td>
+                        <td><span t-field="doc.contract_id.schedule_pay"/></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right"><span style="margin-right: 10px;">Rate per hour:</span></td>
+                        <td colspan="5"><t t-esc="'{0:,.2f}'.format(rate_per_hour)"/></td>
+                    </tr>
+                </table>
+                <div class="col-xs-12" style="margin-top: 10px; margin-bottom: 10px">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+
+                <div class="col-xs-7">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 50%; text-align: right"><span>Basic Salary</span></td>
+                            <!-- <td style="width: 25%; text-align: center"><span t-esc="doc.mapped('line_ids').filtered(lambda r: r.code == 'BASICPAY').mapped('total')"/></td> -->
+                            <td style="width: 25%; text-align: center"><t t-esc="'{0:,.2f}'.format(basic)"/></td>
+                            <td style="width: 25%; text-align: center"><span><![CDATA[&nbsp;]]></span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><span>OT pay</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(overtime)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><span>Night differential pay</span></td>
+                            <td style="text-align: center"><span>#N/A</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><span>Sun/Special Holiday pay</span></td>
+                            <td style="text-align: center"><span>#N/A</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><span>Regular holiday pay</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(holiday)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><span>Regular holiday OT pay</span></td>
+                            <td style="text-align: center"><span>#N/A</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><span><![CDATA[&nbsp;]]></span></td>
+                            <td style="text-align: center"><span></span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><span>Allowance</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(allowance)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><span><![CDATA[&nbsp;]]></span></td>
+                            <td style="text-align: center"><span></span></td>
+                        </tr>
+                        <tr>
+                            <td><span class='double-top-bot'>Gross Salary</span></td>
+                            <td class='double-top-bot' style="text-align: right;"><t t-esc="'{0:,.2f}'.format(gross)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><span><![CDATA[&nbsp;]]></span></td>
+                            <td style="text-align: center"><span></span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><span>No. of regular days</span></td>
+                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(regular_days)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><span>No. of regular hours</span></td>
+                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(regular_hours)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><span>No. of OT(hours)</span></td>
+                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(ot_hours)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><span>Night of differential hours</span></td>
+                            <td style="text-align: left"><span>#N/A</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><span>Sun/Special holiday hours</span></td>
+                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(sh_hours)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><span>Regular holiday hours</span></td>
+                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(rh_hours)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><span>Regular holiday OT(hours)</span></td>
+                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(rhot_hours)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><span>Late/Undertime in minutes</span></td>
+                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format((late_hours + undertime_hours) * 60)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><span>Absent in days</span></td>
+                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(absent_days)"/></td>
+                        </tr>
+                        
+                    </table>
+                </div>
+                <div class="col-xs-5">
+                    <table style="width: 100%; color: red;">
+                          <tr style="color: red;">
+                            <td style="width: 50%;"><span>Late/Undertime</span></td>
+                            <td style="width: 50%; text-align: center"><t t-esc="'{0:,.2f}'.format(late + undertime)"/></td>
+                        </tr>
+                        <tr style="color: red;">
+                            <td><span>Absent/SD</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(absent)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>Tax</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(tax)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>SSS</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(sssee)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>SSS Loan</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(sssloan)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>Pag-ibig</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(hdmfee)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>HDMF Loan</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(hdmfloan)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>Philhealth</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(philhealth)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>Cash Advance</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(advance)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>Savings</span></td>
+                            <td style="text-align: center"><span>#N/A</span></td>
+                        </tr>
+                        <tr>
+                            <td><span>Store</span></td>
+                            <td style="text-align: center"><span>#N/A</span></td>
+                        </tr>
+                        <tr>
+                            <td><span><![CDATA[&nbsp;]]></span></td>
+                            <td><span></span></td>
+                        </tr>
+                        <tr>
+                            <td><span>Total Deduction</span></td>
+                            <td style="text-align: center"><span>#N/A</span></td>
+                        </tr>
+                        <tr>
+                            <td><span><![CDATA[&nbsp;]]></span></td>
+                            <td><span></span></td>
+                        </tr>
+                        <tr> 
+                            <td><span style="color: blue">Adjustment</span></td>
+                            <td style="text-align: center"><t style="color: blue" t-esc="'{0:,.2f}'.format(adjustment)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span><![CDATA[&nbsp;]]></span></td>
+                            <td><span></span></td>
+                        </tr>
+                        <tr> 
+                            <td class='double-top-bot' style="color: black"><span>Net Salary</span></td>
+                            <td class='double-top-bot' style="text-align: right; color: black"><t t-esc="'{0:,.2f}'.format(netsalary)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span><![CDATA[&nbsp;]]></span></td>
+                            <td><span></span></td>
+                        </tr>
+                        <tr>
+                            <td><span><![CDATA[&nbsp;]]></span></td>
+                            <td><span></span></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><span style="font-size:20px; color: orange; text-align: center">CASH</span></td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            </t>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id="action_ibas_payslip_report"
+        model="hr.payslip"
+        string="Print Payslip"
+        report_type="qweb-pdf"
+        name="ibas_payroll.ibas_payslip_template"
+        file="ibas_payroll.ibas_payslip_template"
+    />
+
+    <record id="paperformat_payslip_report" model="report.paperformat">
+        <field name="name">Pay Slip</field>
+        <field name="default" eval="True"/>
+        <field name="format">custom</field>
+        <field name="orientation">Portrait</field>
+        <field name="page_height">148</field> <!-- 297 -->
+        <field name="page_width">210</field> <!-- 210 -->
+        <field name="margin_top">12</field>  <!-- 15 -->
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">10</field> <!-- 20 -->
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="ibas_payroll.action_ibas_payslip_report" model="ir.actions.report">
+        <field name="paperformat_id" ref="ibas_payroll.paperformat_payslip_report"/>
+    </record>
+
+
+    </data>
+</odoo>

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-
 import time
 import datetime
 from datetime import datetime
@@ -9,7 +8,6 @@ from datetime import time as datetime_time
 from dateutil import relativedelta
 
 import babel
-
 
 
 from dateutil import rrule
@@ -42,6 +40,7 @@ class Loan(models.Model):
                             states={'draft': [('readonly', False)]})
     amount_total_deducted = fields.Monetary(string="Total Deducted Amount", readonly=True,
                                             states={'draft': [('readonly', False)]})
+    remarks = fields.Char(string='Remarks')
     state = fields.Selection([('draft', 'Draft'), ('open', 'In Progress'), ('done', 'Done')], string="Status",
                              default="draft", store=True)
 
@@ -165,7 +164,9 @@ class Payslip(models.Model):
     generate_backpay = fields.Boolean('Generate 13 th Month Pay / BackPay')
 
     deduct_loans = fields.Boolean('Deduct Loans')
-    project_analtc_acct_id = fields.Many2one('account.analytic.account', string="Project")
+    other_loans = fields.Boolean('Other Loans')
+    project_analtc_acct_id = fields.Many2one(
+        'account.analytic.account', string="Project")
 
     refunded = fields.Boolean('Refunded', default=False)
     deduct_tax = fields.Boolean('Deduct Withholding Tax', default=False)
@@ -178,7 +179,7 @@ class Payslip(models.Model):
         contract = self.contract_id
         employee = self.employee_id
 
-        #Added By SDS
+        # Added By SDS
         if not contract:
             contract = contracts
         if not employee:
@@ -401,32 +402,36 @@ class Payslip(models.Model):
                         {'amount_total_deducted': loan.amount_total_deducted + l.total})
                     loan and loan._compute_state()
                 if l.code == 'OTHLOAN':
-                    #Due to Multiple Loans for OTHER type iterate                     
+                    # Due to Multiple Loans for OTHER type iterate
                     loans = rec.employee_id.loan_ids.filtered(
                         lambda r: r.state == 'open' and r.type == 'other')
                     #loan_amount_total = l.total
                     for loan in loans:
                         amount_deduct = loan.amount_deduct
-                        loan[0].write({'amount_total_deducted': loan.amount_total_deducted + amount_deduct})
+                        loan[0].write(
+                            {'amount_total_deducted': loan.amount_total_deducted + amount_deduct})
                         loan._compute_state()
 
-                    #loan and loan[0].write(
+                    # loan and loan[0].write(
                     #    {'amount_total_deducted': loan.amount_total_deducted + l.total})
                     #loan and loan._compute_state()
         return res
 
     @api.model
-    def get_inputs_w_selected_struct(self, contracts,struct_id, date_from, date_to):
+    def get_inputs_w_selected_struct(self, contracts, struct_id, date_from, date_to):
 
         res = []
 
         structure_ids = contracts.get_all_structures()
         structure_ids.append(struct_id)
 
-        rule_ids = self.env['hr.payroll.structure'].browse(structure_ids).get_all_rules()
-        sorted_rule_ids = [id for id, sequence in sorted(rule_ids, key=lambda x:x[1])]
+        rule_ids = self.env['hr.payroll.structure'].browse(
+            structure_ids).get_all_rules()
+        sorted_rule_ids = [id for id, sequence in sorted(
+            rule_ids, key=lambda x:x[1])]
 
-        inputs = self.env['hr.salary.rule'].browse(sorted_rule_ids).mapped('input_ids')
+        inputs = self.env['hr.salary.rule'].browse(
+            sorted_rule_ids).mapped('input_ids')
 
         for contract in contracts:
             for input in inputs:
@@ -439,7 +444,6 @@ class Payslip(models.Model):
 
         return res
 
-
     @api.onchange('employee_id', 'date_from', 'date_to', 'struct_id')
     def onchange_employee(self):
         if (not self.employee_id) or (not self.date_from) or (not self.date_to):
@@ -450,9 +454,11 @@ class Payslip(models.Model):
         date_to = self.date_to
         contract_ids = []
 
-        ttyme = datetime.fromtimestamp(time.mktime(time.strptime(date_from, "%Y-%m-%d")))
+        ttyme = datetime.fromtimestamp(time.mktime(
+            time.strptime(date_from, "%Y-%m-%d")))
         locale = self.env.context.get('lang') or 'en_US'
-        self.name = _('Salary Slip of %s for %s') % (employee.name, tools.ustr(babel.dates.format_date(date=ttyme, format='MMMM-y', locale=locale)))
+        self.name = _('Salary Slip of %s for %s') % (employee.name, tools.ustr(
+            babel.dates.format_date(date=ttyme, format='MMMM-y', locale=locale)))
         self.company_id = employee.company_id
 
         if not self.env.context.get('contract') or not self.contract_id:
@@ -466,22 +472,23 @@ class Payslip(models.Model):
         if not self.contract_id.struct_id:
             return
 
-        if not self.struct_id:            
+        if not self.struct_id:
             self.struct_id = self.contract_id.struct_id
-        elif len(self.struct_id) ==0:
+        elif len(self.struct_id) == 0:
             self.struct_id = self.contract_id.struct_id
 
-
-        #computation of the salary input
+        # computation of the salary input
         contracts = self.env['hr.contract'].browse(contract_ids)
-        worked_days_line_ids = self.get_worked_day_lines(contracts, date_from, date_to)
+        worked_days_line_ids = self.get_worked_day_lines(
+            contracts, date_from, date_to)
         worked_days_lines = self.worked_days_line_ids.browse([])
         for r in worked_days_line_ids:
             worked_days_lines += worked_days_lines.new(r)
         self.worked_days_line_ids = worked_days_lines
 
         if self.struct_id != self.contract_id.struct_id:
-            input_line_ids = self.get_inputs_w_selected_struct(contracts,self.struct_id.id, date_from, date_to)
+            input_line_ids = self.get_inputs_w_selected_struct(
+                contracts, self.struct_id.id, date_from, date_to)
         else:
             input_line_ids = self.get_inputs(contracts, date_from, date_to)
         input_lines = self.input_line_ids.browse([])
@@ -491,13 +498,13 @@ class Payslip(models.Model):
         self.input_line_ids = input_lines
 
         return
-        #return super(Payslip, self).onchange_employee()
-
+        # return super(Payslip, self).onchange_employee()
 
     @api.multi
     def refund_sheet(self):
         for payslip in self:
-            copied_payslip = payslip.copy({'credit_note': True, 'name': _('Refund: ') + payslip.name})
+            copied_payslip = payslip.copy(
+                {'credit_note': True, 'name': _('Refund: ') + payslip.name})
             payslip.refunded = True
             copied_payslip.compute_sheet()
             copied_payslip.action_payslip_done()
@@ -517,4 +524,3 @@ class Payslip(models.Model):
             'views': [(treeview_ref and treeview_ref.id or False, 'tree'), (formview_ref and formview_ref.id or False, 'form')],
             'context': {}
         }
-
