@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo noupdate="1">
+    <record id="code_work100" model="hr.payslip.worked_days.code">
+        <field name="name">Normal Working Days paid at 100%</field>
+        <field name="code">WORK100</field>
+    </record>
+    <record id="code_late" model="hr.payslip.worked_days.code">
+        <field name="name">Lates</field>
+        <field name="code">LATE</field>
+    </record>
+    <record id="code_undertime" model="hr.payslip.worked_days.code">
+        <field name="name">UNDERTIME</field>
+        <field name="code">UNDERTIME</field>
+    </record>
+    <record id="code_absent" model="hr.payslip.worked_days.code">
+        <field name="name">ABSENT</field>
+        <field name="code">ABSENT</field>
+    </record>
+    <record id="code_rhot" model="hr.payslip.worked_days.code">
+        <field name="name">Regular Holiday Overtime</field>
+        <field name="code">RHOT</field>
+    </record>
+    <record id="code_shot" model="hr.payslip.worked_days.code">
+        <field name="name">Special Holiday Overtime</field>
+        <field name="code">SHOT</field>
+    </record>
+    <record id="code_rdshot" model="hr.payslip.worked_days.code">
+        <field name="name">Restday Special Holiday Overtime</field>
+        <field name="code">RDSHOT</field>
+    </record>
+    <record id="code_rdrhot" model="hr.payslip.worked_days.code">
+        <field name="name">Restday Regular Holiday Overtime</field>
+        <field name="code">RDRHOT</field>
+    </record>
+    <record id="code_rdot" model="hr.payslip.worked_days.code">
+        <field name="name">Restday Overtime</field>
+        <field name="code">RDOT</field>
+    </record>
+    <record id="code_ot" model="hr.payslip.worked_days.code">
+        <field name="name">Overtime</field>
+        <field name="code">OT</field>
+    </record>
+    <record id="code_rh" model="hr.payslip.worked_days.code">
+        <field name="name">Regular Holiday</field>
+        <field name="code">RH</field>
+    </record>
+    <record id="code_sh" model="hr.payslip.worked_days.code">
+        <field name="name">Special Holiday</field>
+        <field name="code">SH</field>
+    </record>
+    <record id="code_rdrh" model="hr.payslip.worked_days.code">
+        <field name="name">Restday Regular Holiday</field>
+        <field name="code">RDRH</field>
+    </record>
+    <record id="code_normwd" model="hr.payslip.worked_days.code">
+        <field name="name">Actual Days Worked</field>
+        <field name="code">NORMWD</field>
+    </record>
+    <record id="code_rdsh" model="hr.payslip.worked_days.code">
+        <field name="name">Restday Special Holiday</field>
+        <field name="code">RDSH</field>
+    </record>
+    <record id="code_rd" model="hr.payslip.worked_days.code">
+        <field name="name">Restday</field>
+        <field name="code">RD</field>
+    </record>
+
+</odoo>
