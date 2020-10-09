@@ -10,25 +10,6 @@ from datetime import datetime
 from odoo import api, fields, models
 from odoo.tools import pycompat
 
-CODE_DICT = {
-    'Normal Working Days paid at 100%': 'WORK100',
-    'Lates': 'LATE',
-    'UNDERTIME': 'UNDERTIME',
-    'ABSENT': 'ABSENT',
-    'Regular Holiday Overtime': 'RHOT',
-    'Special Holiday Overtime': 'SHOT',
-    'Restday Special Holiday Overtime': 'RDSHOT',
-    'Restday Regular Holiday Overtime': 'RDRHOT',
-    'Restday Overtime': 'RDOT',
-    'Overtime': 'OT',
-    'Regular Holiday': 'RH',
-    'Special Holiday': 'SH',
-    'Restday Regular Holiday': 'RDRH',
-    'Actual Days Worked': 'NORMWD',
-    'Restday Special Holiday': 'RDSH',
-    'Restday': 'RD',
-}
-
 
 class PayslipImport(models.TransientModel):
     _name = 'payslip.import'
@@ -50,6 +31,10 @@ class PayslipImport(models.TransientModel):
         sheet = xlsx.sheet_by_index(0)
         data = self.get_data(sheet)
         HR_PAYSLIP = self.env['hr.payslip']
+        workdays_code = self.env['hr.payslip.worked_days.code'].search_read([], ['name', 'code'])
+        workdays_code_dict = {}
+        for code in workdays_code:
+            workdays_code_dict[code['name']] = code['code']
         for rec in data:
             employee = self.env['hr.employee'].search([('name', '=', rec['Employees'])])
             if employee:
@@ -59,7 +44,7 @@ class PayslipImport(models.TransientModel):
                         continue
                     worked_days_entries.append((0, 0, {
                         'name': key,
-                        'code': CODE_DICT.get(key, key),
+                        'code': workdays_code_dict.get(key, key),
                         'number_of_days': value,
                         'number_of_hours': value*8,
                         'contract_id': employee.contract_id.id
