@@ -12,6 +12,7 @@ class PayrollXlsx(models.AbstractModel):
         date_from = data['form']['date_start']
         date_to = data['form']['date_end']
         company_id = data['form']['company_id']
+        status = data['form']['status']
         bank_account = data['form']['bank_account'] and data['form']['bank_account'].upper(
         )
 
@@ -88,7 +89,9 @@ class PayrollXlsx(models.AbstractModel):
         sheet.write(2, 25, "Adjustment", title2)
         sheet.write(2, 26, "Net Pay", bg_net_pay_title)
 
-        domain = [('state', '=', 'done')]
+        domain = []
+        if status:
+            domain.append(('state', '=', status))
         if date_from:
             domain.append(('date_from', '>=', date_from))
         if date_to:

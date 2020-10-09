@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_hr_payslip_form_inherit_payslip_import" model="ir.ui.view">
+        <field name="name">view.hr.payslip.form.inherit.payslip.import</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <field name="credit_note" position="after">
+                <field name="is_imported" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_tree_inherit_payslip_import" model="ir.ui.view">
+        <field name="name">view.hr.payslip.tree.inherit.paslip.import</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="js_class">payslip_import_tree</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_payslip_filter_inherit_payslip_import" model="ir.ui.view">
+        <field name="name">view.hr.payslip.filter.inherit.payslip.import</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='employee_id']" position="before">
+                <filter string="This Month" name="this_month" domain="[('date_from', '&gt;=', context_today().strftime('%%Y-%%m-01'))]"/>
+                <filter string="Last Month" name="last_month" domain="['&amp;', ('date_from', '&gt;=', (context_today() - relativedelta(months=1)).strftime('%%Y-%%m-01')), ('date_to', '&lt;', context_today().strftime('%%Y-%%m-01'))]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
