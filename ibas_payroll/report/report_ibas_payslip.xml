@@ -7,10 +7,10 @@
         <div class="header">
             <div class="row">
                 <div class="col-xs-4 text-center">
-                    <span style="font-size:20px; color: orange">CATEGORY:</span>
+                    <span style="font-size:20px; color: black;">CATEGORY:</span>
                 </div>
                 <div class="col-xs-8 text-center">
-                    <span style="font-size:20px; color: orange" t-field="doc.employee_id.department_id.name"/>
+                    <span style="font-size:20px; color: black" t-field="doc.employee_id.department_id.name"/>
                 </div>
             </div>
             <div class="col-xs-12" style="margin-top: 10px;">
@@ -41,7 +41,7 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
             <t t-call="ibas_payroll.ibas_external_layout_payslip2">
-            <div class="page">
+            <div class="page tahoma-reg">
             <link href="/ibas_payroll/static/css/ibas.css" rel="stylesheet" type="text/css"/>
                 <t t-set="rate_per_hour" t-value="doc.contract_id.daily_wage / 8"/>
 
@@ -165,10 +165,10 @@
                 
                 <table style="width: 100%;">
                     <tr>
-                        <td style="width: 18%;" class="text-right"><span style="margin-right: 10px;">Employee Name:</span></td>
+                        <td style="width: 18%;" class="text-right"><span class="f-big" style="margin-right: 10px;">Employee Name:</span></td>
                         <td style="font-size: 16px; width: 42%;" colspan="2"><strong><span t-field="doc.employee_id.name"/></strong></td>
                         <td colspan="2" style="text-align: right; width: 20%;"><span style="margin-right: 10px;">Payroll Period: </span></td>
-                        <td style="width: 20%;"><span t-field="doc.contract_id.date_start"/> - <span t-field="doc.contract_id.date_end"/></td>       
+                        <td style="width: 20%; font-size: 14px;"><span t-field="doc.date_from"/> - <span t-field="doc.date_to"/></td>       
                     </tr>
                     <tr>
                         <td style="text-align: right;"><span style="margin-right: 10px;">Rate per Day:</span></td>
@@ -196,25 +196,25 @@
                             <td style="width: 25%; text-align: center"><span><![CDATA[&nbsp;]]></span></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right"><span>OT pay</span></td>
+                            <td style="text-align: right"><span>Overtime Pay</span></td>
                             <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(overtime)"/></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td style="text-align: right"><span>Night differential pay</span></td>
                             <td style="text-align: center"><span>#N/A</span></td>
                         </tr>
                         <tr>
                             <td style="text-align: right"><span>Sun/Special Holiday pay</span></td>
                             <td style="text-align: center"><span>#N/A</span></td>
-                        </tr>
+                        </tr> -->
                         <tr>
-                            <td style="text-align: right"><span>Regular holiday pay</span></td>
+                            <td style="text-align: right"><span>Holiday Pay</span></td>
                             <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(holiday)"/></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td style="text-align: right"><span>Regular holiday OT pay</span></td>
                             <td style="text-align: center"><span>#N/A</span></td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td style="text-align: right"><span><![CDATA[&nbsp;]]></span></td>
                             <td style="text-align: center"><span></span></td>
@@ -247,10 +247,10 @@
                             <td style="text-align: center"><span>No. of OT(hours)</span></td>
                             <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(ot_hours)"/></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td style="text-align: center"><span>Night of differential hours</span></td>
                             <td style="text-align: left"><span>#N/A</span></td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td style="text-align: center"><span>Sun/Special holiday hours</span></td>
                             <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(sh_hours)"/></td>
@@ -276,9 +276,13 @@
                 </div>
                 <div class="col-xs-5">
                     <table style="width: 100%; color: red;">
-                          <tr style="color: red;">
-                            <td style="width: 50%;"><span>Late/Undertime</span></td>
-                            <td style="width: 50%; text-align: center"><t t-esc="'{0:,.2f}'.format(late + undertime)"/></td>
+                        <tr style="color: red;">
+                            <td style="width: 50%;"><span>Late</span></td>
+                            <td style="width: 50%; text-align: center"><t t-esc="'{0:,.2f}'.format(late)"/></td>
+                        </tr>
+                        <tr style="color: red;">
+                            <td style="width: 50%;"><span>Undertime</span></td>
+                            <td style="width: 50%; text-align: center"><t t-esc="'{0:,.2f}'.format(undertime)"/></td>
                         </tr>
                         <tr style="color: red;">
                             <td><span>Absent/SD</span></td>
@@ -312,21 +316,24 @@
                             <td><span>Cash Advance</span></td>
                             <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(advance)"/></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td><span>Savings</span></td>
                             <td style="text-align: center"><span>#N/A</span></td>
                         </tr>
                         <tr>
                             <td><span>Store</span></td>
                             <td style="text-align: center"><span>#N/A</span></td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td><span><![CDATA[&nbsp;]]></span></td>
                             <td><span></span></td>
                         </tr>
                         <tr>
                             <td><span>Total Deduction</span></td>
-                            <td style="text-align: center"><span>#N/A</span></td>
+                            <td style="text-align: center">
+                            <t t-esc="'{0:,.2f}'.format(late + undertime + absent + tax + sssee + sssloan + 
+                                hdmfee + hdmfloan + philhealth + advance)"/>
+                            </td>
                         </tr>
                         <tr>
                             <td><span><![CDATA[&nbsp;]]></span></td>
@@ -354,7 +361,7 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td><span style="font-size:20px; color: orange; text-align: center">CASH</span></td>
+                            <td><span style="font-size:20px; color: black; text-align: center">CASH</span></td>
                         </tr>
 
                     </table>
