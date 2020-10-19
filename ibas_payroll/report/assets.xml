@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+		<template id="report_assets_common" name="Payroll Assets Reports" inherit_id="web.report_assets_common">		
+			<xpath expr="//link[last()]" position="after">			
+				<link href="/ibas_payroll/static/less/fonts.less" rel="stylesheet" type="text/less"/>
+			</xpath>	
+		</template>
+
+</odoo>

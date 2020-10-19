@@ -16,6 +16,7 @@
     'data': [
         'security/ir.model.access.csv',
         'data/data.xml',
+        'report/assets.xml',
         'report/report_ibas_payslip.xml',
         'views/views.xml',
         'wizard/payroll_report_wizard_view.xml',
