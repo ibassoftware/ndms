@@ -62,7 +62,8 @@
                 <t t-set="advance" t-value="0.0"/>
                 <t t-set="adjustment" t-value="0.0"/>
                 <t t-set="netsalary" t-value="0.0"/>
-                
+                <t t-set="trips" t-value="doc.env['ibas_hris.trip'].search([('date', '>=', doc.date_from), ('date', '&lt;=', doc.date_to)])"/>
+
                 <t t-foreach="doc.line_ids" t-as="line">
                     <!-- income -->
                     <t t-if="line.code == 'BASICPAY'">
@@ -218,6 +219,10 @@
                         <tr>
                             <td style="text-align: right"><span><![CDATA[&nbsp;]]></span></td>
                             <td style="text-align: center"><span></span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right"><span>Trips</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(sum(trips.mapped('amount')))"/></td>
                         </tr>
                         <tr>
                             <td style="text-align: right"><span>Allowance</span></td>
