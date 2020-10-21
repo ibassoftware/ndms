@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo noupdate="1">
+    <record id="input_code_adj" model="hr.payslip.other_input.code">
+        <field name="name">Adjustment Value</field>
+        <field name="code">ADJ</field>
+    </record>
+    <record id="input_code_adv" model="hr.payslip.other_input.code">
+        <field name="name">Advances Value</field>
+        <field name="code">ADV</field>
+    </record>
+    <record id="input_code_inpaddall" model="hr.payslip.other_input.code">
+        <field name="name">Additional Allowance</field>
+        <field name="code">INPADDALL</field>
+    </record>
+</odoo>

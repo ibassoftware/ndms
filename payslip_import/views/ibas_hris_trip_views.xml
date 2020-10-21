@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_ibas_hris_trip_template_form_inherit_payslip_import" model="ir.ui.view">
+        <field name="name">view.ibas.hris.trip.template.form.inherit.payslip.import</field>
+        <field name="model">ibas_hris.trip_template</field>
+        <field name="inherit_id" ref="ibas_payroll.view_ibas_hris_trip_template_form"/>
+        <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+                <field name="code"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_ibas_hris_trip_form_inherit_payslip_import" model="ir.ui.view">
+        <field name="name">view.ibas.hris.trip.form.inherit.payslip.import</field>
+        <field name="model">ibas_hris.trip</field>
+        <field name="inherit_id" ref="ibas_payroll.view_ibas_hris_trip_form"/>
+        <field name="arch" type="xml">
+            <field name="employee_id" position="after">
+                <field name="code"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_ibas_hris_trip_list_inherit_payslip_import" model="ir.ui.view">
+        <field name="name">view.ibas.hris.trip.list.inherit.paslip.import</field>
+        <field name="model">ibas_hris.trip</field>
+        <field name="inherit_id" ref="ibas_payroll.view_ibas_hris_trip_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="js_class">trip_import_tree</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
