@@ -43,7 +43,7 @@ class PayslipImport(models.TransientModel):
                     'loc_to': trip_template.loc_to,
                     'amount': trip_template.amount,
                     'remarks': rec['Remarks'],
-                    'date': datetime.datetime.strptime(rec['Date'], '%m/%d/%Y')
+                    'date': datetime.datetime(*xlrd.xldate_as_tuple(rec['Date'], xlsx.datemode))
                 })
         return {'type': 'ir.actions.client', 'tag': 'reload'}
 
