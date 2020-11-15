@@ -4,7 +4,7 @@
     <!-- Payslip-->
     <template id="ibas_external_layout_payslip2">
         <t t-foreach="docs" t-as="doc">
-        <div class="header">
+        <!-- <div class="header">
             <div class="row">
                 <div class="col-xs-4 text-center">
                     <span style="font-size:20px; color: black;">CATEGORY:</span>
@@ -16,13 +16,13 @@
             <div class="col-xs-12" style="margin-top: 10px;">
                 <div style="border-bottom: 1px solid black;"/>
             </div>
-        </div>
+        </div> -->
 
         <div class="article o_report_layout_standard">
             <t t-raw="0"/>
         </div>
 
-        <div class="footer">
+        <!-- <div class="footer">
             <div class="text-center" style="border-top: 1px solid black;">
                 <ul class="list-inline mb4">
                     <li t-if="res_company.phone">Phone: <span t-field="res_company.phone"/></li>
@@ -31,7 +31,7 @@
                     <li t-if="res_company.vat"><t t-esc="res_company.country_id.vat_label or 'TIN'"/>: <span t-field="res_company.vat"/></li>
                 </ul>
             </div>
-        </div>
+        </div> -->
         </t>
     </template>
     
@@ -162,8 +162,18 @@
                     </t>
 
                 </t>
-
-                
+                <!-- header -->
+                <div class="row">
+                    <div class="col-xs-4 text-center">
+                        <span style="font-size:20px; color: black;">CATEGORY:</span>
+                    </div>
+                    <div class="col-xs-8 text-center">
+                        <span style="font-size:20px; color: black" t-field="doc.employee_id.department_id.name"/>
+                    </div>
+                </div>
+                <div class="col-xs-12" style="margin-top: 10px;">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
                 <table style="width: 100%;">
                     <tr>
                         <td style="width: 18%;" class="text-right"><span class="f-big" style="margin-right: 10px;">Employee Name:</span></td>
@@ -371,6 +381,20 @@
 
                     </table>
                 </div>
+
+                <div class="col-xs-12" style="margin-top: 20px;">
+                    <div class="text-center" style="border-top: 1px solid black;">
+                    <ul class="list-inline mb4">
+                        <li t-if="res_company.phone">Phone: <span t-field="res_company.phone"/></li>
+                        <li t-if="res_company.email">Email: <span t-field="res_company.email"/></li>
+                        <li t-if="res_company.website">Web: <span t-field="res_company.website"/></li>
+                        <li t-if="res_company.vat"><t t-esc="res_company.country_id.vat_label or 'TIN'"/>: <span t-field="res_company.vat"/></li>
+                    </ul>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div style="border-bottom: 1px dashed black;"/>
+                </div>
             </div>
             </t>
             </t>
@@ -391,10 +415,10 @@
         <field name="default" eval="True"/>
         <field name="format">custom</field>
         <field name="orientation">Portrait</field>
-        <field name="page_height">148</field> <!-- 297 -->
+        <field name="page_height">297</field> <!-- 297  148-->
         <field name="page_width">210</field> <!-- 210 -->
-        <field name="margin_top">12</field>  <!-- 15 -->
-        <field name="margin_bottom">10</field>
+        <field name="margin_top">5</field>  <!-- 15 -->
+        <field name="margin_bottom">0</field>
         <field name="margin_left">5</field>
         <field name="margin_right">5</field>
         <field name="header_line" eval="False"/>
