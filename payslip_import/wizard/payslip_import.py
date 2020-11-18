@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
+import collections
 import time
 import xlrd
 
@@ -16,8 +17,8 @@ class PayslipImport(models.TransientModel):
     _description = 'Payslip Import'
 
     file = fields.Binary('File', required=True)
-    date_from = fields.Date(string='Date From', required=True, default=time.strftime('%Y-%m-01'))
-    date_to = fields.Date(string='Date To', required=True, default=datetime.now())
+    date_from = fields.Date(string='Date From', required=True, default=fields.Date.today().strftime('%Y-%m-01'))
+    date_to = fields.Date(string='Date To', required=True, default=fields.Date.today())
 
     def get_data(self, sheet, keys):
         for i in range(1, sheet.nrows):
@@ -36,33 +37,38 @@ class PayslipImport(models.TransientModel):
         other_input_code = self.env['hr.payslip.other_input.code'].search_read([('name', 'in', keys)], ['name', 'code'])
         workdays_code_dict = {}
         input_line_dict = {}
+        grouped = collections.defaultdict(list)
+        for rec in data:
+            grouped[rec.get('Employees')].append(rec)
         for code in workdays_code:
             workdays_code_dict[code['name']] = [code['code'], code['is_hour']]
         for input_line in other_input_code:
             input_line_dict[input_line['name']] = input_line['code']
-        for rec in data:
-            employee = HR_EMPLOYEE.search([('name', '=', rec['Employees'])], limit=1)
+        for key, vals in grouped.items():
+            employee = HR_EMPLOYEE.search([('name', '=', key)], limit=1)
             if employee:
                 worked_days_entries = []
                 other_input_entries = []
-                for key, value in rec.items():
-                    if key == 'Employees':
-                        continue
-                    if workdays_code_dict.get(key):
-                        worked_days_entries.append((0, 0, {
-                            'name': key,
-                            'code': workdays_code_dict[key][0],
-                            'number_of_days': value if not workdays_code_dict[key][1] else value/8,
-                            'number_of_hours': value*8 if not workdays_code_dict[key][1] else value,
-                            'contract_id': employee.contract_id.id
-                        }))
-                    elif input_line_dict.get(key):
-                        other_input_entries.append((0, 0, {
-                            'name': key,
-                            'code': input_line_dict[key],
-                            'amount': value or 0,
-                            'contract_id': employee.contract_id.id
-                        }))
+                for value in vals:
+                    contract = employee.contract_ids.filtered(lambda contract: contract.name == value.get('Contract'))
+                    for key, val in value.items():
+                        if key == 'Employees':
+                            continue
+                        if workdays_code_dict.get(key):
+                            worked_days_entries.append((0, 0, {
+                                'name': key,
+                                'code': workdays_code_dict[key][0],
+                                'number_of_days': val if not workdays_code_dict[key][1] else val/8,
+                                'number_of_hours': val*8 if not workdays_code_dict[key][1] else val,
+                                'contract_id': contract.id
+                            }))
+                        elif input_line_dict.get(key):
+                            other_input_entries.append((0, 0, {
+                                'name': key,
+                                'code': input_line_dict[key],
+                                'amount': val or 0,
+                                'contract_id': contract.id
+                            }))
                 values = {
                     'employee_id': employee.id,
                     'worked_days_line_ids': worked_days_entries,
@@ -71,7 +77,11 @@ class PayslipImport(models.TransientModel):
                     'struct_id': employee.contract_id.struct_id.id,
                     'is_imported': True,
                     'date_to': self.date_to,
-                    'date_from': self.date_from
+                    'date_from': self.date_from,
+                    'deduct_tax': vals[0].get('Deduct Withholding Tax', False),
+                    'deduct_sss': vals[0].get('Deduct SSS', False),
+                    'deduct_philhealth': vals[0].get('Deduct Philhealth', False),
+                    'deduct_hdmf': vals[0].get('Deduct HDMF', False),
                 }
                 record = HR_PAYSLIP.create(values)
                 record.onchange_employee()
