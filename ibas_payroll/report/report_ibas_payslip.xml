@@ -6,10 +6,13 @@
         <t t-foreach="docs" t-as="doc">
         <div class="header">
             <div class="row">
-                <div class="col-xs-4 text-center">
+                <div>
+                    <img src="/ibas_payroll/static/img/report_logo.jpg" style="padding: 0px; margin: 0px; height: 40px; width: 40px;" alt="${res_company.name}"/>
+                </div>
+                <div class="col-xs-4 text-center" style="margin-top:10px;">
                     <span style="font-size:20px; color: black;">CATEGORY:</span>
                 </div>
-                <div class="col-xs-8 text-center">
+                <div class="col-xs-8 text-center" style="margin-top:10px;">
                     <span style="font-size:20px; color: black" t-field="doc.employee_id.department_id.name"/>
                 </div>
             </div>
@@ -62,7 +65,8 @@
                 <t t-set="advance" t-value="0.0"/>
                 <t t-set="adjustment" t-value="0.0"/>
                 <t t-set="netsalary" t-value="0.0"/>
-                <t t-set="trips" t-value="doc.env['ibas_hris.trip'].search([('date', '>=', doc.date_from), ('date', '&lt;=', doc.date_to)])"/>
+                <t t-set="trips" t-value="doc.env['ibas_hris.trip'].search([('date', '>=', doc.date_from), ('date', '&lt;=', doc.date_to), ('employee_id', '=', doc.employee_id.id)])"/>
+                <t t-set="trip_total" t-value="sum(trips.mapped('amount'))"/>
 
                 <t t-foreach="doc.line_ids" t-as="line">
                     <!-- income -->
@@ -119,6 +123,7 @@
                         <t t-set="netsalary" t-value="netsalary + line.total"/>
                     </t>
                 </t>
+                <t t-set="gross" t-value="gross + trip_total"/>
 
                 <t t-set="regular_days" t-value="0.0"/>
                 <t t-set="regular_hours" t-value="0.0"/>
@@ -222,7 +227,7 @@
                         </tr>
                         <tr>
                             <td style="text-align: right"><span>Trips</span></td>
-                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(sum(trips.mapped('amount')))"/></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(trip_total)"/></td>
                         </tr>
                         <tr>
                             <td style="text-align: right"><span>Allowance</span></td>
