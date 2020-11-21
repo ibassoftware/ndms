@@ -371,19 +371,6 @@
                             <td class='double-top-bot' style="color: black"><span>Net Salary</span></td>
                             <td class='double-top-bot' style="text-align: right; color: black"><t t-esc="'{0:,.2f}'.format(netsalary)"/></td>
                         </tr>
-                        <tr>
-                            <td><span><![CDATA[&nbsp;]]></span></td>
-                            <td><span></span></td>
-                        </tr>
-                        <tr>
-                            <td><span><![CDATA[&nbsp;]]></span></td>
-                            <td><span></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><span style="font-size:20px; color: black; text-align: center">CASH</span></td>
-                        </tr>
-
                     </table>
                 </div>
 
