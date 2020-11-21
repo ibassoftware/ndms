@@ -141,13 +141,13 @@ class PayrollXlsx(models.AbstractModel):
             sheet.write(row, 4, ps.contract_id.daily_wage, bg_flesh)
             # Days
             sheet.write(row, 5, sum(work_lines.filtered(
-                lambda r: r.code == 'WORK100').mapped('number_of_days')), title2)
+                lambda r: r.code == 'WORK100').mapped('number_of_days')))
             sheet.write(row, 6, sum(work_lines.filtered(
-                lambda r: r.code == 'OT').mapped('number_of_hours')), title2)
+                lambda r: r.code == 'OT').mapped('number_of_hours')))
             sheet.write(row, 7, sum(work_lines.filtered(lambda r: r.code == 'LATE').mapped(
-                'number_of_hours')) + sum(work_lines.filtered(lambda r: r.code == 'UNDERTIME').mapped('number_of_hours')), title2)
+                'number_of_hours')) + sum(work_lines.filtered(lambda r: r.code == 'UNDERTIME').mapped('number_of_hours')))
             sheet.write(row, 8, sum(work_lines.filtered(
-                lambda r: r.code == 'ABSENT').mapped('number_of_days')), title2)
+                lambda r: r.code == 'ABSENT').mapped('number_of_days')))
             # Pay
             sheet.write(row, 9, sum(lines.filtered(
                 lambda r: r.code == 'BASICPAY').mapped('total')), bg_flesh)
@@ -155,10 +155,10 @@ class PayrollXlsx(models.AbstractModel):
                 lambda r: r.code == 'OVERTIME').mapped('total')), bg_flesh)
 
             sheet.write(row, 11, sum(lines.filtered(
-                lambda r: r.code == 'Allowance').mapped('total')), title2)
+                lambda r: r.code == 'Allowance').mapped('total')))
 
             sheet.write(row, 12, sum(lines.filtered(
-                lambda r: r.code == 'ADDALLOWANCE').mapped('total')), title2)
+                lambda r: r.code == 'ADDALLOWANCE').mapped('total')))
 
             sheet.write(row, 13, sum(lines.filtered(
                 lambda r: r.code == 'GROSS').mapped('total')), bg_gross)
@@ -166,6 +166,7 @@ class PayrollXlsx(models.AbstractModel):
             # Deductions
             sheet.write(row, 14, sum(lines.filtered(lambda r: r.code == 'LATE').mapped(
                 'total')) + sum(lines.filtered(lambda r: r.code == 'UNDERTIME').mapped('total')))
+
             sheet.write(row, 15, sum(lines.filtered(
                 lambda r: r.code == 'ABSENT').mapped('total')))
 
@@ -188,14 +189,14 @@ class PayrollXlsx(models.AbstractModel):
                 lambda r: r.code == 'PHILEE').mapped('total')))
 
             sheet.write(row, 22, sum(lines.filtered(
-                lambda r: r.code == 'ADV').mapped('total')), title2)
+                lambda r: r.code == 'ADV').mapped('total')))
 
             sheet.write(row, 23, sum(lines.filtered(
                 lambda r: r.code == 'OTHLOAN').mapped('total')))
 
-            sheet.write(row, 24, sum(lines.filtered(
-                lambda r: r.category_id.code == 'DED').mapped('total')) + sum(lines.filtered(
-                    lambda r: r.category_id.code == 'LOANS').mapped('total')), bg_tot_deduct)
+            sheet.write(row, 24, sum(lines.filtered(lambda r: r.category_id.code == 'DED').mapped('total')) 
+                                + sum(lines.filtered(lambda r: r.category_id.code == 'LOANS').mapped('total'))
+                                + sum(lines.filtered(lambda r: r.category_id.code == 'ADVANCES').mapped('total')), bg_tot_deduct)
 
             sheet.write(row, 25, sum(lines.filtered(
                 lambda r: r.code == 'ADJ').mapped('total')))

@@ -2,11 +2,9 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
 import collections
-import time
 import xlrd
 
 from collections import OrderedDict
-from datetime import datetime
 
 from odoo import api, fields, models
 from odoo.tools import pycompat
@@ -35,6 +33,7 @@ class PayslipImport(models.TransientModel):
         HR_EMPLOYEE = self.env['hr.employee']
         workdays_code = self.env['hr.payslip.worked_days.code'].search_read([('name', 'in', keys)], ['name', 'code', 'is_hour'])
         other_input_code = self.env['hr.payslip.other_input.code'].search_read([('name', 'in', keys)], ['name', 'code'])
+
         workdays_code_dict = {}
         input_line_dict = {}
         grouped = collections.defaultdict(list)
@@ -83,6 +82,7 @@ class PayslipImport(models.TransientModel):
                     'deduct_philhealth': vals[0].get('Deduct Philhealth', False),
                     'deduct_hdmf': vals[0].get('Deduct HDMF', False),
                 }
+
                 record = HR_PAYSLIP.create(values)
                 record.onchange_employee()
         return {'type': 'ir.actions.client', 'tag': 'reload'}

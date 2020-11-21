@@ -41,7 +41,8 @@ class PayslipImport(models.TransientModel):
                     'trip_template_id': trip_template.id,
                     'loc_from': trip_template.loc_from,
                     'loc_to': trip_template.loc_to,
-                    'amount': trip_template.amount,
+                    'quantity': rec['Quantity'] if rec['Quantity'] > 0 else 1,
+                    'sub_amount': trip_template.amount,
                     'remarks': rec['Remarks'],
                     'date': datetime.datetime(*xlrd.xldate_as_tuple(rec['Date'], xlsx.datemode))
                 })
