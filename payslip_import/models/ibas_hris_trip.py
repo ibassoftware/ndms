@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class TripTemplate(models.Model):
@@ -16,6 +16,9 @@ class Trip(models.Model):
     quantity = fields.Float(string='Quantity', default=1)
     sub_amount = fields.Monetary(string="Subtotal Amount")
     amount = fields.Monetary(string="Amount", required=True, compute='_compute_amount')
+    sss_share = fields.Monetary(string='SSS Employee Share')
+    hdmf_share = fields.Monetary(string='HDMF Employee Share')
+    philhealth_share = fields.Monetary(string='Philhealth Employee Share')
 
     @api.onchange('trip_template_id')
     def _onchange_sub_amount(self):
@@ -29,4 +32,3 @@ class Trip(models.Model):
                 rec.amount = rec.quantity * rec.sub_amount
             else:
                 rec.quantity = 0
-

@@ -7,6 +7,7 @@
         'security/ir.model.access.csv',
         'data/worked_days_code_data.xml',
         'data/other_input_code_data.xml',
+        'data/hr_salary_rule_data.xml',
         'views/templates.xml',
         'views/hr_payslip_views.xml',
         'views/ibas_hris_trip_views.xml',

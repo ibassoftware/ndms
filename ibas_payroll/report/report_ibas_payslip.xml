@@ -66,7 +66,7 @@
                 <t t-set="adjustment" t-value="0.0"/>
                 <t t-set="netsalary" t-value="0.0"/>
                 <t t-set="trips" t-value="doc.env['ibas_hris.trip'].search([('date', '>=', doc.date_from), ('date', '&lt;=', doc.date_to), ('employee_id', '=', doc.employee_id.id)])"/>
-                <t t-set="trip_total" t-value="sum(trips.mapped('amount'))"/>
+                <t t-set="trip_total" t-value="sum(trips.mapped(lambda trip: trip.amount + trip.sss_share + trip.hdmf_share + trip.philhealth_share))"/>
 
                 <t t-foreach="doc.line_ids" t-as="line">
                     <!-- income -->
@@ -371,19 +371,6 @@
                             <td class='double-top-bot' style="color: black"><span>Net Salary</span></td>
                             <td class='double-top-bot' style="text-align: right; color: black"><t t-esc="'{0:,.2f}'.format(netsalary)"/></td>
                         </tr>
-                        <tr>
-                            <td><span><![CDATA[&nbsp;]]></span></td>
-                            <td><span></span></td>
-                        </tr>
-                        <tr>
-                            <td><span><![CDATA[&nbsp;]]></span></td>
-                            <td><span></span></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><span style="font-size:20px; color: black; text-align: center">CASH</span></td>
-                        </tr>
-
                     </table>
                 </div>
 
