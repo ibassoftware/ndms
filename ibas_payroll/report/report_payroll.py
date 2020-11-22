@@ -83,11 +83,12 @@ class PayrollXlsx(models.AbstractModel):
         sheet.write(2, 19, "Pagibig", title2)
         sheet.write(2, 20, "Pagibig (HDMF)", title2)
         sheet.write(2, 21, "Philhealth", title2)
-        sheet.write(2, 22, "Cash Advance", title2)
-        sheet.write(2, 23, "Others", title2)
-        sheet.write(2, 24, "Total Deductions", bg_tot_deduct_title)
-        sheet.write(2, 25, "Adjustment", title2)
-        sheet.write(2, 26, "Net Pay", bg_net_pay_title)
+        sheet.write(2, 22, "Trip", title2)
+        sheet.write(2, 23, "Cash Advance", title2)
+        sheet.write(2, 24, "Others", title2)
+        sheet.write(2, 25, "Total Deductions", bg_tot_deduct_title)
+        sheet.write(2, 26, "Adjustment", title2)
+        sheet.write(2, 27, "Net Pay", bg_net_pay_title)
 
         domain = []
         if status:
@@ -189,19 +190,23 @@ class PayrollXlsx(models.AbstractModel):
                 lambda r: r.code == 'PHILEE').mapped('total')))
 
             sheet.write(row, 22, sum(lines.filtered(
-                lambda r: r.code == 'ADV').mapped('total')))
+                lambda r: r.code == 'TRIP').mapped('total')))
 
             sheet.write(row, 23, sum(lines.filtered(
+                lambda r: r.code == 'ADV').mapped('total')))
+
+            sheet.write(row, 24, sum(lines.filtered(
                 lambda r: r.code == 'OTHLOAN').mapped('total')))
 
-            sheet.write(row, 24, sum(lines.filtered(lambda r: r.category_id.code == 'DED').mapped('total')) 
+            sheet.write(row, 25, sum(lines.filtered(lambda r: r.category_id.code == 'DED').mapped('total'))
                                 + sum(lines.filtered(lambda r: r.category_id.code == 'LOANS').mapped('total'))
-                                + sum(lines.filtered(lambda r: r.category_id.code == 'ADVANCES').mapped('total')), bg_tot_deduct)
-
-            sheet.write(row, 25, sum(lines.filtered(
-                lambda r: r.code == 'ADJ').mapped('total')))
+                                + sum(lines.filtered(lambda r: r.category_id.code == 'ADVANCES').mapped('total'))
+                                + sum(lines.filtered(lambda r: r.category_id.code == 'TRIP').mapped('total')), bg_tot_deduct)
 
             sheet.write(row, 26, sum(lines.filtered(
+                lambda r: r.code == 'ADJ').mapped('total')))
+
+            sheet.write(row, 27, sum(lines.filtered(
                 lambda r: r.code == 'NETPAY').mapped('total')), bg_net_pay)
 
             n += 1
