@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+	<record id="rule_catergory_trip" model="hr.salary.rule.category">
+        <field name="name">Trip</field>
+        <field name="code">TRIP</field>
+    </record>
+
+	<record id="hr_rule_trip" model="hr.salary.rule">
+        <field name="name">Trips</field>
+        <field name="sequence" eval="1"/>
+        <field name="code">TRIP</field>
+        <field name="category_id" ref="payslip_import.rule_catergory_trip"/>
+        <field name="condition_select">none</field>
+    </record>
+</odoo>

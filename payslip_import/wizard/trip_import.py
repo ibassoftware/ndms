@@ -44,7 +44,10 @@ class PayslipImport(models.TransientModel):
                     'quantity': rec['Quantity'] if rec['Quantity'] > 0 else 1,
                     'sub_amount': trip_template.amount,
                     'remarks': rec['Remarks'],
-                    'date': datetime.datetime(*xlrd.xldate_as_tuple(rec['Date'], xlsx.datemode))
+                    'date': datetime.datetime(*xlrd.xldate_as_tuple(rec['Date'], xlsx.datemode)),
+                    'sss_share': rec.get('SSS Employee Share'),
+                    'hdmf_share': rec.get('HDMF Employee Share'),
+                    'philhealth_share': rec.get('Philhealth Employee Share')
                 })
         return {'type': 'ir.actions.client', 'tag': 'reload'}
 

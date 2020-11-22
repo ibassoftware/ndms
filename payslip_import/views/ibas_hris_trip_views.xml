@@ -20,8 +20,10 @@
             <field name="employee_id" position="after">
                 <field name="code"/>
             </field>
-
             <field name="amount" position="before">
+                <field name="sss_share"/>
+                <field name="hdmf_share"/>
+                <field name="philhealth_share"/>
                 <field name="quantity"/>
                 <field name="sub_amount" string="Cost"/>
             </field>

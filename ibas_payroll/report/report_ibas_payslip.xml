@@ -66,7 +66,7 @@
                 <t t-set="adjustment" t-value="0.0"/>
                 <t t-set="netsalary" t-value="0.0"/>
                 <t t-set="trips" t-value="doc.env['ibas_hris.trip'].search([('date', '>=', doc.date_from), ('date', '&lt;=', doc.date_to), ('employee_id', '=', doc.employee_id.id)])"/>
-                <t t-set="trip_total" t-value="sum(trips.mapped('amount'))"/>
+                <t t-set="trip_total" t-value="sum(trips.mapped(lambda trip: trip.amount + trip.sss_share + trip.hdmf_share + trip.philhealth_share))"/>
 
                 <t t-foreach="doc.line_ids" t-as="line">
                     <!-- income -->
