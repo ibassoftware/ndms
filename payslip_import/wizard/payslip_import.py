@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import base64
-import collections
 import time
 import xlrd
 
@@ -37,38 +36,33 @@ class PayslipImport(models.TransientModel):
 
         workdays_code_dict = {}
         input_line_dict = {}
-        grouped = collections.defaultdict(list)
-        for rec in data:
-            grouped[rec.get('Employees')].append(rec)
         for code in workdays_code:
             workdays_code_dict[code['name']] = [code['code'], code['is_hour']]
         for input_line in other_input_code:
             input_line_dict[input_line['name']] = input_line['code']
-        for key, vals in grouped.items():
-            employee = HR_EMPLOYEE.search([('name', '=', key)], limit=1)
+        for rec in data:
+            employee = HR_EMPLOYEE.search([('name', '=', rec['Employees'])], limit=1)
             if employee:
                 worked_days_entries = []
                 other_input_entries = []
-                for value in vals:
-                    contract = employee.contract_ids.filtered(lambda contract: contract.name == value.get('Contract'))
-                    for key, val in value.items():
-                        if key == 'Employees':
-                            continue
-                        if workdays_code_dict.get(key):
-                            worked_days_entries.append((0, 0, {
-                                'name': key,
-                                'code': workdays_code_dict[key][0],
-                                'number_of_days': val if not workdays_code_dict[key][1] else val/8,
-                                'number_of_hours': val*8 if not workdays_code_dict[key][1] else val,
-                                'contract_id': contract.id
-                            }))
-                        elif input_line_dict.get(key):
-                            other_input_entries.append((0, 0, {
-                                'name': key,
-                                'code': input_line_dict[key],
-                                'amount': val or 0,
-                                'contract_id': contract.id
-                            }))
+                for key, val in rec.items():
+                    if key == 'Employees':
+                        continue
+                    if workdays_code_dict.get(key):
+                        worked_days_entries.append((0, 0, {
+                            'name': key,
+                            'code': workdays_code_dict[key][0],
+                            'number_of_days': val if not workdays_code_dict[key][1] else val/8,
+                            'number_of_hours': val*8 if not workdays_code_dict[key][1] else val,
+                            'contract_id': employee.contract_id.id
+                        }))
+                    elif input_line_dict.get(key):
+                        other_input_entries.append((0, 0, {
+                            'name': key,
+                            'code': input_line_dict[key],
+                            'amount': val or 0,
+                            'contract_id': employee.contract_id.id
+                        }))
                 values = {
                     'employee_id': employee.id,
                     'worked_days_line_ids': worked_days_entries,
@@ -78,10 +72,10 @@ class PayslipImport(models.TransientModel):
                     'is_imported': True,
                     'date_to': self.date_to,
                     'date_from': self.date_from,
-                    'deduct_tax': vals[0].get('Deduct Withholding Tax', False),
-                    'deduct_sss': vals[0].get('Deduct SSS', False),
-                    'deduct_philhealth': vals[0].get('Deduct Philhealth', False),
-                    'deduct_hdmf': vals[0].get('Deduct HDMF', False),
+                    'deduct_tax': rec.get('Deduct Withholding Tax', False),
+                    'deduct_sss': rec.get('Deduct SSS', False),
+                    'deduct_philhealth': rec.get('Deduct Philhealth', False),
+                    'deduct_hdmf': rec.get('Deduct HDMF', False),
                 }
 
                 record = HR_PAYSLIP.create(values)
