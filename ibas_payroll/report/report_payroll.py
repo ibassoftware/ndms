@@ -198,10 +198,7 @@ class PayrollXlsx(models.AbstractModel):
             sheet.write(row, 24, sum(lines.filtered(
                 lambda r: r.code == 'OTHLOAN').mapped('total')))
 
-            sheet.write(row, 25, sum(lines.filtered(lambda r: r.category_id.code == 'DED').mapped('total'))
-                                + sum(lines.filtered(lambda r: r.category_id.code == 'LOANS').mapped('total'))
-                                + sum(lines.filtered(lambda r: r.category_id.code == 'ADVANCES').mapped('total'))
-                                + sum(lines.filtered(lambda r: r.category_id.code == 'TRIP').mapped('total')), bg_tot_deduct)
+            sheet.write(row, 25, sum(lines.filtered(lambda r: r.category_id.code in ['DED', 'LOANS', 'ADVANCES', 'TRIP', 'EMP']).mapped('total')), bg_tot_deduct)
 
             sheet.write(row, 26, sum(lines.filtered(
                 lambda r: r.code == 'ADJ').mapped('total')))
