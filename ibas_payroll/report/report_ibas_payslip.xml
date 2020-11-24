@@ -69,7 +69,7 @@
 
                 <t t-foreach="doc.line_ids" t-as="line">
                     <!-- income -->
-                    <t t-if="line.code == 'BASIC'">
+                    <t t-if="line.code == 'BASICPAY'">
                         <t t-set="basic" t-value="basic + line.total"/>
                     </t>
                     <t t-elif="line.code == 'OVERTIME'">
@@ -170,13 +170,13 @@
                 </t>
                 <!-- header -->
                 <div class="row">
-                    <div class="col-xs-2">
-                        <img src="/ibas_payroll/static/img/report_logo.jpg" style="padding: 0px; margin: 0px; height: 40px" alt="${res_company.name}"/>
+                    <div class="col-xs-3">
+                        <img src="/ibas_payroll/static/img/report_logo.jpg" style="height: 60px;" alt="${res_company.name}"/>
                     </div>
                     <div class="col-xs-3" style="margin-top: 10px">
                         <span style="font-size:20px; color: black;">CATEGORY:</span>
                     </div>
-                    <div class="col-xs-7 text-center" style="margin-top: 10px">
+                    <div class="col-xs-6 text-center" style="margin-top: 10px">
                         <span style="font-size:20px; color: black" t-field="doc.employee_id.department_id.name"/>
                     </div>
                 </div>
