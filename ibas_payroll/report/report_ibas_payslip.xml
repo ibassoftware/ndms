@@ -65,12 +65,11 @@
                 <t t-set="advance" t-value="0.0"/>
                 <t t-set="adjustment" t-value="0.0"/>
                 <t t-set="netsalary" t-value="0.0"/>
-                <t t-set="trips" t-value="doc.env['ibas_hris.trip'].search([('date', '>=', doc.date_from), ('date', '&lt;=', doc.date_to), ('employee_id', '=', doc.employee_id.id)])"/>
-                <t t-set="trip_total" t-value="sum(trips.mapped(lambda trip: trip.amount + trip.sss_share + trip.hdmf_share + trip.philhealth_share))"/>
+                <t t-set="trip" t-value="0.0"/>
 
                 <t t-foreach="doc.line_ids" t-as="line">
                     <!-- income -->
-                    <t t-if="line.code == 'BASICPAY'">
+                    <t t-if="line.code == 'BASIC'">
                         <t t-set="basic" t-value="basic + line.total"/>
                     </t>
                     <t t-elif="line.code == 'OVERTIME'">
@@ -82,7 +81,7 @@
                     <t t-elif="line.code == 'Allowance'">
                         <t t-set="allowance" t-value="allowance + line.total"/>
                     </t>
-                    <t t-elif="line.code == 'GROSS'">
+                    <t t-elif="line.code in ['GROSS', 'TRIP']">
                         <t t-set="gross" t-value="gross + line.total"/>
                     </t>
                     <!-- deduction -->
@@ -122,8 +121,10 @@
                     <t t-elif="line.code == 'NETSAL'">
                         <t t-set="netsalary" t-value="netsalary + line.total"/>
                     </t>
+                    <t t-elif="line.code == 'TRIP'">
+                        <t t-set="trip" t-value="trip + line.total"/>
+                    </t>
                 </t>
-                <t t-set="gross" t-value="gross + trip_total"/>
 
                 <t t-set="regular_days" t-value="0.0"/>
                 <t t-set="regular_hours" t-value="0.0"/>
@@ -169,13 +170,13 @@
                 </t>
                 <!-- header -->
                 <div class="row">
-                    <div class="col-xs-1">
-                        <img src="/ibas_payroll/static/img/report_logo.jpg" style="padding: 0px; margin: 0px; height: 40px; width: 40px;" alt="${res_company.name}"/>
+                    <div class="col-xs-2">
+                        <img src="/ibas_payroll/static/img/report_logo.jpg" style="padding: 0px; margin: 0px; height: 40px" alt="${res_company.name}"/>
                     </div>
                     <div class="col-xs-3" style="margin-top: 10px">
                         <span style="font-size:20px; color: black;">CATEGORY:</span>
                     </div>
-                    <div class="col-xs-8 text-center" style="margin-top: 10px">
+                    <div class="col-xs-7 text-center" style="margin-top: 10px">
                         <span style="font-size:20px; color: black" t-field="doc.employee_id.department_id.name"/>
                     </div>
                 </div>
@@ -240,7 +241,7 @@
                         </tr>
                         <tr>
                             <td style="text-align: right"><span>Trips</span></td>
-                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(trip_total)"/></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(trip)"/></td>
                         </tr>
                         <tr>
                             <td style="text-align: right"><span>Allowance</span></td>
