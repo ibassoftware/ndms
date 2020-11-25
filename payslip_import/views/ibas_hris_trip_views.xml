@@ -24,6 +24,8 @@
                 <field name="sss_share"/>
                 <field name="hdmf_share"/>
                 <field name="philhealth_share"/>
+                <field name="advances"/>
+                <field name="adjustment"/>
                 <field name="quantity"/>
                 <field name="sub_amount" string="Cost"/>
             </field>
