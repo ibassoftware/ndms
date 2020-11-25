@@ -118,14 +118,12 @@
                     <t t-elif="line.code == 'ADJ'">
                         <t t-set="adjustment" t-value="adjustment + line.total"/>
                     </t>
-                    <t t-elif="line.code == 'NETSAL'">
-                        <t t-set="netsalary" t-value="netsalary + line.total"/>
-                    </t>
                     <t t-elif="line.code == 'TRIP'">
                         <t t-set="trip" t-value="trip + line.total"/>
                     </t>
                 </t>
-
+                <t t-set="total_deduction" t-value="late + undertime + absent + tax + sssee + sssloan + hdmfee + hdmfloan + philhealth + advance"/>
+                <t t-set="netsalary" t-value="gross - total_deduction"/>
                 <t t-set="regular_days" t-value="0.0"/>
                 <t t-set="regular_hours" t-value="0.0"/>
 
@@ -170,8 +168,11 @@
                 </t>
                 <!-- header -->
                 <div class="row">
-                    <div class="col-xs-3">
-                        <img src="/ibas_payroll/static/img/report_logo.jpg" style="height: 60px;" alt="${res_company.name}"/>
+                    <div t-if="doc.employee_id.address_id.name=='KONGKRETO PILIPINAS INC.'" class="col-xs-3">
+                        <img src="/ibas_payroll/static/img/kongkreto_logo.jpg" style="height: 60px;" alt="${res_company.name}"/>
+                    </div>
+                    <div t-else="" class="col-xs-1">
+                        <img src="/ibas_payroll/static/img/ndm_logo.jpg" style="height: 50px;" alt="${res_company.name}"/>
                     </div>
                     <div class="col-xs-3" style="margin-top: 10px">
                         <span style="font-size:20px; color: black;">CATEGORY:</span>
@@ -355,8 +356,7 @@
                         <tr>
                             <td><span>Total Deduction</span></td>
                             <td style="text-align: center">
-                            <t t-esc="'{0:,.2f}'.format(late + undertime + absent + tax + sssee + sssloan + 
-                                hdmfee + hdmfloan + philhealth + advance)"/>
+                            <t t-esc="'{0:,.2f}'.format(total_deduction)"/>
                             </td>
                         </tr>
                         <tr>

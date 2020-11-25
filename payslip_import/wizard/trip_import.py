@@ -47,7 +47,9 @@ class PayslipImport(models.TransientModel):
                     'date': datetime.datetime(*xlrd.xldate_as_tuple(rec['Date'], xlsx.datemode)),
                     'sss_share': rec.get('SSS Employee Share'),
                     'hdmf_share': rec.get('HDMF Employee Share'),
-                    'philhealth_share': rec.get('Philhealth Employee Share')
+                    'philhealth_share': rec.get('Philhealth Employee Share'),
+                    'advances': rec.get('Advances Value'),
+                    'adjustment': rec.get('Adjustment Value'),
                 })
         return {'type': 'ir.actions.client', 'tag': 'reload'}
 
