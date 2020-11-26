@@ -169,15 +169,15 @@
                 <!-- header -->
                 <div class="row">
                     <div t-if="doc.employee_id.address_id.name=='KONGKRETO PILIPINAS INC.'" class="col-xs-3">
-                        <img src="/ibas_payroll/static/img/kongkreto_logo.jpg" style="height: 60px;" alt="${res_company.name}"/>
+                        <img src="/ibas_payroll/static/img/kongkreto_logo.jpg" style="height: 35px;" alt="${res_company.name}"/>
                     </div>
-                    <div t-else="" class="col-xs-1">
-                        <img src="/ibas_payroll/static/img/ndm_logo.jpg" style="height: 50px;" alt="${res_company.name}"/>
+                    <div t-else="" class="col-xs-3">
+                        <img src="/ibas_payroll/static/img/ndm_logo.jpg" style="height: 35px;" alt="${res_company.name}"/>
                     </div>
-                    <div class="col-xs-3" style="margin-top: 10px">
+                    <div class="col-xs-3" style="margin-top:5px">
                         <span style="font-size:20px; color: black;">CATEGORY:</span>
                     </div>
-                    <div class="col-xs-6 text-center" style="margin-top: 10px">
+                    <div class="col-xs-6 text-center" style="margin-top: 10margin-top: 5pxpx">
                         <span style="font-size:20px; color: black" t-field="doc.employee_id.department_id.name"/>
                     </div>
                 </div>
