@@ -260,8 +260,8 @@
                             <td style="text-align: center"><span></span></td>
                         </tr>
                         <tr>
-                            <td><span class='double-top-bot'>Gross Salary</span></td>
-                            <td class='double-top-bot' style="text-align: right;"><t t-esc="'{0:,.2f}'.format(gross)"/></td>
+                            <td style="text-align: right"><span class='double-top-bot'>Gross Salary</span></td>
+                            <td class='double-top-bot' style="text-align: center;"><t t-esc="'{0:,.2f}'.format(gross)"/></td>
                         </tr>
                         <tr>
                             <td style="text-align: right"><span><![CDATA[&nbsp;]]></span></td>
@@ -380,7 +380,7 @@
                         </tr>
                         <tr> 
                             <td class='double-top-bot' style="color: black"><span>Net Salary</span></td>
-                            <td class='double-top-bot' style="text-align: right; color: black"><t t-esc="'{0:,.2f}'.format(netsalary)"/></td>
+                            <td class='double-top-bot' style="color: black;text-align: center"><t t-esc="'{0:,.2f}'.format(netsalary)"/></td>
                         </tr>
                     </table>
                 </div>
