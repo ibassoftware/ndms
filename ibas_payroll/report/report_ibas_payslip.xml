@@ -260,7 +260,7 @@
                             <td style="text-align: center"><span></span></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right"><span class='double-top-bot'>Gross Salary</span></td>
+                            <td><span class='double-top-bot'>Gross Salary</span></td>
                             <td class='double-top-bot' style="text-align: center;"><t t-esc="'{0:,.2f}'.format(gross)"/></td>
                         </tr>
                         <tr>
