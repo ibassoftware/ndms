@@ -184,7 +184,7 @@
                             <span style="font-size:20px; color: black;">CATEGORY:</span>
                         </div>
                     </t>
-                    <div class="col-xs-6 text-center" style="margin-top: 5px">
+                    <div class="col-xs-6" style="margin-top: 5px;padding-left:8.5rem">
                         <span style="font-size:20px; color: black" t-field="doc.employee_id.department_id.name"/>
                     </div>
                 </div>
@@ -193,22 +193,15 @@
                 </div>
                 <table style="width: 100%;">
                     <tr>
-                        <td style="width: 18%;" class="text-right"><span class="f-big" style="margin-right: 10px;">Employee Name:</span></td>
-                        <td style="font-size: 16px; width: 42%;" colspan="2"><strong><span t-field="doc.employee_id.name"/></strong></td>
-                        <td colspan="2" style="text-align: right; width: 20%;"><span style="margin-right: 10px;">Payroll Period: </span></td>
-                        <td style="width: 20%; font-size: 14px;"><span t-field="doc.date_from"/> - <span t-field="doc.date_to"/></td>       
+                        <td style="width: 60%%;padding-left:1.6rem"><span class="f-big">Employee Name: <strong><span t-field="doc.employee_id.name"/></strong></span></td>
+                        <td style="width: 40%;"><span>Payroll Period: <span t-field="doc.date_from"/> - <span t-field="doc.date_to"/></span></td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;"><span style="margin-right: 10px;">Rate per Day:</span></td>
-                        <td colspan="2"><span t-esc="'{0:,.2f}'.format(doc.contract_id.daily_wage)"/></td>
-                        <!-- <td><span>Blank</span></td> -->
-                        <!-- <td><span>Blank</span></td> -->
-                        <td colspan="2" style="text-align: right"><span style="margin-right: 10px;">Frequency:</span></td>
-                        <td><span t-field="doc.contract_id.schedule_pay"/></td>
+                        <td style="width: 18%;padding-left:1.6rem"><span>Rate per Day: <t t-esc="'{0:,.2f}'.format(doc.contract_id.daily_wage)"/></span></td>
+                        <td style="width: 40%;"><span style="margin-right: 10px;">Frequency: <span t-field="doc.contract_id.schedule_pay"/></span></td>
                     </tr>
                     <tr>
-                        <td style="text-align: right"><span style="margin-right: 10px;">Rate per hour:</span></td>
-                        <td colspan="5"><t t-esc="'{0:,.2f}'.format(rate_per_hour)"/></td>
+                        <td style="width: 18%;padding-left:1.6rem"><span style="margin-right: 10px;">Rate per hour: <t t-esc="'{0:,.2f}'.format(rate_per_hour)"/></span></td>
                     </tr>
                 </table>
                 <div class="col-xs-12" style="margin-top: 10px; margin-bottom: 10px">
@@ -218,13 +211,13 @@
                 <div class="col-xs-7">
                     <table style="width: 100%;">
                         <tr>
-                            <td style="width: 50%; text-align: right"><span>Basic Salary</span></td>
+                            <td style="width: 50%; padding-left:4rem"><span>Basic Salary</span></td>
                             <!-- <td style="width: 25%; text-align: center"><span t-esc="doc.mapped('line_ids').filtered(lambda r: r.code == 'BASICPAY').mapped('total')"/></td> -->
                             <td style="width: 25%; text-align: center"><t t-esc="'{0:,.2f}'.format(basic)"/></td>
                             <td style="width: 25%; text-align: center"><span><![CDATA[&nbsp;]]></span></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right"><span>Overtime Pay</span></td>
+                            <td style="padding-left:4rem"><span>Overtime Pay</span></td>
                             <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(overtime)"/></td>
                         </tr>
                         <!-- <tr>
@@ -236,7 +229,7 @@
                             <td style="text-align: center"><span>#N/A</span></td>
                         </tr> -->
                         <tr>
-                            <td style="text-align: right"><span>Holiday Pay</span></td>
+                            <td style="padding-left:4rem"><span>Holiday Pay</span></td>
                             <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(holiday)"/></td>
                         </tr>
                         <!-- <tr>
@@ -244,19 +237,19 @@
                             <td style="text-align: center"><span>#N/A</span></td>
                         </tr> -->
                         <tr>
-                            <td style="text-align: right"><span><![CDATA[&nbsp;]]></span></td>
+                            <td style="padding-left:4rem"><span><![CDATA[&nbsp;]]></span></td>
                             <td style="text-align: center"><span></span></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right"><span>Trips</span></td>
+                            <td style="padding-left:4rem"><span>Trips</span></td>
                             <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(trip)"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right"><span>Allowance</span></td>
+                            <td style="padding-left:4rem"><span>Allowance</span></td>
                             <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(allowance)"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right"><span><![CDATA[&nbsp;]]></span></td>
+                            <td style="text-align: left"><span><![CDATA[&nbsp;]]></span></td>
                             <td style="text-align: center"><span></span></td>
                         </tr>
                         <tr>
@@ -264,44 +257,44 @@
                             <td class='double-top-bot' style="text-align: center;"><t t-esc="'{0:,.2f}'.format(gross)"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align: right"><span><![CDATA[&nbsp;]]></span></td>
+                            <td style="text-align: left"><span><![CDATA[&nbsp;]]></span></td>
                             <td style="text-align: center"><span></span></td>
                         </tr>
                         <tr>
-                            <td style="text-align: center"><span>No. of regular days</span></td>
-                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(regular_days)"/></td>
+                            <td style="padding-left:4rem"><span>No. of regular days</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(regular_days)"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align: center"><span>No. of regular hours</span></td>
-                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(regular_hours)"/></td>
+                            <td style="padding-left:4rem"><span>No. of regular hours</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(regular_hours)"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align: center"><span>No. of OT(hours)</span></td>
-                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(ot_hours)"/></td>
+                            <td style="padding-left:4rem"><span>No. of OT(hours)</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(ot_hours)"/></td>
                         </tr>
                         <!-- <tr>
-                            <td style="text-align: center"><span>Night of differential hours</span></td>
+                            <td style="padding-left:4rem"><span>Night of differential hours</span></td>
                             <td style="text-align: left"><span>#N/A</span></td>
                         </tr> -->
                         <tr>
-                            <td style="text-align: center"><span>Sun/Special holiday hours</span></td>
-                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(sh_hours)"/></td>
+                            <td style="padding-left:4rem"><span>Sun/Special holiday hours</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(sh_hours)"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align: center"><span>Regular holiday hours</span></td>
-                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(rh_hours)"/></td>
+                            <td style="padding-left:4rem"><span>Regular holiday hours</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(rh_hours)"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align: center"><span>Regular holiday OT(hours)</span></td>
-                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(rhot_hours)"/></td>
+                            <td style="padding-left:4rem"><span>Regular holiday OT(hours)</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(rhot_hours)"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align: center"><span>Late/Undertime in minutes</span></td>
-                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format((late_hours + undertime_hours) * 60)"/></td>
+                            <td style="padding-left:4rem"><span>Late/Undertime in minutes</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format((late_hours + undertime_hours) * 60)"/></td>
                         </tr>
                         <tr>
-                            <td style="text-align: center"><span>Absent in days</span></td>
-                            <td style="text-align: left"><t t-esc="'{0:,.2f}'.format(absent_days)"/></td>
+                            <td style="padding-left:4rem"><span>Absent in days</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(absent_days)"/></td>
                         </tr>
                         
                     </table>
