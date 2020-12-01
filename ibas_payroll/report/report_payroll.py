@@ -161,8 +161,8 @@ class PayrollXlsx(models.AbstractModel):
             sheet.write(row, 12, sum(lines.filtered(
                 lambda r: r.code == 'ADDALLOWANCE').mapped('total')))
 
-            sheet.write(row, 13, sum(lines.filtered(
-                lambda r: r.code == 'GROSS').mapped('total')), bg_gross)
+            gross_amount = sum(lines.filtered(lambda r: r.code == 'GROSS').mapped('total'))
+            sheet.write(row, 13, gross_amount, bg_gross)
 
             # Deductions
             sheet.write(row, 14, sum(lines.filtered(lambda r: r.code == 'LATE').mapped(
@@ -198,13 +198,12 @@ class PayrollXlsx(models.AbstractModel):
             sheet.write(row, 24, sum(lines.filtered(
                 lambda r: r.code == 'OTHLOAN').mapped('total')))
 
-            sheet.write(row, 25, sum(lines.filtered(lambda r: r.category_id.code in ['DED', 'LOANS', 'ADVANCES', 'TRIP', 'EMP']).mapped('total')), bg_tot_deduct)
+            total_deduction = sum(lines.filtered(lambda r: r.category_id.code in ['DED', 'LOANS', 'ADVANCES', 'TRIP', 'EMP']).mapped('total'))
+            sheet.write(row, 25, total_deduction, bg_tot_deduct)
 
             sheet.write(row, 26, sum(lines.filtered(
                 lambda r: r.code == 'ADJ').mapped('total')))
-
-            sheet.write(row, 27, sum(lines.filtered(
-                lambda r: r.code == 'NETPAY').mapped('total')), bg_net_pay)
+            sheet.write(row, 27, gross_amount - total_deduction, bg_net_pay)
 
             n += 1
             d += 1
