@@ -13,4 +13,15 @@
         <field name="category_id" ref="payslip_import.rule_catergory_trip"/>
         <field name="condition_select">none</field>
     </record>
+
+    <record id="hr_rule_shoprate" model="hr.salary.rule">
+        <field name="name">ShopRate</field>
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="code">SR</field>
+        <field name="appears_on_payslip" eval="True"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.shop_rate</field>
+        <field name="sequence" eval="100"/>
+    </record>
 </odoo>

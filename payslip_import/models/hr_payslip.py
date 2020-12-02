@@ -28,6 +28,8 @@ class Payslip(models.Model):
                     rec['amount'] += sum(trips.mapped('advances'))
                 elif rec['code'] == 'ADJ':
                     rec['amount'] += sum(trips.mapped('adjustment'))
+                elif rec['code'] == 'SR':
+                    rec['amount'] += sum(trips.mapped('shop_rate'))
         return values
 
 

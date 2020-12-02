@@ -21,6 +21,7 @@ class Trip(models.Model):
     philhealth_share = fields.Monetary(string='Philhealth Employee Share')
     advances = fields.Monetary()
     adjustment = fields.Monetary()
+    shop_rate = fields.Monetary()
 
     @api.onchange('trip_template_id')
     def _onchange_sub_amount(self):

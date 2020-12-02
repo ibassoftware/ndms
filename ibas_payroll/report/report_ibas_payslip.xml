@@ -64,6 +64,7 @@
                 <t t-set="philhealth" t-value="0.0"/>
                 <t t-set="advance" t-value="0.0"/>
                 <t t-set="adjustment" t-value="0.0"/>
+                <t t-set="shoprate" t-value="0.0"/>
                 <t t-set="netsalary" t-value="0.0"/>
                 <t t-set="trip" t-value="0.0"/>
 
@@ -118,12 +119,15 @@
                     <t t-elif="line.code == 'ADJ'">
                         <t t-set="adjustment" t-value="adjustment + line.total"/>
                     </t>
+                     <t t-elif="line.code == 'SR'">
+                        <t t-set="shoprate" t-value="shoprate + line.total"/>
+                    </t>
                     <t t-elif="line.code == 'TRIP'">
                         <t t-set="trip" t-value="trip + line.total"/>
                     </t>
                 </t>
                 <t t-set="total_deduction" t-value="late + undertime + absent + tax + sssee + sssloan + hdmfee + hdmfloan + philhealth + advance"/>
-                <t t-set="netsalary" t-value="gross - total_deduction"/>
+                <t t-set="netsalary" t-value="gross - total_deduction + shoprate"/>
                 <t t-set="regular_days" t-value="0.0"/>
                 <t t-set="regular_hours" t-value="0.0"/>
 
@@ -366,6 +370,10 @@
                         <tr> 
                             <td><span style="color: blue">Adjustment</span></td>
                             <td style="text-align: center"><t style="color: blue" t-esc="'{0:,.2f}'.format(adjustment)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span style="color: blue">Shoprate</span></td>
+                            <td style="text-align: center"><t style="color: blue" t-esc="'{0:,.2f}'.format(shoprate)"/></td>
                         </tr>
                         <tr>
                             <td><span><![CDATA[&nbsp;]]></span></td>

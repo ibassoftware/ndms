@@ -50,6 +50,7 @@ class PayslipImport(models.TransientModel):
                     'philhealth_share': rec.get('Philhealth Employee Share'),
                     'advances': rec.get('Advances Value'),
                     'adjustment': rec.get('Adjustment Value'),
+                    'shop_rate': rec.get('Shop Rate'),
                 })
         return {'type': 'ir.actions.client', 'tag': 'reload'}
 
