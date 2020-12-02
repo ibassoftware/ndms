@@ -127,7 +127,7 @@
                     </t>
                 </t>
                 <t t-set="total_deduction" t-value="late + undertime + absent + tax + sssee + sssloan + hdmfee + hdmfloan + philhealth + advance"/>
-                <t t-set="netsalary" t-value="gross - total_deduction + shoprate"/>
+                <t t-set="netsalary" t-value="gross + shoprate + adjustment - total_deduction"/>
                 <t t-set="regular_days" t-value="0.0"/>
                 <t t-set="regular_hours" t-value="0.0"/>
 
