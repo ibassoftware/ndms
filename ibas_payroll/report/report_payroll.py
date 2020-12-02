@@ -88,7 +88,8 @@ class PayrollXlsx(models.AbstractModel):
         sheet.write(2, 24, "Others", title2)
         sheet.write(2, 25, "Total Deductions", bg_tot_deduct_title)
         sheet.write(2, 26, "Adjustment", title2)
-        sheet.write(2, 27, "Net Pay", bg_net_pay_title)
+        sheet.write(2, 27, "Shoprate", title2)
+        sheet.write(2, 28, "Net Pay", bg_net_pay_title)
 
         domain = []
         if status:
@@ -203,7 +204,9 @@ class PayrollXlsx(models.AbstractModel):
 
             sheet.write(row, 26, sum(lines.filtered(
                 lambda r: r.code == 'ADJ').mapped('total')))
-            sheet.write(row, 27, gross_amount - total_deduction, bg_net_pay)
+            shoprate = sum(lines.filtered(lambda r: r.code == 'SR').mapped('total'))
+            sheet.write(row, 27, shoprate)
+            sheet.write(row, 28, gross_amount - total_deduction + shoprate, bg_net_pay)
 
             n += 1
             d += 1
