@@ -168,7 +168,7 @@ class PayrollXlsx(models.AbstractModel):
             shoprate = sum(lines.filtered(lambda r: r.code == 'SR').mapped('total'))
             sheet.write(row, 14, shoprate)
 
-            gross_amount = sum(lines.filtered(lambda r: r.code == 'GROSS').mapped('total'))
+            gross_amount = sum(lines.filtered(lambda r: r.code == 'GROSS').mapped('total')) + shoprate + trip
             sheet.write(row, 15, gross_amount, bg_gross)
 
             # Deductions
@@ -208,7 +208,7 @@ class PayrollXlsx(models.AbstractModel):
             adjustment = sum(lines.filtered(lambda r: r.code == 'ADJ').mapped('total'))
             sheet.write(row, 27, adjustment)
 
-            sheet.write(row, 28, gross_amount + shoprate + trip + adjustment - total_deduction, bg_net_pay)
+            sheet.write(row, 28, gross_amount + adjustment - total_deduction, bg_net_pay)
 
             n += 1
             d += 1
