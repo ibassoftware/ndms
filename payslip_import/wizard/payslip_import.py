@@ -76,6 +76,7 @@ class PayslipImport(models.TransientModel):
                     'deduct_sss': rec.get('Deduct SSS', False),
                     'deduct_philhealth': rec.get('Deduct Philhealth', False),
                     'deduct_hdmf': rec.get('Deduct HDMF', False),
+                    'other_loans': rec.get('Other Loans', False),
                 }
 
                 record = HR_PAYSLIP.create(values)
