@@ -49,13 +49,18 @@ class PayslipImport(models.TransientModel):
                     if key == 'Employees':
                         continue
                     if workdays_code_dict.get(key):
-                        worked_days_entries.append((0, 0, {
+                        entry = {
                             'name': key,
                             'code': workdays_code_dict[key][0],
                             'number_of_days': val if not workdays_code_dict[key][1] else val/8,
                             'number_of_hours': val*8 if not workdays_code_dict[key][1] else val,
                             'contract_id': employee.contract_id.id
-                        }))
+                        }
+                        if key == 'Overtime':
+                            trips = self.env['ibas_hris.trip'].search([('date', '>=', self.date_from), ('date', '<=', self.date_to), ('employee_id', '=', employee.id)])
+                            entry['number_of_hours'] += sum(trips.mapped('overtime'))
+                            entry['number_of_days'] = entry['number_of_hours'] / 8
+                        worked_days_entries.append((0, 0, entry))
                     elif input_line_dict.get(key):
                         other_input_entries.append((0, 0, {
                             'name': key,

@@ -22,6 +22,9 @@ class Trip(models.Model):
     advances = fields.Monetary()
     adjustment = fields.Monetary()
     shop_rate = fields.Monetary()
+    overtime = fields.Float(string="Overtime Hours")
+    allowance = fields.Monetary(string="Allowance")
+    rental = fields.Monetary(string="Rental")
 
     @api.onchange('trip_template_id')
     def _onchange_sub_amount(self):
