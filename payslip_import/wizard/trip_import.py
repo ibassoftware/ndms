@@ -51,6 +51,9 @@ class PayslipImport(models.TransientModel):
                     'advances': rec.get('Advances Value'),
                     'adjustment': rec.get('Adjustment Value'),
                     'shop_rate': rec.get('Shop Rate'),
+                    'overtime': rec.get('Overtime'),
+                    'allowance': rec.get('Allowance'),
+                    'rental': rec.get('Rental'),
                 })
         return {'type': 'ir.actions.client', 'tag': 'reload'}
 

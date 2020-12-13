@@ -61,6 +61,7 @@
                 <t t-set="sssloan" t-value="0.0"/>
                 <t t-set="hdmfee" t-value="0.0"/>
                 <t t-set="hdmfloan" t-value="0.0"/>
+                <t t-set="otherloan" t-value="0.0"/>
                 <t t-set="philhealth" t-value="0.0"/>
                 <t t-set="advance" t-value="0.0"/>
                 <t t-set="adjustment" t-value="0.0"/>
@@ -110,6 +111,9 @@
                     <t t-elif="line.code == 'HDMFLOAN'">
                         <t t-set="hdmfloan" t-value="hdmfloan + line.total"/>
                     </t>
+                    <t t-elif="line.code == 'OTHLOAN'">
+                        <t t-set="otherloan" t-value="otherloan + line.total"/>
+                    </t>
                     <t t-elif="line.code == 'PHILEE'">
                         <t t-set="philhealth" t-value="philhealth + line.total"/>
                     </t>
@@ -126,7 +130,7 @@
                         <t t-set="trip" t-value="trip + line.total"/>
                     </t>
                 </t>
-                <t t-set="total_deduction" t-value="late + undertime + absent + tax + sssee + sssloan + hdmfee + hdmfloan + philhealth + advance"/>
+                <t t-set="total_deduction" t-value="late + undertime + absent + tax + sssee + sssloan + hdmfee + hdmfloan + otherloan + philhealth + advance"/>
                 <t t-set="netsalary" t-value="gross + shoprate + adjustment - total_deduction"/>
                 <t t-set="regular_days" t-value="0.0"/>
                 <t t-set="regular_hours" t-value="0.0"/>
@@ -336,6 +340,10 @@
                         <tr>
                             <td><span>HDMF Loan</span></td>
                             <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(hdmfloan)"/></td>
+                        </tr>
+                        <tr>
+                            <td><span>Other Loans</span></td>
+                            <td style="text-align: center"><t t-esc="'{0:,.2f}'.format(otherloan)"/></td>
                         </tr>
                         <tr>
                             <td><span>Philhealth</span></td>

@@ -27,6 +27,9 @@
                 <field name="advances"/>
                 <field name="adjustment"/>
                 <field name="shop_rate"/>
+                <field name="overtime"/>
+                <field name="allowance"/>
+                <field name="rental"/>
                 <field name="quantity"/>
                 <field name="sub_amount" string="Cost"/>
             </field>
