@@ -471,6 +471,7 @@ class ibas_employee_contract(models.Model):
         string='Daily Rate In Words', compute='_onchange_daily_wage', store=True)
 
     shop_rate = fields.Float(string="Shop Rate")
+    rental = fields.Float(string="Rent")
 
     @api.depends('daily_wage')
     def _onchange_daily_wage(self):

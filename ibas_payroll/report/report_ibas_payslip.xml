@@ -68,6 +68,7 @@
                 <t t-set="shoprate" t-value="0.0"/>
                 <t t-set="netsalary" t-value="0.0"/>
                 <t t-set="trip" t-value="0.0"/>
+                <t t-set="rent" t-value="0.0"/>
 
                 <t t-foreach="doc.line_ids" t-as="line">
                     <!-- income -->
@@ -129,9 +130,12 @@
                     <t t-elif="line.code == 'TRIP'">
                         <t t-set="trip" t-value="trip + line.total"/>
                     </t>
+                    <t t-elif="line.code == 'RENT'">
+                        <t t-set="rent" t-value="rent + line.total"/>
+                    </t>
                 </t>
                 <t t-set="total_deduction" t-value="late + undertime + absent + tax + sssee + sssloan + hdmfee + hdmfloan + otherloan + philhealth + advance"/>
-                <t t-set="netsalary" t-value="gross + shoprate + adjustment - total_deduction"/>
+                <t t-set="netsalary" t-value="gross + shoprate + adjustment + rent - total_deduction"/>
                 <t t-set="regular_days" t-value="0.0"/>
                 <t t-set="regular_hours" t-value="0.0"/>
 
@@ -384,6 +388,10 @@
                             <td style="text-align: center"><t style="color: blue" t-esc="'{0:,.2f}'.format(shoprate)"/></td>
                         </tr>
                         <tr>
+                            <td><span style="color: blue">Rent</span></td>
+                            <td style="text-align: center"><t style="color: blue" t-esc="'{0:,.2f}'.format(rent)"/></td>
+                        </tr>
+                        <tr>
                             <td><span><![CDATA[&nbsp;]]></span></td>
                             <td><span></span></td>
                         </tr>
@@ -400,7 +408,6 @@
                         <li t-if="res_company.phone">Phone: <span t-field="res_company.phone"/></li>
                         <li t-if="res_company.email">Email: <span t-field="res_company.email"/></li>
                         <li t-if="res_company.website">Web: <span t-field="res_company.website"/></li>
-                        <li t-if="res_company.vat"><t t-esc="res_company.country_id.vat_label or 'TIN'"/>: <span t-field="res_company.vat"/></li>
                     </ul>
                     </div>
                     <br/>
