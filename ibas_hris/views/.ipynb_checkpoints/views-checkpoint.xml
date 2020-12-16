@@ -182,6 +182,7 @@
                 <field name="daily_wage"/>
                 <field name="daily_wage_in_words"/>
                 <field name="shop_rate"/>
+                <field name="rental"/>
                 <field name="allowance"/>
                 <field name="probationary_period"/>
               </xpath>

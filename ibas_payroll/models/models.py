@@ -501,6 +501,12 @@ class Payslip(models.Model):
                 input_lines += input_lines.new(r)
             self.input_line_ids = input_lines
 
+        ot_line = self.worked_days_line_ids.filtered(lambda line: line.code == 'OT')
+        if ot_line:
+            trips = self.env['ibas_hris.trip'].search([('date', '>=', date_from), ('date', '<=', date_to), ('employee_id', '=', self.employee_id.id)])
+            ot_line.number_of_hours += sum(trips.mapped('overtime'))
+            ot_line.number_of_days = ot_line.number_of_hours / 8
+
         return
         # return super(Payslip, self).onchange_employee()
 
