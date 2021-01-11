@@ -47,10 +47,10 @@ class PayrollXlsx(models.AbstractModel):
 
         sheet.set_column('A:A', 2.22)
         sheet.set_column('B:B', 24)
-        sheet.set_column('C:L', 9)
-        sheet.set_column('M:M', 10)
-        sheet.set_column('N:W', 9)
-        sheet.set_column('X:Z', 11)
+        sheet.set_column('C:O', 9)
+        sheet.set_column('P:P', 10)
+        sheet.set_column('Q:Z', 9)
+        sheet.set_column('AA:AC', 11)
 
         sheet.set_row(2, 69)
 
@@ -58,8 +58,8 @@ class PayrollXlsx(models.AbstractModel):
 
         sheet.write(1, 4, "Rate", format1)
         sheet.merge_range('F2:I2', 'Days', format1)
-        sheet.merge_range('J2:M2', 'Pay', format1)
-        sheet.merge_range('N2:X2', 'Deductions', format1)
+        sheet.merge_range('J2:P2', 'Pay', format1)
+        sheet.merge_range('Q2:AA2', 'Deductions', format1)
 
         sheet.write(2, 0, "")
         sheet.write(2, 1, "Name", format1)
@@ -74,20 +74,22 @@ class PayrollXlsx(models.AbstractModel):
         sheet.write(2, 10, "OT Pay", title2)
         sheet.write(2, 11, "Allowance", title2)
         sheet.write(2, 12, "Additioanal Allowance", title2)
-        sheet.write(2, 13, "Gross Pay", bg_gross_title)
-        sheet.write(2, 14, "Late/Undertime", title2)
-        sheet.write(2, 15, "Absent/SD", title2)
-        sheet.write(2, 16, "Tax", title2)
-        sheet.write(2, 17, "SSS", title2)
-        sheet.write(2, 18, "SSS Loan", title2)
-        sheet.write(2, 19, "Pagibig", title2)
-        sheet.write(2, 20, "Pagibig (HDMF)", title2)
-        sheet.write(2, 21, "Philhealth", title2)
-        sheet.write(2, 22, "Cash Advance", title2)
-        sheet.write(2, 23, "Others", title2)
-        sheet.write(2, 24, "Total Deductions", bg_tot_deduct_title)
-        sheet.write(2, 25, "Adjustment", title2)
-        sheet.write(2, 26, "Net Pay", bg_net_pay_title)
+        sheet.write(2, 13, "Trip", title2)
+        sheet.write(2, 14, "Shoprate", title2)
+        sheet.write(2, 15, "Gross Pay", bg_gross_title)
+        sheet.write(2, 16, "Late/Undertime", title2)
+        sheet.write(2, 17, "Absent/SD", title2)
+        sheet.write(2, 18, "Tax", title2)
+        sheet.write(2, 19, "SSS", title2)
+        sheet.write(2, 20, "SSS Loan", title2)
+        sheet.write(2, 21, "Pagibig", title2)
+        sheet.write(2, 22, "Pagibig (HDMF)", title2)
+        sheet.write(2, 23, "Philhealth", title2)
+        sheet.write(2, 24, "Cash Advance", title2)
+        sheet.write(2, 25, "Others", title2)
+        sheet.write(2, 26, "Total Deductions", bg_tot_deduct_title)
+        sheet.write(2, 27, "Adjustment", title2)
+        sheet.write(2, 28, "Net Pay", bg_net_pay_title)
 
         domain = []
         if status:
@@ -131,7 +133,7 @@ class PayrollXlsx(models.AbstractModel):
             work_lines = ps.worked_days_line_ids
             department = ps.sudo().employee_id.department_id and ps.sudo(
             ).employee_id.department_id.name or False
-            sheet.set_row(row, 27)
+            sheet.set_row(row, 28)
             sheet.write(row, 0, d)
             sheet.write(row, 1, ps.employee_id.name, format1)
             sheet.write(row, 2, ps.employee_id.bank_account_number, title2)
@@ -141,13 +143,13 @@ class PayrollXlsx(models.AbstractModel):
             sheet.write(row, 4, ps.contract_id.daily_wage, bg_flesh)
             # Days
             sheet.write(row, 5, sum(work_lines.filtered(
-                lambda r: r.code == 'WORK100').mapped('number_of_days')), title2)
+                lambda r: r.code == 'WORK100').mapped('number_of_days')))
             sheet.write(row, 6, sum(work_lines.filtered(
-                lambda r: r.code == 'OT').mapped('number_of_hours')), title2)
+                lambda r: r.code == 'OT').mapped('number_of_hours')))
             sheet.write(row, 7, sum(work_lines.filtered(lambda r: r.code == 'LATE').mapped(
-                'number_of_hours')) + sum(work_lines.filtered(lambda r: r.code == 'UNDERTIME').mapped('number_of_hours')), title2)
+                'number_of_hours')) + sum(work_lines.filtered(lambda r: r.code == 'UNDERTIME').mapped('number_of_hours')))
             sheet.write(row, 8, sum(work_lines.filtered(
-                lambda r: r.code == 'ABSENT').mapped('number_of_days')), title2)
+                lambda r: r.code == 'ABSENT').mapped('number_of_days')))
             # Pay
             sheet.write(row, 9, sum(lines.filtered(
                 lambda r: r.code == 'BASICPAY').mapped('total')), bg_flesh)
@@ -155,53 +157,58 @@ class PayrollXlsx(models.AbstractModel):
                 lambda r: r.code == 'OVERTIME').mapped('total')), bg_flesh)
 
             sheet.write(row, 11, sum(lines.filtered(
-                lambda r: r.code == 'Allowance').mapped('total')), title2)
+                lambda r: r.code == 'Allowance').mapped('total')))
 
             sheet.write(row, 12, sum(lines.filtered(
-                lambda r: r.code == 'ADDALLOWANCE').mapped('total')), title2)
+                lambda r: r.code == 'ADDALLOWANCE').mapped('total')))
 
-            sheet.write(row, 13, sum(lines.filtered(
-                lambda r: r.code == 'GROSS').mapped('total')), bg_gross)
+            trip = sum(lines.filtered(lambda r: r.code == 'TRIP').mapped('total'))
+            sheet.write(row, 13, trip)
+
+            shoprate = sum(lines.filtered(lambda r: r.code == 'SR').mapped('total'))
+            sheet.write(row, 14, shoprate)
+
+            gross_amount = sum(lines.filtered(lambda r: r.code == 'GROSS').mapped('total')) + shoprate + trip
+            sheet.write(row, 15, gross_amount, bg_gross)
 
             # Deductions
-            sheet.write(row, 14, sum(lines.filtered(lambda r: r.code == 'LATE').mapped(
+            sheet.write(row, 16, sum(lines.filtered(lambda r: r.code == 'LATE').mapped(
                 'total')) + sum(lines.filtered(lambda r: r.code == 'UNDERTIME').mapped('total')))
-            sheet.write(row, 15, sum(lines.filtered(
-                lambda r: r.code == 'ABSENT').mapped('total')))
-
-            sheet.write(row, 16, sum(lines.filtered(
-                lambda r: r.code == 'WT').mapped('total')))
 
             sheet.write(row, 17, sum(lines.filtered(
-                lambda r: r.code == 'SSSEE').mapped('total')))
+                lambda r: r.code == 'ABSENT').mapped('total')))
 
             sheet.write(row, 18, sum(lines.filtered(
-                lambda r: r.code == 'SSSLOAN').mapped('total')))
-            # pagibig
+                lambda r: r.code == 'WT').mapped('total')))
+
             sheet.write(row, 19, sum(lines.filtered(
-                lambda r: r.code == 'HDMFEE').mapped('total')))
+                lambda r: r.code == 'SSSEE').mapped('total')))
 
             sheet.write(row, 20, sum(lines.filtered(
-                lambda r: r.code == 'HDMFLOAN').mapped('total')))
-
+                lambda r: r.code == 'SSSLOAN').mapped('total')))
+            # pagibig
             sheet.write(row, 21, sum(lines.filtered(
-                lambda r: r.code == 'PHILEE').mapped('total')))
+                lambda r: r.code == 'HDMFEE').mapped('total')))
 
             sheet.write(row, 22, sum(lines.filtered(
-                lambda r: r.code == 'ADV').mapped('total')), title2)
+                lambda r: r.code == 'HDMFLOAN').mapped('total')))
 
             sheet.write(row, 23, sum(lines.filtered(
-                lambda r: r.code == 'OTHLOAN').mapped('total')))
+                lambda r: r.code == 'PHILEE').mapped('total')))
 
             sheet.write(row, 24, sum(lines.filtered(
-                lambda r: r.category_id.code == 'DED').mapped('total')) + sum(lines.filtered(
-                    lambda r: r.category_id.code == 'LOANS').mapped('total')), bg_tot_deduct)
+                lambda r: r.code == 'ADV').mapped('total')))
 
             sheet.write(row, 25, sum(lines.filtered(
-                lambda r: r.code == 'ADJ').mapped('total')))
+                lambda r: r.code == 'OTHLOAN').mapped('total')))
 
-            sheet.write(row, 26, sum(lines.filtered(
-                lambda r: r.code == 'NETPAY').mapped('total')), bg_net_pay)
+            total_deduction = sum(lines.filtered(lambda r: r.category_id.code in ['DED', 'LOANS', 'ADVANCES', 'EMP']).mapped('total'))
+            sheet.write(row, 26, total_deduction, bg_tot_deduct)
+
+            adjustment = sum(lines.filtered(lambda r: r.code == 'ADJ').mapped('total'))
+            sheet.write(row, 27, adjustment)
+
+            sheet.write(row, 28, gross_amount + adjustment - total_deduction, bg_net_pay)
 
             n += 1
             d += 1

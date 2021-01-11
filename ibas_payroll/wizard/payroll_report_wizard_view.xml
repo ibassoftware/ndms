@@ -8,8 +8,8 @@
                     <group col="4">
                         <field name="company_id"/>
                         <field name="bank_account"/>
-                        <field name="date_from"/>
-                        <field name="date_to"/>
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
                         <field name="status"/>
                     </group>
                     <!-- <group col="4">
