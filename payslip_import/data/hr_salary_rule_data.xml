@@ -11,6 +11,8 @@
         <field name="sequence" eval="1"/>
         <field name="code">TRIP</field>
         <field name="category_id" ref="payslip_import.rule_catergory_trip"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = inputs.TRIP and inputs.TRIP.amount</field>
         <field name="condition_select">none</field>
     </record>
 
@@ -32,7 +34,9 @@
         <field name="appears_on_payslip" eval="True"/>
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
-        <field name="amount_python_compute">result = contract.rental</field>
+        <field name="amount_python_compute">result = contract.rental
+result += inputs.RENT and inputs.RENT.amount
+        </field>
         <field name="sequence" eval="100"/>
     </record>
 </odoo>
