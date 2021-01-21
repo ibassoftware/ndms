@@ -7,10 +7,12 @@
     <record id="code_late" model="hr.payslip.worked_days.code">
         <field name="name">Lates</field>
         <field name="code">LATE</field>
+        <field name="is_hour" eval="True"/>
     </record>
     <record id="code_undertime" model="hr.payslip.worked_days.code">
         <field name="name">UNDERTIME</field>
         <field name="code">UNDERTIME</field>
+        <field name="is_hour" eval="True"/>
     </record>
     <record id="code_absent" model="hr.payslip.worked_days.code">
         <field name="name">ABSENT</field>
@@ -19,26 +21,32 @@
     <record id="code_rhot" model="hr.payslip.worked_days.code">
         <field name="name">Regular Holiday Overtime</field>
         <field name="code">RHOT</field>
+        <field name="is_hour" eval="True"/>
     </record>
     <record id="code_shot" model="hr.payslip.worked_days.code">
         <field name="name">Special Holiday Overtime</field>
         <field name="code">SHOT</field>
+        <field name="is_hour" eval="True"/>
     </record>
     <record id="code_rdshot" model="hr.payslip.worked_days.code">
         <field name="name">Restday Special Holiday Overtime</field>
         <field name="code">RDSHOT</field>
+        <field name="is_hour" eval="True"/>
     </record>
     <record id="code_rdrhot" model="hr.payslip.worked_days.code">
         <field name="name">Restday Regular Holiday Overtime</field>
         <field name="code">RDRHOT</field>
+        <field name="is_hour" eval="True"/>
     </record>
     <record id="code_rdot" model="hr.payslip.worked_days.code">
         <field name="name">Restday Overtime</field>
         <field name="code">RDOT</field>
+        <field name="is_hour" eval="True"/>
     </record>
     <record id="code_ot" model="hr.payslip.worked_days.code">
         <field name="name">Overtime</field>
         <field name="code">OT</field>
+        <field name="is_hour" eval="True"/>
     </record>
     <record id="code_rh" model="hr.payslip.worked_days.code">
         <field name="name">Regular Holiday</field>
@@ -63,6 +71,10 @@
     <record id="code_rd" model="hr.payslip.worked_days.code">
         <field name="name">Restday</field>
         <field name="code">RD</field>
+    </record>
+    <record id="code_shoprate" model="hr.payslip.worked_days.code">
+        <field name="name">ShopRate</field>
+        <field name="code">SR</field>
     </record>
 
 </odoo>

@@ -479,23 +479,33 @@ class Payslip(models.Model):
 
         # computation of the salary input
         contracts = self.env['hr.contract'].browse(contract_ids)
-        worked_days_line_ids = self.get_worked_day_lines(
-            contracts, date_from, date_to)
-        worked_days_lines = self.worked_days_line_ids.browse([])
-        for r in worked_days_line_ids:
-            worked_days_lines += worked_days_lines.new(r)
-        self.worked_days_line_ids = worked_days_lines
+        get_worked_days = True
+        if hasattr(self, 'is_imported'):
+            get_worked_days = not self.is_imported
+        if get_worked_days:
+            worked_days_line_ids = self.get_worked_day_lines(
+                contracts, date_from, date_to)
+            worked_days_lines = self.worked_days_line_ids.browse([])
+            for r in worked_days_line_ids:
+                worked_days_lines += worked_days_lines.new(r)
+            self.worked_days_line_ids = worked_days_lines
 
-        if self.struct_id != self.contract_id.struct_id:
-            input_line_ids = self.get_inputs_w_selected_struct(
-                contracts, self.struct_id.id, date_from, date_to)
-        else:
-            input_line_ids = self.get_inputs(contracts, date_from, date_to)
-        input_lines = self.input_line_ids.browse([])
+            if self.struct_id != self.contract_id.struct_id:
+                input_line_ids = self.get_inputs_w_selected_struct(
+                    contracts, self.struct_id.id, date_from, date_to)
+            else:
+                input_line_ids = self.get_inputs(contracts, date_from, date_to)
+            input_lines = self.input_line_ids.browse([])
 
-        for r in input_line_ids:
-            input_lines += input_lines.new(r)
-        self.input_line_ids = input_lines
+            for r in input_line_ids:
+                input_lines += input_lines.new(r)
+            self.input_line_ids = input_lines
+
+        ot_line = self.worked_days_line_ids.filtered(lambda line: line.code == 'OT')
+        if ot_line:
+            trips = self.env['ibas_hris.trip'].search([('date', '>=', date_from), ('date', '<=', date_to), ('employee_id', '=', self.employee_id.id)])
+            ot_line.number_of_hours += sum(trips.mapped('overtime'))
+            ot_line.number_of_days = ot_line.number_of_hours / 8
 
         return
         # return super(Payslip, self).onchange_employee()

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+
+	<record id="rule_catergory_trip" model="hr.salary.rule.category">
+        <field name="name">Trip</field>
+        <field name="code">TRIP</field>
+    </record>
+
+	<record id="hr_rule_trip" model="hr.salary.rule">
+        <field name="name">Trips</field>
+        <field name="sequence" eval="1"/>
+        <field name="code">TRIP</field>
+        <field name="category_id" ref="payslip_import.rule_catergory_trip"/>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = inputs.TRIP and inputs.TRIP.amount</field>
+        <field name="condition_select">none</field>
+    </record>
+
+    <record id="hr_rule_shoprate" model="hr.salary.rule">
+        <field name="name">ShopRate</field>
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="code">SR</field>
+        <field name="appears_on_payslip" eval="True"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.shop_rate</field>
+        <field name="sequence" eval="100"/>
+    </record>
+
+    <record id="hr_rule_rent" model="hr.salary.rule">
+        <field name="name">Rent</field>
+        <field name="category_id" ref="hr_payroll.ALW"/>
+        <field name="code">RENT</field>
+        <field name="appears_on_payslip" eval="True"/>
+        <field name="condition_select">none</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">result = contract.rental
+result += inputs.RENT and inputs.RENT.amount
+        </field>
+        <field name="sequence" eval="100"/>
+    </record>
+</odoo>

@@ -13,9 +13,11 @@ if contract.schedule_pay == 'daily':
 if contract.schedule_pay == 'weekly':
     result = contract.allowance / 4
 if contract.schedule_pay == 'bi-monthly':
-    result = contract.allowance / 2</field>
+    result = contract.allowance / 2
+result += inputs.Allowance and inputs.Allowance.amount
+</field>
             <field name="sequence" eval="100"/>
-        </record>        
+        </record>
 
         <record id="hr_rule_pay_addt_allowance" model="hr.salary.rule">
             <field name="name">ADDITIONAL ALLOWANCE</field>
@@ -27,7 +29,7 @@ if contract.schedule_pay == 'bi-monthly':
             <field name="input_ids" eval="[(0, 0, {'code': 'INPADDALL', 'name': 'Additional Allowance',})]"/>
             <field name="amount_python_compute">result = inputs.INPADDALL.amount</field>
             <field name="sequence" eval="100"/>
-        </record>        
+        </record>
 
     </data>
 
@@ -132,7 +134,7 @@ result += hourly_rate * worked_days.RDRHOT.number_of_hours * 3.38 </field>
             <field name="appears_on_payslip" eval="True"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = sum(employee.trip_ids.filtered(lambda r: r.date &gt;= payslip.date_from and r.date &lt;= payslip.date_to).mapped('amount'))</field>
+            <field name="amount_python_compute">result = inputs.TRIP and inputs.TRIP.amount</field>
             <field name="sequence" eval="120"/>
         </record>
         <!--Salary Rule SSS Employer-->
