@@ -17,7 +17,7 @@ class Payslip(models.Model):
             trips = self.env['ibas_hris.trip'].search([('date', '>=', payslip.date_from), ('date', '<=', payslip.date_to), ('employee_id', '=', payslip.employee_id.id)])
             for rec in values:
                 if rec['code'] == 'TRIP':
-                    rec['amount'] = sum(trips.mapped('amount'))
+                    rec['amount'] += sum(trips.mapped('amount'))
                 elif rec['code'] == 'PHILEE':
                     rec['amount'] += sum(trips.mapped('philhealth_share'))
                 elif rec['code'] == 'SSSEE':
