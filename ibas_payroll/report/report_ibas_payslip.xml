@@ -84,7 +84,7 @@
                     <t t-elif="line.code == 'Allowance'">
                         <t t-set="allowance" t-value="allowance + line.total"/>
                     </t>
-                    <t t-elif="line.code in ['GROSS', 'TRIP']">
+                    <t t-elif="line.code == 'GROSS'">
                         <t t-set="gross" t-value="gross + line.total"/>
                     </t>
                     <!-- deduction -->
@@ -266,7 +266,7 @@
                         </tr>
                         <tr>
                             <td><span class='double-top-bot'>Gross Salary</span></td>
-                            <td class='double-top-bot' style="text-align: center;"><t t-esc="'{0:,.2f}'.format(gross)"/></td>
+                            <td class='double-top-bot' style="text-align: center;"><t t-esc="'{0:,.2f}'.format(gross + allowance + trip)"/></td>
                         </tr>
                         <tr>
                             <td style="text-align: left"><span><![CDATA[&nbsp;]]></span></td>
