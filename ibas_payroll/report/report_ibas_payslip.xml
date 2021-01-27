@@ -84,9 +84,6 @@
                     <t t-elif="line.code == 'Allowance'">
                         <t t-set="allowance" t-value="allowance + line.total"/>
                     </t>
-                    <t t-elif="line.code in ['GROSS', 'TRIP']">
-                        <t t-set="gross" t-value="gross + line.total"/>
-                    </t>
                     <!-- deduction -->
                     <t t-if="line.code == 'LATE'">
                         <t t-set="late" t-value="late + line.total"/>
@@ -135,6 +132,7 @@
                     </t>
                 </t>
                 <t t-set="total_deduction" t-value="late + undertime + absent + tax + sssee + sssloan + hdmfee + hdmfloan + otherloan + philhealth + advance"/>
+                <t t-set="gross" t-value="basic + trip + overtime + holiday + allowance"/>
                 <t t-set="netsalary" t-value="gross + shoprate + adjustment + rent - total_deduction"/>
                 <t t-set="regular_days" t-value="0.0"/>
                 <t t-set="regular_hours" t-value="0.0"/>
