@@ -111,7 +111,7 @@ result += hourly_rate * worked_days.RDRHOT.number_of_hours * 3.38 </field>
             <field name="appears_on_payslip" eval="True"/>
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
-            <field name="amount_python_compute">result = categories.BASIC + categories.PREMIUM</field>
+            <field name="amount_python_compute">result = categories.BASIC + categories.PREMIUM + categories.ALW + categories.TRIP</field>
             <field name="sequence" eval="100"/>
         </record>
         <!--Salary Rule 13thMonth Pay / Backpay-->
