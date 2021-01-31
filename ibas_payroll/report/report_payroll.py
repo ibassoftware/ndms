@@ -139,7 +139,7 @@ class PayrollXlsx(models.AbstractModel):
             sheet.write(row, 1, ps.employee_id.name, format1)
             sheet.write(row, 2, ps.employee_id.bank_account_number, title2)
             sheet.write(row, 3, department, title2)
-            #sheet.write(row, 4, ps.employee_id.bank_account_number, bg_flesh)
+            # sheet.write(row, 4, ps.employee_id.bank_account_number, bg_flesh)
             # Rate
             sheet.write(row, 4, ps.contract_id.daily_wage, bg_flesh)
             # Days
@@ -152,13 +152,13 @@ class PayrollXlsx(models.AbstractModel):
             sheet.write(row, 8, sum(work_lines.filtered(
                 lambda r: r.code == 'ABSENT').mapped('number_of_days')))
             # Pay
-            sheet.write(row, 9, sum(lines.filtered(
-                lambda r: r.code == 'BASICPAY').mapped('total')), bg_flesh)
-            sheet.write(row, 10, sum(lines.filtered(
-                lambda r: r.code == 'OVERTIME').mapped('total')), bg_flesh)
+            basic_pay = sum(lines.filtered(lambda r: r.code == 'BASICPAY').mapped('total'))
+            sheet.write(row, 9, basic_pay, bg_flesh)
+            overtime_pay = sum(lines.filtered(lambda r: r.code == 'OVERTIME').mapped('total'))
+            sheet.write(row, 10, overtime_pay, bg_flesh)
 
-            sheet.write(row, 11, sum(lines.filtered(
-                lambda r: r.code == 'Allowance').mapped('total')))
+            allowance = sum(lines.filtered(lambda r: r.code == 'Allowance').mapped('total'))
+            sheet.write(row, 11, allowance)
 
             sheet.write(row, 12, sum(lines.filtered(
                 lambda r: r.code == 'ADDALLOWANCE').mapped('total')))
@@ -169,7 +169,8 @@ class PayrollXlsx(models.AbstractModel):
             shoprate = sum(lines.filtered(lambda r: r.code == 'SR').mapped('total'))
             sheet.write(row, 14, shoprate)
 
-            gross_amount = sum(lines.filtered(lambda r: r.code == 'GROSS').mapped('total')) + shoprate + trip
+            holiday_pay = sum(lines.filtered(lambda r: r.code == 'HOLIDAY').mapped('total'))
+            gross_amount = basic_pay + trip + allowance + overtime_pay + holiday_pay
             sheet.write(row, 15, gross_amount, bg_gross)
 
             # Deductions
