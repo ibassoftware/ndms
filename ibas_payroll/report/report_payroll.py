@@ -169,7 +169,7 @@ class PayrollXlsx(models.AbstractModel):
             shoprate = sum(lines.filtered(lambda r: r.code == 'SR').mapped('total'))
             sheet.write(row, 14, shoprate)
 
-            holiday_pay = sum(work_lines.filtered(lambda r: r.code == 'HOLIDAY').mapped('total'))
+            holiday_pay = sum(lines.filtered(lambda r: r.code == 'HOLIDAY').mapped('total'))
             gross_amount = basic_pay + trip + allowance + overtime_pay + holiday_pay
             sheet.write(row, 15, gross_amount, bg_gross)
 
