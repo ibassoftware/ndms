@@ -534,3 +534,15 @@ class Payslip(models.Model):
             'views': [(treeview_ref and treeview_ref.id or False, 'tree'), (formview_ref and formview_ref.id or False, 'form')],
             'context': {}
         }
+
+class IBASHrContract(models.Model):
+    _inherit = 'hr.contract'
+
+    @api.multi
+    def compute_net_pay(self, categories, contract, inputs):
+        shop_rate = contract.shop_rate
+        rent = contract.rental
+        rent += inputs.RENT and inputs.RENT.amount
+        result = categories.GROSS - categories.DED + categories.ADJUSTMENTS + shop_rate + rent
+        return result
+
