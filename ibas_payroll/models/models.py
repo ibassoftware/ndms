@@ -543,6 +543,6 @@ class IBASHrContract(models.Model):
         shop_rate = contract.shop_rate
         rent = contract.rental
         rent += inputs.RENT and inputs.RENT.amount
-        result = categories.GROSS - categories.DED + categories.ADJUSTMENTS + shop_rate + rent
+        result = (categories.GROSS - (categories.DED + categories.ADVANCES)) + categories.ADJUSTMENTS + shop_rate + rent
         return result
 
