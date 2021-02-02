@@ -37,6 +37,6 @@
         <field name="amount_python_compute">result = contract.rental
 result += inputs.RENT and inputs.RENT.amount
         </field>
-        <field name="sequence" eval="100"/>
+        <field name="sequence" eval="92"/>
     </record>
 </odoo>
